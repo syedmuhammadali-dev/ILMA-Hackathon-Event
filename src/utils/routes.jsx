@@ -1,4 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import ProtectedRoute from "../components/ProtectedRoutes/protectedRoutes";
+import Home from "../pages/Home/home";
+import Portal from "../pages/Portal/portal";
+import Profile from "../pages/Profile/profile";
+import PublicRoute from "../components/PublicRoutes/publicRoutes";
+import Login from "../pages/Login/login";
+import Signup from "../pages/Signup/signup";
+import DashboardLayout from "../components/DashboardLayout/dashboardLayout";
 
 const RoutesComponent = () => {
   return (

@@ -1,6 +1,5 @@
 import React from "react";
 
-import "./App.css";
 import RoutesComponent from "./utils/routes";
 
 function App() {
