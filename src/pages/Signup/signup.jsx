@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
   MDBBtn,
   MDBContainer,
-  MDBRow,
-  MDBCol,
   MDBInput,
 } from "mdb-react-ui-kit";
 import { signupSchema } from "../../utils/validation";
@@ -26,6 +24,7 @@ const Signup = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // form submit 
   const handleSubmit = (e) => {
     e.preventDefault();
     const result = signupSchema.safeParse(formData);
@@ -41,6 +40,7 @@ const Signup = () => {
       return;
     }
 
+    // check if user already exist with this email show error
     const users = storage.getUsers();
     if (users.some((u) => u.email === formData.email)) {
       setErrors({ email: ["User already exists with this email"] });
@@ -53,6 +53,7 @@ const Signup = () => {
       return;
     }
 
+    // save data in localstorage on submit
     storage.saveUser(formData);
     
     Swal.fire({
@@ -69,7 +70,7 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6 md:p-12">
-      <MDBContainer className="max-w-6xl bg-white shadow-2xl rounded-[2.5rem] overflow-hidden border border-slate-100 flex flex-col md:flex-row h-full min-h-[700px]">
+      <MDBContainer className="max-w-6xl bg-white shadow-2xl rounded-[2.5rem] overflow-hidden border border-slate-100 flex flex-col md:flex-row h-full min-h-175">
         {/* Left Side: Modern Form */}
         <div className="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
           <div className="mb-12">
@@ -161,7 +162,7 @@ const Signup = () => {
         </div>
 
         {/* Right Side: Features/Banner */}
-        <div className="hidden md:flex w-1/2 bg-gradient-to-br from-blue-700 to-indigo-900 p-16 flex-col justify-center text-white relative">
+        <div className="hidden md:flex w-1/2 bg-linear-to-br from-blue-700 to-indigo-900 p-16 flex-col justify-center text-white relative">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -mr-48 -mt-48 blur-[100px]"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full -ml-48 -mb-48 blur-[100px]"></div>
 
@@ -180,7 +181,7 @@ const Signup = () => {
                  { icon: "💬", title: "Faculty Link", sub: "Direct communication with your course instructors." },
                ].map((feat, idx) => (
                  <div key={idx} className="flex gap-5 group items-start">
-                   <div className="bg-white/10 w-12 h-12 rounded-[1rem] flex-shrink-0 flex items-center justify-center text-2xl backdrop-blur-md border border-white/20 group-hover:bg-white/20 transition-all group-hover:scale-110">
+                   <div className="bg-white/10 w-12 h-12 rounded-2xl shrink-0 flex items-center justify-center text-2xl backdrop-blur-md border border-white/20 group-hover:bg-white/20 transition-all group-hover:scale-110">
                      {feat.icon}
                    </div>
                    <div>

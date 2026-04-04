@@ -20,6 +20,8 @@ const RoutesComponent = () => {
         {/* protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route element={<DashboardLayout />}>
+            {/* sidebar and header show in those routes only */}
+
             <Route path="/" element={<Home />} />
             <Route path="/portal" element={<Portal />} />
             <Route path="/profile" element={<Profile />} />
