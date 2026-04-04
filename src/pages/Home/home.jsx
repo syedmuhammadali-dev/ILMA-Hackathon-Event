@@ -9,14 +9,16 @@ import {
 } from "mdb-react-ui-kit";
 import { storage } from "../../utils/storage";
 import { getColorClasses } from "../../utils/colorClasses";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const user = storage.getCurrentUser();
+  const navigate = useNavigate();
 
   return (
-    <div className="space-y-10 animate-in fade-in slide-in-from-top-6 duration-1000">
+    <div className="page-shell animate-in fade-in slide-in-from-top-6 duration-1000">
       {/* Hero Greeting Section */}
-      <section className="relative overflow-hidden bg-linear-to-br from-indigo-700 to-blue-800 rounded-3xl p-8 md:p-12 text-white shadow-2xl shadow-indigo-100 group">
+      <section className="relative overflow-hidden premium-gradient rounded-3xl p-8 md:p-12 text-white shadow-2xl shadow-blue-950/20 group">
         <div className="absolute top-0 right-0 p-8 opacity-20 transition-transform group-hover:scale-110 duration-700">
           <MDBIcon fas icon="graduation-cap" size="8x" />
         </div>
@@ -32,11 +34,12 @@ const Home = () => {
             academic success is organized right here at your fingertips.
           </p>
           <div className="flex flex-wrap gap-4">
-            <MDBBtn className="btn-ghost">
+            <MDBBtn className="btn-ghost" onClick={() => navigate("/portal")}>
               Go to Portal
             </MDBBtn>
             <MDBBtn
               outline
+              onClick={() => navigate("/schedule")}
               className="rounded-2xl px-8 py-3.5 text-white border-2 border-white/30 font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all"
             >
               View Schedule
@@ -59,7 +62,7 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <MDBCard className="border-0 shadow-lg shadow-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all p-2 rounded-3xl group cursor-pointer border-t-4 border-blue-500 overflow-hidden">
+            <MDBCard className="data-grid-card group border-blue-500">
               <MDBCardBody className="p-6">
                 <div className="bg-blue-50 text-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-blue-100 group-hover:bg-blue-600 group-hover:text-white transition-all">
                   <MDBIcon fas icon="calendar-check" size="lg" />
@@ -81,7 +84,7 @@ const Home = () => {
               </MDBCardBody>
             </MDBCard>
 
-            <MDBCard className="border-0 shadow-lg shadow-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all p-2 rounded-3xl group cursor-pointer border-t-4 border-indigo-500 overflow-hidden">
+            <MDBCard className="data-grid-card group border-indigo-500">
               <MDBCardBody className="p-6">
                 <div className="bg-indigo-50 text-indigo-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all">
                   <MDBIcon fas icon="tasks" size="lg" />
@@ -103,7 +106,7 @@ const Home = () => {
               </MDBCardBody>
             </MDBCard>
 
-            <MDBCard className="border-0 shadow-lg shadow-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all p-2 rounded-3xl group cursor-pointer border-t-4 border-emerald-500 overflow-hidden">
+            <MDBCard className="data-grid-card group border-emerald-500">
               <MDBCardBody className="p-6">
                 <div className="bg-emerald-50 text-emerald-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-emerald-100 group-hover:bg-emerald-600 group-hover:text-white transition-all">
                   <MDBIcon fas icon="certificate" size="lg" />
@@ -126,7 +129,7 @@ const Home = () => {
               </MDBCardBody>
             </MDBCard>
 
-            <MDBCard className="border-0 shadow-lg shadow-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all p-2 rounded-3xl group cursor-pointer border-t-4 border-amber-500 overflow-hidden">
+            <MDBCard className="data-grid-card group border-amber-500">
               <MDBCardBody className="p-6">
                 <div className="bg-amber-50 text-amber-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-amber-100 group-hover:bg-amber-600 group-hover:text-white transition-all">
                   <MDBIcon fas icon="bell" size="lg" />
@@ -150,7 +153,7 @@ const Home = () => {
 
         {/* Right Column: Mini Stats/News */}
         <MDBCol lg="4">
-          <MDBCard className="shadow-lg shadow-slate-100 p-4 rounded-3xl h-full border border-slate-50">
+          <MDBCard className="surface-card shadow-lg shadow-slate-200/70 p-4 h-full">
             <MDBCardBody className="p-4">
               <h3 className="text-xl font-black text-slate-800 tracking-tight mb-8 flex items-center justify-between">
                 <span>University News</span>

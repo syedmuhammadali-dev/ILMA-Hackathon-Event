@@ -11,6 +11,7 @@ import {
 } from "mdb-react-ui-kit";
 import { storage } from "../../utils/storage";
 import { profileSchema } from "../../utils/validation";
+import PageHeader from "../../components/UI/PageHeader";
 
 const Profile = () => {
   const [user, setUser] = useState(storage.getCurrentUser());
@@ -46,15 +47,11 @@ const Profile = () => {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
-      <header>
-        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Your Profile
-        </h2>
-        <p className="text-slate-500 font-medium mt-1">
-          Manage your personal information and student credentials.
-        </p>
-      </header>
+    <div className="page-shell animate-in fade-in slide-in-from-bottom-5 duration-700">
+      <PageHeader
+        title="Your Profile"
+        subtitle="Manage your personal information and student credentials."
+      />
 
       <MDBRow className="g-6">
         <MDBCol lg="4">

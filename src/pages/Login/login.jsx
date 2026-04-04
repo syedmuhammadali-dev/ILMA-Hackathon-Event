@@ -68,7 +68,7 @@ const Login = () => {
         <MDBRow className="g-0">
           {/* Left Side: Modern Pattern & Info */}
           <MDBCol md="6" className="hidden md:block">
-            <div className="h-full bg-linear-to-tr from-blue-700 to-indigo-900 p-12 flex flex-col justify-center text-white relative overflow-hidden">
+            <div className="h-full premium-gradient p-12 flex flex-col justify-center text-white relative overflow-hidden">
               {/* Decorative elements */}
               <div className="absolute top-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mt-40 blur-3xl"></div>
               <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full -mr-40 -mb-40 blur-3xl"></div>

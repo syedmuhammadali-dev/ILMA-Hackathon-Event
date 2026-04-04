@@ -1,5 +1,6 @@
 import React from "react";
 import { MDBCard, MDBCardBody, MDBIcon, MDBBtn } from "mdb-react-ui-kit";
+import PageHeader from "../../components/UI/PageHeader";
 
 const Notifications = () => {
   const notifications = [
@@ -41,17 +42,11 @@ const Notifications = () => {
   ];
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-top-4 duration-700">
-      <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-        <div>
-          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-            University Notifications
-          </h2>
-          <p className="text-slate-500 font-medium mt-1">
-            Stay updated with the latest academic announcements and alerts.
-          </p>
-        </div>
-        <div className="flex gap-2">
+    <div className="page-shell animate-in fade-in slide-in-from-top-4 duration-700">
+      <PageHeader
+        title="University Notifications"
+        subtitle="Stay updated with the latest academic announcements and alerts."
+        actions={
           <MDBBtn
             outline
             color="secondary"
@@ -60,8 +55,8 @@ const Notifications = () => {
           >
             Mark all as read
           </MDBBtn>
-        </div>
-      </header>
+        }
+      />
 
       <div className="max-w-4xl space-y-4">
         {notifications.map((item, idx) => (

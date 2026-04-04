@@ -8,6 +8,7 @@ import {
   MDBIcon,
   MDBBtn,
 } from "mdb-react-ui-kit";
+import PageHeader from "../../components/UI/PageHeader";
 
 const Schedule = () => {
   const scheduleData = [
@@ -46,27 +47,21 @@ const Schedule = () => {
   ];
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-right-5 duration-700">
-      <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-        <div>
-          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-            Class Timetable
-          </h2>
-          <p className="text-slate-500 font-medium mt-1">
-            Manage your weekly schedule and academic commitments.
-          </p>
-        </div>
-        <div className="flex gap-2">
+    <div className="page-shell animate-in fade-in slide-in-from-right-5 duration-700">
+      <PageHeader
+        title="Class Timetable"
+        subtitle="Manage your weekly schedule and academic commitments."
+        actions={
           <MDBBtn
             color="primary"
             className="rounded-xl px-6 py-2.5 text-xs font-bold shadow-lg shadow-blue-100 flex items-center gap-2"
           >
             <MDBIcon fas icon="download" size="xs" /> Export PDF
           </MDBBtn>
-        </div>
-      </header>
+        }
+      />
 
-      <MDBCard className="border-0 shadow-sm overflow-hidden">
+      <MDBCard className="table-shell surface-card">
         <MDBCardBody className="p-0">
           <div className="p-6 border-b border-gray-100 bg-white sticky top-0 z-10 flex items-center justify-between">
             <h3 className="font-bold text-slate-800 flex items-center gap-2">
@@ -81,22 +76,22 @@ const Schedule = () => {
             <MDBTable hover borderless align="middle" className="mb-0">
               <MDBTableHead className="bg-slate-50 border-b border-slate-100">
                 <tr className="text-left">
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  <th className="table-head-cell">
                     Time Slot
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                  <th className="table-head-cell text-center">
                     Mon
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                  <th className="table-head-cell text-center">
                     Tue
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                  <th className="table-head-cell text-center">
                     Wed
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                  <th className="table-head-cell text-center">
                     Thu
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                  <th className="table-head-cell text-center">
                     Fri
                   </th>
                 </tr>

@@ -20,18 +20,21 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       const { error, info } = this.state;
+      const isDev = import.meta.env.DEV;
       return (
         <div role="alert" className="p-6 bg-white rounded-2xl shadow-md">
           <h2 className="text-xl font-bold text-rose-600">
             Something went wrong
           </h2>
           <p className="text-sm text-slate-700 mt-2">
-            The page failed to render — debug details below.
+            The page failed to render. Please refresh or navigate again.
           </p>
-          <details className="whitespace-pre-wrap mt-3 text-xs text-slate-600">
-            {error && String(error)}
-            {info && info.componentStack}
-          </details>
+          {isDev ? (
+            <details className="whitespace-pre-wrap mt-3 text-xs text-slate-600">
+              {error && String(error)}
+              {info && info.componentStack}
+            </details>
+          ) : null}
         </div>
       );
     }

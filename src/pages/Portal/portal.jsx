@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  MDBContainer,
   MDBRow,
   MDBCol,
   MDBCard,
@@ -13,34 +12,29 @@ import {
 } from "mdb-react-ui-kit";
 import { storage } from "../../utils/storage";
 import { getColorClasses } from "../../utils/colorClasses";
+import PageHeader from "../../components/UI/PageHeader";
 
 const Portal = () => {
   const [courses] = useState(() => storage.getEnrolledCourses());
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-700">
-      <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-        <div>
-          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-            Student Portal
-          </h2>
-          <p className="text-slate-500 font-medium mt-1">
-            Manage your academic records and enrolled courses.
-          </p>
-        </div>
-        <div className="flex gap-3">
+    <div className="page-shell animate-in fade-in duration-700">
+      <PageHeader
+        title="Student Portal"
+        subtitle="Manage your academic records and enrolled courses."
+        actions={
           <MDBBtn
             color="primary"
             className="rounded-xl px-6 py-2.5 text-xs font-bold shadow-lg shadow-blue-100 flex items-center gap-2"
           >
             <MDBIcon fas icon="plus" size="xs" /> Enroll New Course
           </MDBBtn>
-        </div>
-      </header>
+        }
+      />
 
       <MDBRow className="g-6">
         <MDBCol lg="8">
-          <MDBCard className="border-0 shadow-sm overflow-hidden h-full">
+          <MDBCard className="table-shell h-full surface-card">
             <MDBCardBody className="p-0">
               <div className="p-6 border-b border-gray-100 bg-white sticky top-0 z-10 flex items-center justify-between">
                 <h3 className="font-bold text-slate-800 flex items-center gap-2">
@@ -58,16 +52,16 @@ const Portal = () => {
                 <MDBTable hover borderless align="middle" className="mb-0">
                   <MDBTableHead className="bg-slate-50 border-b border-slate-100">
                     <tr className="text-left">
-                      <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                      <th className="table-head-cell">
                         Course Name
                       </th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                      <th className="table-head-cell">
                         Instructor
                       </th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                      <th className="table-head-cell">
                         Progress
                       </th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">
+                      <th className="table-head-cell text-right">
                         Action
                       </th>
                     </tr>
@@ -128,10 +122,7 @@ const Portal = () => {
         <MDBCol lg="4">
           <div className="space-y-6">
             {/* GPA Card */}
-            <MDBCard
-              className="border-0 shadow-sm bg-linear-to-br from-indigo-600 to-blue-700
-             text-white overflow-hidden relative group"
-            >
+            <MDBCard className="border-0 shadow-sm premium-gradient text-white overflow-hidden relative group">
               <div className="absolute -right-4 -top-4 opacity-10 group-hover:opacity-20 transition-opacity">
                 <MDBIcon fas icon="star" size="10x" />
               </div>

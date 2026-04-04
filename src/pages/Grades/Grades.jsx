@@ -10,6 +10,7 @@ import {
   MDBBtn,
   MDBIcon,
 } from "mdb-react-ui-kit";
+import PageHeader from "../../components/UI/PageHeader";
 
 const Grades = () => {
   const gradeData = [
@@ -51,19 +52,15 @@ const Grades = () => {
   ];
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-700">
-      <header>
-        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Academic Grades
-        </h2>
-        <p className="text-slate-500 font-medium mt-1">
-          Detailed overview of your performance history and current standing.
-        </p>
-      </header>
+    <div className="page-shell animate-in fade-in duration-700">
+      <PageHeader
+        title="Academic Grades"
+        subtitle="Detailed overview of your performance history and current standing."
+      />
 
       <MDBRow className="g-6">
         <MDBCol lg="8">
-          <MDBCard className="border-0 shadow-sm overflow-hidden h-full">
+          <MDBCard className="table-shell h-full surface-card">
             <MDBCardBody className="p-0">
               <div className="p-6 border-b border-gray-100 bg-white sticky top-0 z-10 flex items-center justify-between">
                 <h3 className="font-bold text-slate-800 flex items-center gap-2">
@@ -75,16 +72,16 @@ const Grades = () => {
                 <MDBTable hover borderless align="middle" className="mb-0">
                   <MDBTableHead className="bg-slate-50 border-b border-slate-100">
                     <tr className="text-left">
-                      <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                      <th className="table-head-cell">
                         Course
                       </th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                      <th className="table-head-cell text-center">
                         Grade
                       </th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                      <th className="table-head-cell text-center">
                         GPA
                       </th>
-                      <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">
+                      <th className="table-head-cell text-right">
                         Status
                       </th>
                     </tr>
@@ -115,10 +112,10 @@ const Grades = () => {
                         </td>
                         <td className="px-6 py-4 text-right">
                           <span
-                            className={`text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-lg ${
+                            className={`status-badge ${
                               item.status === "Passed"
-                                ? "bg-emerald-50 text-emerald-600"
-                                : "bg-blue-50 text-blue-600"
+                                ? "status-success"
+                                : "status-info"
                             }`}
                           >
                             {item.status}
@@ -135,7 +132,7 @@ const Grades = () => {
 
         <MDBCol lg="4">
           <div className="space-y-6">
-            <MDBCard className="border-0 shadow-sm bg-linear-to-br from-indigo-700 to-blue-800 text-white p-6">
+            <MDBCard className="border-0 shadow-sm premium-gradient text-white p-6">
               <MDBCardBody className="p-2">
                 <p className="text-xs font-bold uppercase tracking-widest opacity-70 mb-4">
                   Cumulative GPA
