@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBBtn, MDBIcon, MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import { storage } from "../../utils/storage";
+import { getColorClasses } from "../../utils/colorClasses";
 
 const Portal = () => {
   const [courses, setCourses] = useState([]);
@@ -73,7 +74,12 @@ const Portal = () => {
                           </div>
                         </td>
                         <td className="px-6 py-4 text-right">
-                          <MDBBtn color="link" className="p-2 text-slate-400 hover:text-blue-600 transition-colors">
+                          <MDBBtn
+                            color="link"
+                            className="p-2 text-slate-400 hover:text-blue-600 transition-colors"
+                            aria-label={`Open ${course.name}`}
+                            title={`Open ${course.name}`}
+                          >
                             <MDBIcon fas icon="chevron-right" />
                           </MDBBtn>
                         </td>
@@ -116,20 +122,23 @@ const Portal = () => {
                 </h3>
                 <div className="space-y-5">
                   {[
-                    { event: "Midterm Exams", date: "Apr 20 - Apr 25", status: "Upcoming", color: "blue" },
-                    { event: "Project Submission", date: "May 02, 2026", status: "Not Started", color: "amber" },
-                    { event: "Spring Break", date: "May 10 - May 17", status: "Holiday", color: "emerald" },
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex gap-4 border-l-2 border-slate-100 pl-4 py-2 hover:border-blue-500 transition-all cursor-default">
-                      <div>
-                        <p className="text-sm font-bold text-slate-800 leading-tight">{item.event}</p>
-                        <p className="text-xs font-medium text-slate-400 mt-1">{item.date}</p>
-                      </div>
-                      <span className={`ms-auto text-[10px] font-extrabold uppercase tracking-widest h-fit px-2 py-0.5 rounded-md bg-${item.color}-50 text-${item.color}-600`}>
-                        {item.status}
-                      </span>
-                    </div>
-                  ))}
+                      { event: "Midterm Exams", date: "Apr 20 - Apr 25", status: "Upcoming", color: "blue" },
+                      { event: "Project Submission", date: "May 02, 2026", status: "Not Started", color: "amber" },
+                      { event: "Spring Break", date: "May 10 - May 17", status: "Holiday", color: "emerald" },
+                    ].map((item, idx) => {
+                      const c = getColorClasses(item.color);
+                      return (
+                        <div key={idx} className="flex gap-4 border-l-2 border-slate-100 pl-4 py-2 hover:border-blue-500 transition-all cursor-default">
+                          <div>
+                            <p className="text-sm font-bold text-slate-800 leading-tight">{item.event}</p>
+                            <p className="text-xs font-medium text-slate-400 mt-1">{item.date}</p>
+                          </div>
+                          <span className={`ms-auto text-[10px] font-extrabold uppercase tracking-widest h-fit px-2 py-0.5 rounded-md ${c.badge}`}>
+                            {item.status}
+                          </span>
+                        </div>
+                      );
+                    })}
                 </div>
               </MDBCardBody>
             </MDBCard>

@@ -1,6 +1,7 @@
 import React from "react";
 import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBBtn, MDBIcon } from "mdb-react-ui-kit";
 import { storage } from "../../utils/storage";
+import { getColorClasses } from "../../utils/colorClasses";
 
 const Home = () => {
   const user = storage.getCurrentUser();
@@ -123,17 +124,20 @@ const Home = () => {
                   { title: "Annual Science Fair Participants", date: "April 04, 2026", color: "emerald" },
                   { title: "New AI Lab Facility Initialized", date: "April 02, 2026", color: "amber" },
                   { title: "Campus-wide Wi-Fi Upgrade Notice", date: "March 30, 2026", color: "rose" },
-                ].map((item, idx) => (
-                  <div key={idx} className="flex gap-4 group cursor-pointer border-b border-slate-50 pb-6 last:border-0 last:pb-0">
-                    <div className={`mt-1.5 h-3 w-3 rounded-full flex-shrink-0 bg-${item.color}-500 shadow-lg shadow-${item.color}-200 group-hover:scale-125 transition-transform`}></div>
-                    <div>
-                      <p className="text-sm font-black text-slate-800 leading-tight group-hover:text-blue-600 transition-colors">{item.title}</p>
-                      <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-tighter flex items-center gap-1">
-                        <MDBIcon far icon="clock" size="xs" /> {item.date}
-                      </p>
+                ].map((item, idx) => {
+                  const c = getColorClasses(item.color);
+                  return (
+                    <div key={idx} className="flex gap-4 group cursor-pointer border-b border-slate-50 pb-6 last:border-0 last:pb-0">
+                      <div className={`mt-1.5 h-3 w-3 rounded-full flex-shrink-0 ${c.dot} shadow-lg group-hover:scale-125 transition-transform`}></div>
+                      <div>
+                        <p className="text-sm font-black text-slate-800 leading-tight group-hover:text-blue-600 transition-colors">{item.title}</p>
+                        <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-tighter flex items-center gap-1">
+                          <MDBIcon far icon="clock" size="xs" /> {item.date}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               <MDBBtn outline color="primary" className="w-full mt-10 rounded-2xl py-4 text-xs font-black uppercase tracking-widest border-2 hover:bg-blue-50 transition-all">
                 Full News Archive

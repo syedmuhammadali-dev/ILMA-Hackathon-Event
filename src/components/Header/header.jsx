@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { MDBNavbar, MDBContainer, MDBNavbarBrand, MDBBtn, MDBIcon } from "mdb-react-ui-kit";
 import { storage } from "../../utils/storage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
   const user = storage.getCurrentUser();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleLogout = () => {
     storage.logout();
@@ -28,7 +29,40 @@ const Header = () => {
           </span>
         </MDBNavbarBrand>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 relative">
+          {/* Mobile menu toggle */}
+          <button
+            type="button"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMobileOpen((s) => !s)}
+            className="md:hidden inline-flex items-center justify-center p-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-600 hover:bg-slate-100"
+          >
+            <MDBIcon fas icon={mobileOpen ? "times" : "bars"} />
+          </button>
+
+          {mobileOpen && (
+            <div className="md:hidden absolute top-full right-0 mt-2 w-64 bg-white shadow-lg rounded-lg p-4 z-50">
+              <nav className="flex flex-col gap-2">
+                {[
+                  { title: "Home", path: "/" },
+                  { title: "Portal", path: "/portal" },
+                  { title: "Profile", path: "/profile" },
+                  { title: "Academic Grades", path: "/grades" },
+                  { title: "Class Schedule", path: "/schedule" },
+                  { title: "Notifications", path: "/notifications" },
+                ].map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileOpen(false)}
+                    className="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          )}
           {user && (
             <div className="hidden sm:flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100">
               <div className="flex flex-col items-end leading-tight">

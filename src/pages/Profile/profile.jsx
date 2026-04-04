@@ -51,9 +51,13 @@ const Profile = () => {
                   className="rounded-full shadow-lg border-4 border-white"
                   alt="avatar"
                 />
-                <div className="absolute bottom-1 right-1 bg-blue-600 p-2 rounded-full text-white border-2 border-white cursor-pointer hover:bg-blue-700 transition-colors shadow-sm">
+                <button
+                  type="button"
+                  aria-label="Change avatar"
+                  className="absolute bottom-1 right-1 bg-blue-600 p-2 rounded-full text-white border-2 border-white cursor-pointer hover:bg-blue-700 transition-colors shadow-sm"
+                >
                   <MDBIcon fas icon="camera" size="sm" />
-                </div>
+                </button>
               </div>
               <h3 className="text-xl font-bold text-slate-900">{user?.fullName}</h3>
               <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mt-1">Computer Science Student</p>
