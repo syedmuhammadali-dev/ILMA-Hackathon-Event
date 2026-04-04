@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBBtn, MDBIcon, MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import { storage } from "../../utils/storage";
 import { getColorClasses } from "../../utils/colorClasses";
 
 const Portal = () => {
-  const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    const enrolledCourses = storage.getEnrolledCourses();
-    setCourses(enrolledCourses);
-  }, []);
+  const [courses] = useState(() => storage.getEnrolledCourses());
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
