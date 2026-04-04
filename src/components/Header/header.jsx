@@ -58,7 +58,8 @@ const Header = () => {
     <MDBNavbar
       expand="lg"
       light
-      className="sticky top-0 z-40 shadow-sm py-3 border-b h-20 top-nav backdrop-blur-md"
+      className="fixed top-0 inset-x-0 z-50 shadow-sm py-3 border-b h-20 top-nav backdrop-blur-md"
+      style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1200 }}
     >
       <MDBContainer fluid className="px-6 md:px-12 flex items-center justify-between">
         <MDBNavbarBrand href="/" className="m-0 p-0 flex items-center group">
@@ -79,7 +80,7 @@ const Header = () => {
             type="button"
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             onClick={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
-            className="inline-flex items-center justify-center p-2 rounded-lg surface-soft border border-slate-200/70 text-slate-600 hover:bg-slate-100"
+            className="inline-flex icon-btn"
           >
             <MDBIcon fas icon={theme === "dark" ? "sun" : "moon"} />
           </button>
@@ -91,7 +92,7 @@ const Header = () => {
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-menu"
             onClick={() => setMobileOpen((s) => !s)}
-            className="md:hidden inline-flex items-center justify-center p-2 rounded-lg surface-soft border border-slate-200/70 text-slate-600 hover:bg-slate-100"
+            className="md:hidden inline-flex icon-btn"
           >
             <MDBIcon fas icon={mobileOpen ? "times" : "bars"} />
           </button>
@@ -140,7 +141,7 @@ const Header = () => {
 
           <MDBBtn
             onClick={handleLogout}
-            className="m-0 rounded-xl px-6 py-2.5 bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white border-0 shadow-none hover:shadow-lg hover:shadow-rose-100 transition-all font-bold text-xs tracking-wide uppercase"
+            className="m-0 btn-ui btn-ui-danger"
           >
             Logout
           </MDBBtn>

@@ -54,7 +54,7 @@ const Schedule = () => {
         actions={
           <MDBBtn
             color="primary"
-            className="rounded-xl px-6 py-2.5 text-xs font-bold shadow-lg shadow-blue-100 flex items-center gap-2"
+            className="btn-ui btn-ui-solid"
           >
             <MDBIcon fas icon="download" size="xs" /> Export PDF
           </MDBBtn>

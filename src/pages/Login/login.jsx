@@ -169,7 +169,7 @@ const Login = () => {
                   )}
                 </div>
 
-                <MDBBtn type="submit" className="btn-primary mt-2">
+                <MDBBtn type="submit" className="ui-btn-primary mt-2">
                   Sign In
                 </MDBBtn>
               </form>

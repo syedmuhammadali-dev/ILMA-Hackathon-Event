@@ -118,8 +118,113 @@ textarea:focus-visible,
   border-color: var(--border-soft);
 }
 
-.btn-primary {
+.ui-btn-primary {
   @apply w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-xl shadow-blue-500/20 text-sm tracking-wide active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed;
+}
+
+.btn-ui {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-xs font-bold tracking-wide transition-all duration-200 border border-transparent;
+}
+
+.btn-ui-solid {
+  @apply bg-blue-600 text-white shadow-lg shadow-blue-500/20 hover:bg-blue-700 hover:-translate-y-0.5;
+}
+
+.btn-ui-outline {
+  @apply bg-transparent text-blue-700 border-blue-200 hover:bg-blue-50;
+}
+
+.btn-ui-muted {
+  @apply bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200;
+}
+
+.btn-ui-danger {
+  @apply bg-rose-50 text-rose-700 border-rose-100 hover:bg-rose-600 hover:text-white hover:border-rose-600;
+}
+
+.btn-ui-glass {
+  @apply bg-white/20 text-white border-white/20 hover:bg-white/30;
+}
+
+.btn-icon-link {
+  @apply inline-flex items-center justify-center h-9 w-9 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors;
+}
+
+.icon-btn {
+  @apply items-center justify-center h-10 w-10 rounded-xl border transition-all duration-200;
+  background-color: var(--surface-card-soft);
+  border-color: var(--border-soft);
+  color: var(--text-secondary);
+}
+
+.icon-btn:hover {
+  background-color: color-mix(in srgb, var(--surface-card-soft) 40%, #dbeafe);
+  color: #1d4ed8;
+}
+
+.icon-chip {
+  @apply inline-flex items-center justify-center rounded-2xl border;
+}
+
+.icon-chip-sm {
+  @apply h-9 w-9 text-sm;
+}
+
+.icon-chip-md {
+  @apply h-11 w-11 text-base;
+}
+
+/* Ensure MDB .btn defaults do not override premium utility buttons */
+button.btn-ui,
+.btn.btn-ui {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  border-radius: 0.75rem !important;
+  padding: 0.625rem 1.25rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+}
+
+button.btn-ui-solid,
+.btn.btn-ui-solid {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+
+button.btn-ui-outline,
+.btn.btn-ui-outline {
+  background-color: transparent !important;
+  border-color: #bfdbfe !important;
+  color: #1d4ed8 !important;
+}
+
+button.btn-ui-muted,
+.btn.btn-ui-muted {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+button.btn-ui-danger,
+.btn.btn-ui-danger {
+  background-color: #fff1f2 !important;
+  border-color: #ffe4e6 !important;
+  color: #be123c !important;
+}
+
+button.btn-icon-link,
+.btn.btn-icon-link {
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  min-width: 2.25rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
 }
 
 .btn-ghost {
@@ -245,4 +350,12 @@ textarea:focus-visible,
 [data-theme="dark"] .border-slate-200,
 [data-theme="dark"] .border-gray-100 {
   border-color: var(--border-soft) !important;
+}
+
+[data-theme="dark"] .btn-ui-outline {
+  @apply text-blue-300 border-blue-500/40 hover:bg-blue-500/10;
+}
+
+[data-theme="dark"] .btn-ui-muted {
+  @apply bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700;
 }

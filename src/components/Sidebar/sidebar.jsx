@@ -15,7 +15,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="surface-card h-screen fixed left-0 top-0 pt-20 w-72 shadow-md z-10 border-r border-slate-200 hidden md:block overflow-y-auto">
+    <aside className="surface-card fixed left-0 top-20 h-[calc(100vh-5rem)] pt-2 w-72 shadow-md z-10 border-r border-slate-200 hidden md:block overflow-y-auto">
       <div className="px-4 py-2">
         <h6 className="text-slate-400 uppercase text-xs font-bold mb-4 px-3 tracking-wider">
           Main Menu
@@ -50,7 +50,7 @@ const Sidebar = () => {
           <p className="text-sm font-medium mb-3 leading-tight text-white/90">
             Contact student services for help with your account.
           </p>
-          <button className="w-full bg-white/20 hover:bg-white/30 text-white text-xs font-bold py-2 rounded-lg transition-colors border border-white/20 backdrop-blur-sm">
+          <button className="w-full btn-ui btn-ui-glass py-2">
             Support Center
           </button>
         </div>

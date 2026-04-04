@@ -77,7 +77,7 @@ const ForgotPassword = () => {
             )}
           </div>
 
-          <MDBBtn type="submit" className="btn-primary">
+          <MDBBtn type="submit" className="ui-btn-primary">
             Send Reset Instructions
           </MDBBtn>
         </form>

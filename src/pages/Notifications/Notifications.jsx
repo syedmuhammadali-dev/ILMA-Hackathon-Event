@@ -51,7 +51,7 @@ const Notifications = () => {
             outline
             color="secondary"
             size="sm"
-            className="rounded-xl px-6 py-2.5 text-xs font-bold border-2 transition-all hover:bg-slate-50"
+            className="btn-ui btn-ui-outline"
           >
             Mark all as read
           </MDBBtn>

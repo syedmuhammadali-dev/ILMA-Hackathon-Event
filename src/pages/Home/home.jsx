@@ -40,7 +40,7 @@ const Home = () => {
             <MDBBtn
               outline
               onClick={() => navigate("/schedule")}
-              className="rounded-2xl px-8 py-3.5 text-white border-2 border-white/30 font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all"
+              className="btn-ui btn-ui-glass"
             >
               View Schedule
             </MDBBtn>
@@ -206,7 +206,7 @@ const Home = () => {
               <MDBBtn
                 outline
                 color="primary"
-                className="w-full mt-10 rounded-2xl py-4 text-xs font-black uppercase tracking-widest border-2 hover:bg-blue-50 transition-all"
+                className="w-full mt-10 btn-ui btn-ui-outline"
               >
                 Full News Archive
               </MDBBtn>

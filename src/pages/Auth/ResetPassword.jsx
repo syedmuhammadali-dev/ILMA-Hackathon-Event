@@ -107,7 +107,7 @@ const ResetPassword = () => {
             )}
           </div>
 
-          <MDBBtn type="submit" className="btn-primary">
+          <MDBBtn type="submit" className="ui-btn-primary">
             Reset Password
           </MDBBtn>
         </form>

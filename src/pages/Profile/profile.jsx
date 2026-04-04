@@ -66,7 +66,7 @@ const Profile = () => {
                 <button
                   type="button"
                   aria-label="Change avatar"
-                  className="absolute bottom-1 right-1 bg-blue-600 p-2 rounded-full text-white border-2 border-white cursor-pointer hover:bg-blue-700 transition-colors shadow-sm"
+                  className="absolute bottom-1 right-1 inline-flex icon-btn rounded-full h-9 w-9"
                 >
                   <MDBIcon fas icon="camera" size="sm" />
                 </button>
@@ -114,7 +114,7 @@ const Profile = () => {
                     color="primary"
                     size="sm"
                     onClick={() => setIsEditing(true)}
-                    className="px-5 rounded-xl font-bold tracking-tight"
+                    className="btn-ui btn-ui-outline"
                   >
                     Edit Profile
                   </MDBBtn>
@@ -125,7 +125,7 @@ const Profile = () => {
                       color="secondary"
                       size="sm"
                       onClick={() => setIsEditing(false)}
-                      className="px-5 rounded-xl font-bold tracking-tight"
+                      className="btn-ui btn-ui-muted"
                     >
                       Cancel
                     </MDBBtn>
@@ -133,7 +133,7 @@ const Profile = () => {
                       color="primary"
                       size="sm"
                       onClick={handleSave}
-                      className="px-5 rounded-xl font-bold tracking-tight"
+                      className="btn-ui btn-ui-solid"
                     >
                       Save Changes
                     </MDBBtn>

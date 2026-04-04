@@ -23,10 +23,7 @@ const Portal = () => {
         title="Student Portal"
         subtitle="Manage your academic records and enrolled courses."
         actions={
-          <MDBBtn
-            color="primary"
-            className="rounded-xl px-6 py-2.5 text-xs font-bold shadow-lg shadow-blue-100 flex items-center gap-2"
-          >
+          <MDBBtn color="primary" className="btn-ui btn-ui-solid">
             <MDBIcon fas icon="plus" size="xs" /> Enroll New Course
           </MDBBtn>
         }
@@ -52,18 +49,10 @@ const Portal = () => {
                 <MDBTable hover borderless align="middle" className="mb-0">
                   <MDBTableHead className="bg-slate-50 border-b border-slate-100">
                     <tr className="text-left">
-                      <th className="table-head-cell">
-                        Course Name
-                      </th>
-                      <th className="table-head-cell">
-                        Instructor
-                      </th>
-                      <th className="table-head-cell">
-                        Progress
-                      </th>
-                      <th className="table-head-cell text-right">
-                        Action
-                      </th>
+                      <th className="table-head-cell">Course Name</th>
+                      <th className="table-head-cell">Instructor</th>
+                      <th className="table-head-cell">Progress</th>
+                      <th className="table-head-cell text-right">Action</th>
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
@@ -89,7 +78,7 @@ const Portal = () => {
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-full h-1.5 bg-slate-100 rounded-full max-w-[100px] overflow-hidden">
+                            <div className="w-full h-1.5 bg-slate-100 rounded-full max-w-25 overflow-hidden">
                               <div
                                 className="h-full bg-blue-600 rounded-full transition-all duration-1000"
                                 style={{ width: `${course.progress}%` }}
@@ -103,7 +92,7 @@ const Portal = () => {
                         <td className="px-6 py-4 text-right">
                           <MDBBtn
                             color="link"
-                            className="p-2 text-slate-400 hover:text-blue-600 transition-colors"
+                            className="btn-icon-link"
                             aria-label={`Open ${course.name}`}
                             title={`Open ${course.name}`}
                           >

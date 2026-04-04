@@ -162,7 +162,7 @@ const Grades = () => {
                 <MDBBtn
                   outline
                   color="primary"
-                  className="w-full mt-6 rounded-xl py-3 font-bold text-xs"
+                  className="w-full mt-6 btn-ui btn-ui-outline"
                 >
                   Download Transcript
                 </MDBBtn>

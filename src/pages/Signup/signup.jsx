@@ -170,7 +170,7 @@ const Signup = () => {
               </div>
             </div>
 
-            <MDBBtn type="submit" className="btn-primary mt-6">
+            <MDBBtn type="submit" className="ui-btn-primary mt-6">
               Create My Account
             </MDBBtn>
           </form>
