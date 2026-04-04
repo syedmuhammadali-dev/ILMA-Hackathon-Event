@@ -64,36 +64,44 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-      <MDBContainer className="max-w-5xl bg-white shadow-2xl rounded-3xl overflow-hidden border border-slate-100">
+      <MDBContainer className="max-w-5xl ui-card">
         <MDBRow className="g-0">
           {/* Left Side: Modern Pattern & Info */}
           <MDBCol md="6" className="hidden md:block">
-            <div className="h-full bg-gradient-to-tr from-blue-700 to-indigo-900 p-12 flex flex-col justify-center text-white relative overflow-hidden">
-               {/* Decorative elements */}
-               <div className="absolute top-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mt-40 blur-3xl"></div>
-               <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full -mr-40 -mb-40 blur-3xl"></div>
+            <div className="h-full bg-linear-to-tr from-blue-700 to-indigo-900 p-12 flex flex-col justify-center text-white relative overflow-hidden">
+              {/* Decorative elements */}
+              <div className="absolute top-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mt-40 blur-3xl"></div>
+              <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full -mr-40 -mb-40 blur-3xl"></div>
 
-               <h3 className="text-4xl font-extrabold mb-6 leading-tight relative z-10">
-                 Your Education, <br />Redefined.
-               </h3>
-               <p className="text-lg opacity-80 leading-relaxed mb-10 relative z-10">
-                 Access your personalized student portal to manage courses, 
-                 grades, and academic appointments with ease.
-               </p>
-               
-               <div className="grid grid-cols-2 gap-4 relative z-10">
-                 {[
-                   { label: "15k+", sub: "Active Students" },
-                   { label: "200+", sub: "Expert Faculty" },
-                   { label: "50+", sub: "Modern Labs" },
-                   { label: "100%", sub: "Support" },
-                 ].map((stat, idx) => (
-                   <div key={idx} className="bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/10">
-                     <p className="text-2xl font-bold leading-none mb-1">{stat.label}</p>
-                     <p className="text-xs font-medium opacity-60 uppercase tracking-widest">{stat.sub}</p>
-                   </div>
-                 ))}
-               </div>
+              <h3 className="text-4xl font-extrabold mb-6 leading-tight relative z-10">
+                Your Education, <br />
+                Redefined.
+              </h3>
+              <p className="text-lg opacity-80 leading-relaxed mb-10 relative z-10">
+                Access your personalized student portal to manage courses,
+                grades, and academic appointments with ease.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 relative z-10">
+                {[
+                  { label: "15k+", sub: "Active Students" },
+                  { label: "200+", sub: "Expert Faculty" },
+                  { label: "50+", sub: "Modern Labs" },
+                  { label: "100%", sub: "Support" },
+                ].map((stat, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/10"
+                  >
+                    <p className="text-2xl font-bold leading-none mb-1">
+                      {stat.label}
+                    </p>
+                    <p className="text-xs font-medium opacity-60 uppercase tracking-widest">
+                      {stat.sub}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </MDBCol>
 
@@ -106,8 +114,12 @@ const Login = () => {
                   className="w-16 mb-6"
                   alt="logo"
                 />
-                <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Welcome Back</h2>
-                <p className="text-slate-500 font-medium">Log in to your student account.</p>
+                <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+                  Welcome Back
+                </h2>
+                <p className="text-slate-500 font-medium">
+                  Log in to your student account.
+                </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -120,15 +132,25 @@ const Login = () => {
                     size="lg"
                     value={formData.email}
                     onChange={handleChange}
-                    className={errors.email ? "border-red-500" : ""}
+                    className={`input-field ${errors.email ? "border-red-500" : ""}`}
                   />
-                  {errors.email && <p className="text-red-500 text-xs mt-1 font-bold">{errors.email[0]}</p>}
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1 font-bold">
+                      {errors.email[0]}
+                    </p>
+                  )}
                 </div>
 
                 <div>
                   <div className="flex justify-between mb-1">
                     <label className="invisible text-xs">Password</label>
-                    <Link to="/forgot-password" title="Click to reset password" className="text-xs font-bold text-blue-600 hover:underline">Forgot?</Link>
+                    <Link
+                      to="/forgot-password"
+                      title="Click to reset password"
+                      className="text-xs font-bold text-blue-600 hover:underline"
+                    >
+                      Forgot?
+                    </Link>
                   </div>
                   <MDBInput
                     label="Password"
@@ -138,12 +160,16 @@ const Login = () => {
                     size="lg"
                     value={formData.password}
                     onChange={handleChange}
-                    className={errors.password ? "border-red-500" : ""}
+                    className={`input-field ${errors.password ? "border-red-500" : ""}`}
                   />
-                  {errors.password && <p className="text-red-500 text-xs mt-1 font-bold">{errors.password[0]}</p>}
+                  {errors.password && (
+                    <p className="text-red-500 text-xs mt-1 font-bold">
+                      {errors.password[0]}
+                    </p>
+                  )}
                 </div>
 
-                <MDBBtn type="submit" className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-xl shadow-blue-100 text-sm tracking-wide mt-2 transform active:scale-95">
+                <MDBBtn type="submit" className="btn-primary mt-2">
                   Sign In
                 </MDBBtn>
               </form>
@@ -151,7 +177,10 @@ const Login = () => {
               <div className="mt-12 text-center pt-8 border-t border-slate-100">
                 <p className="text-slate-500 text-sm">
                   New to our portal?{" "}
-                  <Link to="/signup" className="text-blue-600 font-bold hover:underline">
+                  <Link
+                    to="/signup"
+                    className="text-blue-600 font-bold hover:underline"
+                  >
                     Create an account
                   </Link>
                 </p>

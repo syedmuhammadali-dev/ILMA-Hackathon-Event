@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardImage, MDBBtn, MDBInput, MDBIcon } from "mdb-react-ui-kit";
+import {
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBBtn,
+  MDBInput,
+  MDBIcon,
+} from "mdb-react-ui-kit";
 import { storage } from "../../utils/storage";
 import { profileSchema } from "../../utils/validation";
 
@@ -9,7 +18,9 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     fullName: user?.fullName || "",
     studentId: user?.studentId || "",
-    bio: user?.bio || "Enthusiastic computer science student with a passion for web technologies.",
+    bio:
+      user?.bio ||
+      "Enthusiastic computer science student with a passion for web technologies.",
   });
   const [errors, setErrors] = useState({});
 
@@ -37,8 +48,12 @@ const Profile = () => {
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
       <header>
-        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Your Profile</h2>
-        <p className="text-slate-500 font-medium mt-1">Manage your personal information and student credentials.</p>
+        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+          Your Profile
+        </h2>
+        <p className="text-slate-500 font-medium mt-1">
+          Manage your personal information and student credentials.
+        </p>
       </header>
 
       <MDBRow className="g-6">
@@ -59,17 +74,29 @@ const Profile = () => {
                   <MDBIcon fas icon="camera" size="sm" />
                 </button>
               </div>
-              <h3 className="text-xl font-bold text-slate-900">{user?.fullName}</h3>
-              <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mt-1">Computer Science Student</p>
-              
+              <h3 className="text-xl font-bold text-slate-900">
+                {user?.fullName}
+              </h3>
+              <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mt-1">
+                Computer Science Student
+              </p>
+
               <div className="mt-8 pt-8 border-t border-gray-100 grid grid-cols-2 gap-4">
                 <div className="text-center group cursor-pointer p-4 rounded-xl hover:bg-slate-50 transition-colors">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Courses</p>
-                  <p className="text-lg font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">12</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">
+                    Courses
+                  </p>
+                  <p className="text-lg font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">
+                    12
+                  </p>
                 </div>
                 <div className="text-center group cursor-pointer p-4 rounded-xl hover:bg-slate-50 transition-colors">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Points</p>
-                  <p className="text-lg font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">2.4k</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">
+                    Points
+                  </p>
+                  <p className="text-lg font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">
+                    2.4k
+                  </p>
                 </div>
               </div>
             </MDBCardBody>
@@ -85,15 +112,32 @@ const Profile = () => {
                   Account Information
                 </h4>
                 {!isEditing ? (
-                  <MDBBtn outline color="primary" size="sm" onClick={() => setIsEditing(true)} className="px-5 rounded-xl font-bold tracking-tight">
+                  <MDBBtn
+                    outline
+                    color="primary"
+                    size="sm"
+                    onClick={() => setIsEditing(true)}
+                    className="px-5 rounded-xl font-bold tracking-tight"
+                  >
                     Edit Profile
                   </MDBBtn>
                 ) : (
                   <div className="flex gap-2">
-                    <MDBBtn outline color="secondary" size="sm" onClick={() => setIsEditing(false)} className="px-5 rounded-xl font-bold tracking-tight">
+                    <MDBBtn
+                      outline
+                      color="secondary"
+                      size="sm"
+                      onClick={() => setIsEditing(false)}
+                      className="px-5 rounded-xl font-bold tracking-tight"
+                    >
                       Cancel
                     </MDBBtn>
-                    <MDBBtn color="primary" size="sm" onClick={handleSave} className="px-5 rounded-xl font-bold tracking-tight">
+                    <MDBBtn
+                      color="primary"
+                      size="sm"
+                      onClick={handleSave}
+                      className="px-5 rounded-xl font-bold tracking-tight"
+                    >
                       Save Changes
                     </MDBBtn>
                   </div>
@@ -103,7 +147,9 @@ const Profile = () => {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">Full Name</label>
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
+                      Full Name
+                    </label>
                     {isEditing ? (
                       <>
                         <MDBInput
@@ -112,38 +158,56 @@ const Profile = () => {
                           name="fullName"
                           value={formData.fullName}
                           onChange={handleChange}
-                          className={errors.fullName ? "border-red-500" : ""}
+                          className={`input-field ${errors.fullName ? "border-red-500" : ""}`}
                         />
-                        {errors.fullName && <p className="text-red-500 text-xs mt-1 font-medium">{errors.fullName[0]}</p>}
+                        {errors.fullName && (
+                          <p className="text-red-500 text-xs mt-1 font-medium">
+                            {errors.fullName[0]}
+                          </p>
+                        )}
                       </>
                     ) : (
-                      <p className="p-3 bg-slate-50 rounded-xl font-bold text-slate-900 border border-slate-100">{user?.fullName}</p>
+                      <p className="p-3 bg-slate-50 rounded-xl font-bold text-slate-900 border border-slate-100">
+                        {user?.fullName}
+                      </p>
                     )}
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">Student ID</label>
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
+                      Student ID
+                    </label>
                     {isEditing ? (
                       <>
-                        <MDBInput 
-                          name="studentId" 
-                          value={formData.studentId} 
-                          onChange={handleChange} 
-                          className={errors.studentId ? "border-red-500" : ""}
+                        <MDBInput
+                          name="studentId"
+                          value={formData.studentId}
+                          onChange={handleChange}
+                          className={`input-field ${errors.studentId ? "border-red-500" : ""}`}
                         />
-                        {errors.studentId && <p className="text-red-500 text-xs mt-1 font-medium">{errors.studentId[0]}</p>}
+                        {errors.studentId && (
+                          <p className="text-red-500 text-xs mt-1 font-medium">
+                            {errors.studentId[0]}
+                          </p>
+                        )}
                       </>
                     ) : (
-                      <p className="p-3 bg-slate-50 rounded-xl font-bold text-slate-900 border border-slate-100">{user?.studentId}</p>
+                      <p className="p-3 bg-slate-50 rounded-xl font-bold text-slate-900 border border-slate-100">
+                        {user?.studentId}
+                      </p>
                     )}
                   </div>
                   <div className="md:col-span-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">Email Address</label>
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
+                      Email Address
+                    </label>
                     <p className="p-3 bg-slate-50/50 rounded-xl font-medium text-slate-400 border border-slate-100 cursor-not-allowed italic">
                       {user?.email} (Cannot be changed)
                     </p>
                   </div>
                   <div className="md:col-span-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">Short Bio</label>
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
+                      Short Bio
+                    </label>
                     {isEditing ? (
                       <>
                         <MDBInput
@@ -154,9 +218,13 @@ const Profile = () => {
                           rows={4}
                           value={formData.bio}
                           onChange={handleChange}
-                          className={errors.bio ? "border-red-500" : ""}
+                          className={`input-field ${errors.bio ? "border-red-500" : ""}`}
                         />
-                        {errors.bio && <p className="text-red-500 text-xs mt-1 font-medium">{errors.bio[0]}</p>}
+                        {errors.bio && (
+                          <p className="text-red-500 text-xs mt-1 font-medium">
+                            {errors.bio[0]}
+                          </p>
+                        )}
                       </>
                     ) : (
                       <p className="p-4 bg-slate-50 rounded-xl text-slate-700 leading-relaxed border border-slate-100">

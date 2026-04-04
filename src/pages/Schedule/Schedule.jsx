@@ -1,25 +1,68 @@
 import React from "react";
-import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBTable, MDBTableHead, MDBTableBody, MDBIcon, MDBBtn } from "mdb-react-ui-kit";
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBTable,
+  MDBTableHead,
+  MDBTableBody,
+  MDBIcon,
+  MDBBtn,
+} from "mdb-react-ui-kit";
 
 const Schedule = () => {
   const scheduleData = [
-    { time: "09:00 AM - 10:30 AM", monday: "CS-201", tuesday: "-", wednesday: "CS-201", thursday: "-", friday: "Lab-3" },
-    { time: "10:45 AM - 12:15 PM", monday: "CS-302", tuesday: "CS-204", wednesday: "-", thursday: "CS-302", friday: "CS-204" },
-    { time: "12:15 PM - 01:15 PM", monday: "Break", tuesday: "Break", wednesday: "Break", thursday: "Break", friday: "Break" },
-    { time: "01:30 PM - 03:00 PM", monday: "-", tuesday: "CS-401", wednesday: "CS-305", thursday: "CS-401", friday: "CS-305" },
+    {
+      time: "09:00 AM - 10:30 AM",
+      monday: "CS-201",
+      tuesday: "-",
+      wednesday: "CS-201",
+      thursday: "-",
+      friday: "Lab-3",
+    },
+    {
+      time: "10:45 AM - 12:15 PM",
+      monday: "CS-302",
+      tuesday: "CS-204",
+      wednesday: "-",
+      thursday: "CS-302",
+      friday: "CS-204",
+    },
+    {
+      time: "12:15 PM - 01:15 PM",
+      monday: "Break",
+      tuesday: "Break",
+      wednesday: "Break",
+      thursday: "Break",
+      friday: "Break",
+    },
+    {
+      time: "01:30 PM - 03:00 PM",
+      monday: "-",
+      tuesday: "CS-401",
+      wednesday: "CS-305",
+      thursday: "CS-401",
+      friday: "CS-305",
+    },
   ];
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-right-5 duration-700">
       <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Class Timetable</h2>
-          <p className="text-slate-500 font-medium mt-1">Manage your weekly schedule and academic commitments.</p>
+          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            Class Timetable
+          </h2>
+          <p className="text-slate-500 font-medium mt-1">
+            Manage your weekly schedule and academic commitments.
+          </p>
         </div>
         <div className="flex gap-2">
-           <MDBBtn color="primary" className="rounded-xl px-6 py-2.5 text-xs font-bold shadow-lg shadow-blue-100 flex items-center gap-2">
-             <MDBIcon fas icon="download" size="xs" /> Export PDF
-           </MDBBtn>
+          <MDBBtn
+            color="primary"
+            className="rounded-xl px-6 py-2.5 text-xs font-bold shadow-lg shadow-blue-100 flex items-center gap-2"
+          >
+            <MDBIcon fas icon="download" size="xs" /> Export PDF
+          </MDBBtn>
         </div>
       </header>
 
@@ -38,31 +81,60 @@ const Schedule = () => {
             <MDBTable hover borderless align="middle" className="mb-0">
               <MDBTableHead className="bg-slate-50 border-b border-slate-100">
                 <tr className="text-left">
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Time Slot</th>
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Mon</th>
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Tue</th>
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Wed</th>
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Thu</th>
-                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Fri</th>
+                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Time Slot
+                  </th>
+                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                    Mon
+                  </th>
+                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                    Tue
+                  </th>
+                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                    Wed
+                  </th>
+                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                    Thu
+                  </th>
+                  <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-center">
+                    Fri
+                  </th>
                 </tr>
               </MDBTableHead>
               <MDBTableBody>
                 {scheduleData.map((row, idx) => (
-                  <tr key={idx} className="group hover:bg-slate-50/50 transition-colors">
+                  <tr
+                    key={idx}
+                    className="group hover:bg-slate-50/50 transition-colors"
+                  >
                     <td className="px-6 py-4">
-                      <span className="text-xs font-black text-slate-900 bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">{row.time}</span>
+                      <span className="text-xs font-black text-slate-900 bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+                        {row.time}
+                      </span>
                     </td>
-                    {[row.monday, row.tuesday, row.wednesday, row.thursday, row.friday].map((day, dIdx) => (
+                    {[
+                      row.monday,
+                      row.tuesday,
+                      row.wednesday,
+                      row.thursday,
+                      row.friday,
+                    ].map((day, dIdx) => (
                       <td key={dIdx} className="px-6 py-4 text-center">
                         {day === "-" ? (
-                           <span className="text-slate-200 font-bold">-</span>
+                          <span className="text-slate-200 font-bold">-</span>
                         ) : day === "Break" ? (
-                           <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-2 py-0.5 rounded-md">Lunch Break</span>
+                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-2 py-0.5 rounded-md">
+                            Lunch Break
+                          </span>
                         ) : (
-                           <div className="bg-blue-50/80 border border-blue-100 p-3 rounded-2xl group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-700 transition-all cursor-pointer">
-                             <p className="text-xs font-black mb-0.5 uppercase tracking-tighter">{day}</p>
-                             <p className="text-[9px] font-bold opacity-60 uppercase tracking-widest">Main Block</p>
-                           </div>
+                          <div className="bg-blue-50/80 border border-blue-100 p-3 rounded-2xl group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-700 transition-all cursor-pointer">
+                            <p className="text-xs font-black mb-0.5 uppercase tracking-tighter">
+                              {day}
+                            </p>
+                            <p className="text-[9px] font-bold opacity-60 uppercase tracking-widest">
+                              Main Block
+                            </p>
+                          </div>
                         )}
                       </td>
                     ))}
@@ -76,19 +148,36 @@ const Schedule = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          { icon: "map-marker-alt", title: "Main Block", text: "Rooms 201-205, Labs" },
-          { icon: "info-circle", title: "Faculty Hours", text: "Mon-Thu: 10AM-12PM" },
-          { icon: "exclamation-triangle", title: "Note", text: "Lab sessions are mandatory." },
+          {
+            icon: "map-marker-alt",
+            title: "Main Block",
+            text: "Rooms 201-205, Labs",
+          },
+          {
+            icon: "info-circle",
+            title: "Faculty Hours",
+            text: "Mon-Thu: 10AM-12PM",
+          },
+          {
+            icon: "exclamation-triangle",
+            title: "Note",
+            text: "Lab sessions are mandatory.",
+          },
         ].map((item, idx) => (
-           <div key={idx} className="flex items-center gap-4 bg-white p-4 rounded-3xl border border-slate-100 shadow-sm border-b-4 border-b-blue-600 transition-transform hover:-translate-y-1">
-             <div className="bg-blue-50 text-blue-600 p-3 rounded-2xl border border-blue-100">
-               <MDBIcon fas icon={item.icon} />
-             </div>
-             <div>
-               <p className="text-xs font-black text-slate-900 mb-0 uppercase tracking-tighter">{item.title}</p>
-               <p className="text-xs text-slate-500 font-medium">{item.text}</p>
-             </div>
-           </div>
+          <div
+            key={idx}
+            className="flex items-center gap-4 bg-white p-4 rounded-3xl border border-slate-100 shadow-sm border-b-4 border-b-blue-600 transition-transform hover:-translate-y-1"
+          >
+            <div className="bg-blue-50 text-blue-600 p-3 rounded-2xl border border-blue-100">
+              <MDBIcon fas icon={item.icon} />
+            </div>
+            <div>
+              <p className="text-xs font-black text-slate-900 mb-0 uppercase tracking-tighter">
+                {item.title}
+              </p>
+              <p className="text-xs text-slate-500 font-medium">{item.text}</p>
+            </div>
+          </div>
         ))}
       </div>
     </div>

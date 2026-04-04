@@ -57,13 +57,17 @@ const ResetPassword = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-      <MDBContainer className="max-w-md bg-white shadow-2xl rounded-3xl p-10 border border-slate-100">
+      <MDBContainer className="max-w-md ui-card p-10">
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-100 shadow-sm">
-             <span className="text-2xl text-blue-600">🆕</span>
+            <span className="text-2xl text-blue-600">🆕</span>
           </div>
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight">Set New Password</h2>
-          <p className="text-slate-500 font-medium mt-2">Create a secure password for your account.</p>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+            Set New Password
+          </h2>
+          <p className="text-slate-500 font-medium mt-2">
+            Create a secure password for your account.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -76,9 +80,13 @@ const ResetPassword = () => {
               size="lg"
               value={formData.password}
               onChange={handleChange}
-              className={errors.password ? "border-red-500" : ""}
+              className={`input-field ${errors.password ? "border-red-500" : ""}`}
             />
-            {errors.password && <p className="text-red-500 text-xs mt-1.5 font-bold">{errors.password[0]}</p>}
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1.5 font-bold">
+                {errors.password[0]}
+              </p>
+            )}
           </div>
 
           <div>
@@ -90,12 +98,16 @@ const ResetPassword = () => {
               size="lg"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className={errors.confirmPassword ? "border-red-500" : ""}
+              className={`input-field ${errors.confirmPassword ? "border-red-500" : ""}`}
             />
-            {errors.confirmPassword && <p className="text-red-500 text-xs mt-1.5 font-bold">{errors.confirmPassword[0]}</p>}
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-xs mt-1.5 font-bold">
+                {errors.confirmPassword[0]}
+              </p>
+            )}
           </div>
 
-          <MDBBtn type="submit" className="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-blue-100">
+          <MDBBtn type="submit" className="btn-primary">
             Reset Password
           </MDBBtn>
         </form>
