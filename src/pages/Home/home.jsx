@@ -1,112 +1,142 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBBtn, MDBIcon } from "mdb-react-ui-kit";
+import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBBtn, MDBIcon } from "mdb-react-ui-kit";
 import { storage } from "../../utils/storage";
 
 const Home = () => {
   const user = storage.getCurrentUser();
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-top-5 duration-700">
-      <header className="mb-10 text-center md:text-left">
-        <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
-          Welcome back, <span className="text-blue-600">{user?.fullName || "Student"}!</span>
-        </h1>
-        <p className="mt-3 text-lg text-slate-600 max-w-2xl">
-          Track your studies, manage your schedule, and stay updated with your academic goals.
-        </p>
-      </header>
+    <div className="space-y-10 animate-in fade-in slide-in-from-top-6 duration-1000">
+      {/* Hero Greeting Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-indigo-700 to-blue-800 rounded-3xl p-8 md:p-12 text-white shadow-2xl shadow-indigo-100 group">
+        <div className="absolute top-0 right-0 p-8 opacity-20 transition-transform group-hover:scale-110 duration-700">
+          <MDBIcon fas icon="graduation-cap" size="8x" />
+        </div>
+        <div className="relative z-10 max-w-2xl">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white/20 text-xs font-bold uppercase tracking-widest backdrop-blur-md mb-6 border border-white/20">
+            Student Activity Center
+          </span>
+          <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight leading-tight">
+            Hi, {user?.fullName || "Student"}! 👋
+          </h1>
+          <p className="text-lg md:text-xl text-blue-100/90 font-medium mb-8 leading-relaxed">
+            Welcome to your personalized portal. Everything you need for your academic 
+            success is organized right here at your fingertips.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <MDBBtn className="rounded-2xl px-8 py-3.5 bg-white text-blue-800 font-black text-xs uppercase tracking-widest shadow-xl shadow-indigo-900/40 hover:shadow-2xl hover:-translate-y-1 transition-all">
+              Go to Portal
+            </MDBBtn>
+            <MDBBtn outline className="rounded-2xl px-8 py-3.5 text-white border-2 border-white/30 font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
+              View Schedule
+            </MDBBtn>
+          </div>
+        </div>
+      </section>
 
-      <MDBRow className="g-6">
-        <MDBCol md="8" className="space-y-6">
-          {/* Featured Course Card */}
-          <MDBCard className="border-0 shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
-            <div className="h-48 bg-gradient-to-r from-blue-600 to-indigo-700 relative flex items-end p-6">
-              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <MDBIcon fas icon="graduation-cap" size="8x" className="text-white" />
-              </div>
-              <div>
-                <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold uppercase tracking-wider backdrop-blur-md mb-2">
-                  Currently Learning
-                </span>
-                <h2 className="text-2xl font-bold text-white">Full Stack Web Development</h2>
-              </div>
-            </div>
-            <MDBCardBody className="p-6">
-              <div className="flex justify-between items-center mb-4">
-                <div>
-                  <p className="text-sm font-medium text-slate-400">Instructor</p>
-                  <p className="text-base font-bold text-slate-900">Dr. Sarah Johnson</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-medium text-slate-400">Progress</p>
-                  <p className="text-base font-bold text-blue-600">68% Completed</p>
-                </div>
-              </div>
-              <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden mb-6">
-                <div className="h-full bg-blue-600 rounded-full w-[68%] transition-all duration-1000 shadow-sm shadow-blue-200"></div>
-              </div>
-              <MDBBtn className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-lg shadow-blue-100">
-                Continue Learning
-              </MDBBtn>
-            </MDBCardBody>
-          </MDBCard>
+      <MDBRow className="g-8">
+        {/* Left Column: Quick Access Grid */}
+        <MDBCol lg="8" className="space-y-8">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+               <div className="h-6 w-1 bg-blue-600 rounded-full"></div>
+               Quick Access Widgets
+            </h3>
+            <span className="text-xs font-bold text-slate-400 hover:text-blue-600 cursor-pointer transition-colors uppercase tracking-widest">Manage Widgets</span>
+          </div>
 
-          {/* Quick Actions */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <MDBCard className="border-0 shadow-sm hover:shadow-md transition-all group overflow-hidden">
-              <MDBCardBody className="p-6 relative">
-                <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl w-fit mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                  <MDBIcon fas icon="calendar-check" size="lg" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-1">Upcoming Exams</h3>
-                <p className="text-sm text-slate-500 mb-4">Check your schedule for next week's examinations.</p>
-                <a href="#!" className="text-sm font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-2 group-hover:gap-3 transition-all">
-                  View Schedule <MDBIcon fas icon="arrow-right" />
-                </a>
-              </MDBCardBody>
+            <MDBCard className="border-0 shadow-lg shadow-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all p-2 rounded-3xl group cursor-pointer border-t-4 border-blue-500 overflow-hidden">
+               <MDBCardBody className="p-6">
+                  <div className="bg-blue-50 text-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-blue-100 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                    <MDBIcon fas icon="calendar-check" size="lg" />
+                  </div>
+                  <h4 className="text-lg font-black text-slate-900 mb-2">My Attendance</h4>
+                  <p className="text-sm text-slate-500 font-medium mb-6">Track your presence in all currently enrolled modules.</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-black text-slate-900 tracking-tighter">94%</span>
+                    <span className="text-xs font-bold text-emerald-600 uppercase">Above average</span>
+                  </div>
+               </MDBCardBody>
             </MDBCard>
 
-            <MDBCard className="border-0 shadow-sm hover:shadow-md transition-all group overflow-hidden">
-              <MDBCardBody className="p-6 relative">
-                <div className="p-3 bg-amber-50 text-amber-600 rounded-xl w-fit mb-4 group-hover:bg-amber-600 group-hover:text-white transition-colors">
-                  <MDBIcon fas icon="tasks" size="lg" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-1">Assignments</h3>
-                <p className="text-sm text-slate-500 mb-4">You have 3 pending assignments due this week.</p>
-                <a href="#!" className="text-sm font-bold text-amber-600 hover:text-amber-700 flex items-center gap-2 group-hover:gap-3 transition-all">
-                  Check Tasks <MDBIcon fas icon="arrow-right" />
-                </a>
-              </MDBCardBody>
+            <MDBCard className="border-0 shadow-lg shadow-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all p-2 rounded-3xl group cursor-pointer border-t-4 border-indigo-500 overflow-hidden">
+               <MDBCardBody className="p-6">
+                  <div className="bg-indigo-50 text-indigo-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                    <MDBIcon fas icon="tasks" size="lg" />
+                  </div>
+                  <h4 className="text-lg font-black text-slate-900 mb-2">Pending Tasks</h4>
+                  <p className="text-sm text-slate-500 font-medium mb-6">Review upcoming assignment deadlines and tasks.</p>
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl font-black text-slate-900 tracking-tighter">03</span>
+                    <span className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full uppercase tracking-tighter shadow-sm border border-blue-100">Pending</span>
+                  </div>
+               </MDBCardBody>
+            </MDBCard>
+
+            <MDBCard className="border-0 shadow-lg shadow-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all p-2 rounded-3xl group cursor-pointer border-t-4 border-emerald-500 overflow-hidden">
+               <MDBCardBody className="p-6">
+                  <div className="bg-emerald-50 text-emerald-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-emerald-100 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                    <MDBIcon fas icon="certificate" size="lg" />
+                  </div>
+                  <h4 className="text-lg font-black text-slate-900 mb-2">Certifications</h4>
+                  <p className="text-sm text-slate-500 font-medium mb-6">Explore professional certifications available this semester.</p>
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-3 overflow-hidden">
+                      <div className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-slate-200"></div>
+                      <div className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-blue-100"></div>
+                      <div className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-indigo-100 flex items-center justify-center text-[10px] font-bold text-indigo-600">
+                        +5
+                      </div>
+                    </div>
+                  </div>
+               </MDBCardBody>
+            </MDBCard>
+
+            <MDBCard className="border-0 shadow-lg shadow-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all p-2 rounded-3xl group cursor-pointer border-t-4 border-amber-500 overflow-hidden">
+               <MDBCardBody className="p-6">
+                  <div className="bg-amber-50 text-amber-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-amber-100 group-hover:bg-amber-600 group-hover:text-white transition-all">
+                    <MDBIcon fas icon="bell" size="lg" />
+                  </div>
+                  <h4 className="text-lg font-black text-slate-900 mb-2">New Notices</h4>
+                  <p className="text-sm text-slate-500 font-medium mb-6">Stay updated with official university announcements.</p>
+                  <div className="animate-pulse flex items-center gap-2">
+                    <span className="h-2.5 w-2.5 rounded-full bg-amber-500"></span>
+                    <span className="text-xs font-bold text-amber-600">05 Urgent messages</span>
+                  </div>
+               </MDBCardBody>
             </MDBCard>
           </div>
         </MDBCol>
 
-        <MDBCol md="4" className="space-y-6">
-          {/* News & Updates */}
-          <MDBCard className="border-0 shadow-sm h-full">
-            <MDBCardBody className="p-6">
-              <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                <MDBIcon fas icon="bullhorn" className="text-blue-500" />
-                Latest Updates
+        {/* Right Column: Mini Stats/News */}
+        <MDBCol lg="4">
+          <MDBCard className="border-0 shadow-lg shadow-slate-100 p-4 rounded-3xl h-full border border-slate-50">
+            <MDBCardBody className="p-4">
+              <h3 className="text-xl font-black text-slate-800 tracking-tight mb-8 flex items-center justify-between">
+                 <span>University News</span>
+                 <MDBIcon fas icon="rss" className="text-blue-500 text-sm" />
               </h3>
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {[
-                  { title: "Library Hours Extended", date: "April 05, 2026", color: "blue" },
-                  { title: "New Lab Equipment Arrived", date: "April 03, 2026", color: "emerald" },
-                  { title: "Registration Open for Fall", date: "April 01, 2026", color: "amber" },
-                  { title: "Scholarship Results Out", date: "March 28, 2026", color: "rose" },
+                  { title: "Convocation 2026 Registration Open", date: "April 06, 2026", color: "blue" },
+                  { title: "Annual Science Fair Participants", date: "April 04, 2026", color: "emerald" },
+                  { title: "New AI Lab Facility Initialized", date: "April 02, 2026", color: "amber" },
+                  { title: "Campus-wide Wi-Fi Upgrade Notice", date: "March 30, 2026", color: "rose" },
                 ].map((item, idx) => (
-                  <div key={idx} className="flex gap-4 group cursor-pointer">
-                    <div className={`mt-1.5 h-2 w-2 rounded-full flex-shrink-0 bg-${item.color}-500 shadow-sm shadow-${item.color}-200`}></div>
+                  <div key={idx} className="flex gap-4 group cursor-pointer border-b border-slate-50 pb-6 last:border-0 last:pb-0">
+                    <div className={`mt-1.5 h-3 w-3 rounded-full flex-shrink-0 bg-${item.color}-500 shadow-lg shadow-${item.color}-200 group-hover:scale-125 transition-transform`}></div>
                     <div>
-                      <p className="text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{item.title}</p>
-                      <p className="text-xs font-medium text-slate-400 uppercase tracking-tighter">{item.date}</p>
+                      <p className="text-sm font-black text-slate-800 leading-tight group-hover:text-blue-600 transition-colors">{item.title}</p>
+                      <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-tighter flex items-center gap-1">
+                        <MDBIcon far icon="clock" size="xs" /> {item.date}
+                      </p>
                     </div>
                   </div>
                 ))}
               </div>
-              <MDBBtn outline color="primary" className="w-full mt-8 rounded-xl py-3 text-xs font-bold uppercase tracking-widest transition-all hover:bg-blue-50">
-                View All News
+              <MDBBtn outline color="primary" className="w-full mt-10 rounded-2xl py-4 text-xs font-black uppercase tracking-widest border-2 hover:bg-blue-50 transition-all">
+                Full News Archive
               </MDBBtn>
             </MDBCardBody>
           </MDBCard>
