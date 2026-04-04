@@ -98,4 +98,13 @@ export const storage = {
     }
     return courses;
   },
+
+  // Add a new course to enrolled courses
+  addCourse: (course) => {
+    const courses = JSON.parse(localStorage.getItem(COURSES_KEY)) || [];
+    const newCourse = { id: Date.now(), progress: course.progress || 0, ...course };
+    courses.push(newCourse);
+    localStorage.setItem(COURSES_KEY, JSON.stringify(courses));
+    return newCourse;
+  },
 };

@@ -190,7 +190,7 @@ const Signup = () => {
 
         {/* Right Side: Features/Banner */}
         <div className="hidden md:flex w-1/2 premium-gradient p-16 flex-col justify-center text-white relative">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -mr-48 -mt-48 blur-[100px]"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 surface-blob rounded-full -mr-48 -mt-48 blur-[100px]"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full -ml-48 -mb-48 blur-[100px]"></div>
 
           <div className="relative z-10 max-w-sm">
@@ -204,7 +204,7 @@ const Signup = () => {
             </p>
 
             <div className="space-y-8">
-              {[
+                {[
                 {
                   icon: "🚀",
                   title: "Smart Progress",
@@ -222,7 +222,7 @@ const Signup = () => {
                 },
               ].map((feat, idx) => (
                 <div key={idx} className="flex gap-5 group items-start">
-                  <div className="bg-white/10 w-12 h-12 rounded-2xl shrink-0 flex items-center justify-center text-2xl backdrop-blur-md border border-white/20 group-hover:bg-white/20 transition-all group-hover:scale-110">
+                  <div className="glass-icon shrink-0 text-2xl">
                     {feat.icon}
                   </div>
                   <div>

@@ -116,8 +116,8 @@ const Profile = () => {
                 {user?.bio || formData.bio}
               </p>
 
-              <div className="mt-8 pt-8 border-t border-gray-100 grid grid-cols-2 gap-4">
-                <div className="text-center group cursor-pointer p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                <div className="mt-8 pt-8 border-t border-gray-100 grid grid-cols-2 gap-4">
+                <div className="text-center group cursor-pointer p-4 rounded-xl hover-surface transition-colors">
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">
                     Courses
                   </p>
@@ -125,7 +125,7 @@ const Profile = () => {
                     12
                   </p>
                 </div>
-                <div className="text-center group cursor-pointer p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                <div className="text-center group cursor-pointer p-4 rounded-xl hover-surface transition-colors">
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">
                     Points
                   </p>

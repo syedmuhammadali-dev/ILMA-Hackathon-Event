@@ -68,9 +68,9 @@ const Login = () => {
         <MDBRow className="g-0">
           {/* Left Side: Modern Pattern & Info */}
           <MDBCol md="6" className="hidden md:block">
-            <div className="h-full premium-gradient p-12 flex flex-col justify-center text-white relative overflow-hidden">
+              <div className="h-full premium-gradient p-12 flex flex-col justify-center text-white relative overflow-hidden">
               {/* Decorative elements */}
-              <div className="absolute top-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mt-40 blur-3xl"></div>
+              <div className="absolute top-0 left-0 w-80 h-80 surface-blob rounded-full -ml-40 -mt-40 blur-3xl"></div>
               <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full -mr-40 -mb-40 blur-3xl"></div>
 
               <h3 className="text-4xl font-extrabold mb-6 leading-tight relative z-10">
@@ -89,10 +89,7 @@ const Login = () => {
                   { label: "50+", sub: "Modern Labs" },
                   { label: "100%", sub: "Support" },
                 ].map((stat, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/10"
-                  >
+                  <div key={idx} className="glass-badge p-4 rounded-2xl">
                     <p className="text-2xl font-bold leading-none mb-1">
                       {stat.label}
                     </p>

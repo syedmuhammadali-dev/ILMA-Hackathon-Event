@@ -62,7 +62,7 @@ const Grades = () => {
         <MDBCol lg="8">
           <MDBCard className="table-shell h-full surface-card">
             <MDBCardBody className="p-0">
-              <div className="p-6 border-b border-gray-100 bg-white sticky top-0 z-10 flex items-center justify-between">
+              <div className="p-6 border-b border-gray-100 surface-soft sticky top-0 z-10 flex items-center justify-between">
                 <h3 className="font-bold text-slate-800 flex items-center gap-2">
                   <MDBIcon fas icon="poll-h" className="text-blue-500" />
                   Semester Results
@@ -89,9 +89,9 @@ const Grades = () => {
                   <MDBTableBody>
                     {gradeData.map((item, idx) => (
                       <tr
-                        key={idx}
-                        className="group hover:bg-slate-50/50 transition-colors"
-                      >
+                          key={idx}
+                          className="group hover-surface transition-colors"
+                        >
                         <td className="px-6 py-4">
                           <div>
                             <p className="font-bold text-slate-900 mb-0">
@@ -142,7 +142,7 @@ const Grades = () => {
                   <span className="text-xl font-medium opacity-60">/ 4.0</span>
                 </div>
                 <div className="mt-8 flex items-center gap-2">
-                  <div className="p-2 bg-white/20 rounded-lg">🏆</div>
+                  <div className="glass-badge p-2 inline-block rounded-lg text-sm">🏆</div>
                   <p className="text-xs font-bold leading-tight">
                     You are currently in the top tier of your batch.
                   </p>

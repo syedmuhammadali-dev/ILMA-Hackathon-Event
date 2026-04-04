@@ -23,7 +23,7 @@ const Home = () => {
           <MDBIcon fas icon="graduation-cap" size="8x" />
         </div>
         <div className="relative z-10 max-w-2xl">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-white/20 text-xs font-bold uppercase tracking-widest backdrop-blur-md mb-6 border border-white/20">
+          <span className="inline-block px-4 py-1.5 rounded-full glass-badge text-xs font-bold uppercase tracking-widest mb-6">
             Student Activity Center
           </span>
           <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight leading-tight">

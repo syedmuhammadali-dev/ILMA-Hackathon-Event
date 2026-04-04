@@ -50,7 +50,24 @@ const Sidebar = () => {
           <p className="text-sm font-medium mb-3 leading-tight text-white/90">
             Contact student services for help with your account.
           </p>
-          <button className="w-full btn-ui btn-ui-glass py-2">
+          <div className="mb-3">
+            <button
+              className="w-full btn-ui btn-ui-solid py-2 mb-2"
+              onClick={() => window.dispatchEvent(new CustomEvent('openEnrollModal'))}
+            >
+              Open Enroll Form
+            </button>
+            <button
+              className="w-full btn-ui btn-ui-outline py-2"
+              onClick={() => window.dispatchEvent(new CustomEvent('closeEnrollModal'))}
+            >
+              Close Enroll Form
+            </button>
+          </div>
+          <button
+            className="w-full btn-ui btn-ui-glass py-2"
+            onClick={() => (window.location.href = 'mailto:support@example.com')}
+          >
             Support Center
           </button>
         </div>
