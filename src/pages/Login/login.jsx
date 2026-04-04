@@ -9,6 +9,7 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import { loginSchema } from "../../utils/validation";
 import { storage } from "../../utils/storage";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -29,89 +30,135 @@ const Login = () => {
     if (!result.success) {
       const formattedErrors = result.error.flatten().fieldErrors;
       setErrors(formattedErrors);
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Please enter a valid email and password.",
+        confirmButtonColor: "#3b82f6",
+      });
       return;
     }
 
     const user = storage.authenticateUser(formData.email, formData.password);
     if (user) {
-      navigate("/");
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        text: `Welcome back, ${user.fullName}!`,
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      }).then(() => {
+        navigate("/");
+      });
     } else {
       setErrors({ general: "Invalid email or password" });
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: "The email or password you entered is incorrect.",
+        confirmButtonColor: "#ef4444",
+      });
     }
   };
 
   return (
-    <MDBContainer className="my-5 gradient-form">
-      <MDBRow>
-        <MDBCol col="6" className="mb-5">
-          <div className="d-flex flex-column ms-5">
-            <div className="text-center">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                style={{ width: "185px" }}
-                alt="logo"
-              />
-              <h4 className="mt-1 mb-5 pb-1">Welcome Back!</h4>
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <MDBContainer className="max-w-5xl bg-white shadow-2xl rounded-3xl overflow-hidden border border-slate-100">
+        <MDBRow className="g-0">
+          {/* Left Side: Modern Pattern & Info */}
+          <MDBCol md="6" className="hidden md:block">
+            <div className="h-full bg-gradient-to-tr from-blue-700 to-indigo-900 p-12 flex flex-col justify-center text-white relative overflow-hidden">
+               {/* Decorative elements */}
+               <div className="absolute top-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mt-40 blur-3xl"></div>
+               <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full -mr-40 -mb-40 blur-3xl"></div>
+
+               <h3 className="text-4xl font-extrabold mb-6 leading-tight relative z-10">
+                 Your Education, <br />Redefined.
+               </h3>
+               <p className="text-lg opacity-80 leading-relaxed mb-10 relative z-10">
+                 Access your personalized student portal to manage courses, 
+                 grades, and academic appointments with ease.
+               </p>
+               
+               <div className="grid grid-cols-2 gap-4 relative z-10">
+                 {[
+                   { label: "15k+", sub: "Active Students" },
+                   { label: "200+", sub: "Expert Faculty" },
+                   { label: "50+", sub: "Modern Labs" },
+                   { label: "100%", sub: "Support" },
+                 ].map((stat, idx) => (
+                   <div key={idx} className="bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/10">
+                     <p className="text-2xl font-bold leading-none mb-1">{stat.label}</p>
+                     <p className="text-xs font-medium opacity-60 uppercase tracking-widest">{stat.sub}</p>
+                   </div>
+                 ))}
+               </div>
             </div>
+          </MDBCol>
 
-            <p>Please login to your student account</p>
-
-            <form onSubmit={handleSubmit}>
-              <MDBInput
-                wrapperClass="mb-1"
-                label="Email address"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              {errors.email && <div className="text-danger small mb-3">{errors.email[0]}</div>}
-
-              <MDBInput
-                wrapperClass="mb-1"
-                label="Password"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-              {errors.password && <div className="text-danger small mb-3">{errors.password[0]}</div>}
-
-              {errors.general && <div className="text-danger small mb-3 text-center">{errors.general}</div>}
-
-              <div className="text-center pt-1 mb-5 pb-1">
-                <MDBBtn type="submit" className="mb-4 w-100 gradient-custom-2">
-                  Log In
-                </MDBBtn>
-                <a className="text-muted" href="#!">
-                  Forgot password?
-                </a>
+          {/* Right Side: Form */}
+          <MDBCol md="6" className="p-8 md:p-12">
+            <div className="flex flex-col h-full max-w-sm mx-auto justify-center">
+              <div className="mb-10">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                  className="w-16 mb-6"
+                  alt="logo"
+                />
+                <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Welcome Back</h2>
+                <p className="text-slate-500 font-medium">Log in to your student account.</p>
               </div>
-            </form>
 
-            <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
-              <p className="mb-0">Don't have an account?</p>
-              <Link to="/signup" className="mx-2 text-primary font-bold">
-                Join Now
-              </Link>
-            </div>
-          </div>
-        </MDBCol>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <MDBInput
+                    label="Email address"
+                    name="email"
+                    type="email"
+                    size="lg"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={errors.email ? "border-red-500" : ""}
+                  />
+                  {errors.email && <p className="text-red-500 text-xs mt-1 font-bold">{errors.email[0]}</p>}
+                </div>
 
-        <MDBCol col="6" className="mb-5">
-          <div className="d-flex flex-column justify-content-center gradient-custom-2 h-100 mb-4 rounded-r-lg">
-            <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-              <h4 className="mb-4 text-2xl font-bold">Your Gateway to Knowledge</h4>
-              <p className="small mb-0 leading-relaxed">
-                Log in to access your dashboard, view your grades, and communicate with your instructors. 
-                Keep track of your academic performance and never miss an update from your university.
-                Stay focused, stay driven!
-              </p>
+                <div>
+                  <div className="flex justify-between mb-1">
+                    <label className="invisible text-xs">Password</label>
+                    <a href="#!" className="text-xs font-bold text-blue-600 hover:underline">Forgot?</a>
+                  </div>
+                  <MDBInput
+                    label="Password"
+                    name="password"
+                    type="password"
+                    size="lg"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={errors.password ? "border-red-500" : ""}
+                  />
+                  {errors.password && <p className="text-red-500 text-xs mt-1 font-bold">{errors.password[0]}</p>}
+                </div>
+
+                <MDBBtn type="submit" className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-xl shadow-blue-100 text-sm tracking-wide mt-2 transform active:scale-95">
+                  Sign In
+                </MDBBtn>
+              </form>
+
+              <div className="mt-12 text-center pt-8 border-t border-slate-100">
+                <p className="text-slate-500 text-sm">
+                  New to our portal?{" "}
+                  <Link to="/signup" className="text-blue-600 font-bold hover:underline">
+                    Create an account
+                  </Link>
+                </p>
+              </div>
             </div>
-          </div>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    </div>
   );
 };
 

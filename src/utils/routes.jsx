@@ -14,10 +14,8 @@ const RoutesComponent = () => {
       <Routes>
         {/* protected routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Home />} />
-
-          {/* sidebar and header show in those routes */}
           <Route element={<DashboardLayout />}>
+            <Route path="/" element={<Home />} />
             <Route path="/portal" element={<Portal />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
