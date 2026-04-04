@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   MDBRow,
   MDBCol,
@@ -25,6 +25,13 @@ const Profile = () => {
   });
   const [errors, setErrors] = useState({});
 
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    // keep formData.bio in sync if user object changes (e.g., after save)
+    setFormData((prev) => ({ ...prev, bio: user?.bio || prev.bio }));
+  }, [user?.bio]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -46,6 +53,28 @@ const Profile = () => {
     }
   };
 
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const dataUrl = reader.result;
+        const updatedUser = storage.updateProfile({ avatar: dataUrl });
+        if (updatedUser) setUser(updatedUser);
+      } catch (err) {
+        // swallow for now; consider user feedback later
+      }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = null;
+  };
+
   return (
     <div className="page-shell animate-in fade-in slide-in-from-bottom-5 duration-700">
       <PageHeader
@@ -59,23 +88,32 @@ const Profile = () => {
             <MDBCardBody>
               <div className="relative w-32 h-32 mx-auto mb-6">
                 <MDBCardImage
-                  src={`https://ui-avatars.com/api/?name=${user?.fullName}&background=random&size=128`}
+                  src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.fullName}&background=random&size=128`}
                   className="rounded-full shadow-lg border-4 border-white"
                   alt="avatar"
                 />
                 <button
                   type="button"
                   aria-label="Change avatar"
+                  onClick={handleAvatarClick}
                   className="absolute bottom-1 right-1 inline-flex icon-btn rounded-full h-9 w-9"
                 >
                   <MDBIcon fas icon="camera" size="sm" />
                 </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  aria-hidden="true"
+                />
               </div>
               <h3 className="text-xl font-bold text-slate-900">
                 {user?.fullName}
               </h3>
               <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mt-1">
-                Computer Science Student
+                {user?.bio || formData.bio}
               </p>
 
               <div className="mt-8 pt-8 border-t border-gray-100 grid grid-cols-2 gap-4">
