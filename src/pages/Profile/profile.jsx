@@ -102,10 +102,12 @@ const Profile = () => {
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">Full Name</label>
                     {isEditing ? (
                       <>
-                        <MDBInput 
-                          name="fullName" 
-                          value={formData.fullName} 
-                          onChange={handleChange} 
+                        <MDBInput
+                          label="Full Name"
+                          placeholder="e.g. Syed Muhammad Ali"
+                          name="fullName"
+                          value={formData.fullName}
+                          onChange={handleChange}
                           className={errors.fullName ? "border-red-500" : ""}
                         />
                         {errors.fullName && <p className="text-red-500 text-xs mt-1 font-medium">{errors.fullName[0]}</p>}
@@ -140,12 +142,14 @@ const Profile = () => {
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">Short Bio</label>
                     {isEditing ? (
                       <>
-                        <MDBInput 
-                          textarea 
-                          rows={3} 
-                          name="bio" 
-                          value={formData.bio} 
-                          onChange={handleChange} 
+                        <MDBInput
+                          label="Student Bio"
+                          placeholder="Tell us about your academic goals..."
+                          name="bio"
+                          textarea
+                          rows={4}
+                          value={formData.bio}
+                          onChange={handleChange}
                           className={errors.bio ? "border-red-500" : ""}
                         />
                         {errors.bio && <p className="text-red-500 text-xs mt-1 font-medium">{errors.bio[0]}</p>}

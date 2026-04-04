@@ -114,6 +114,7 @@ const Login = () => {
                 <div>
                   <MDBInput
                     label="Email address"
+                    placeholder="Enter your university email"
                     name="email"
                     type="email"
                     size="lg"
@@ -131,6 +132,7 @@ const Login = () => {
                   </div>
                   <MDBInput
                     label="Password"
+                    placeholder="Enter your password"
                     name="password"
                     type="password"
                     size="lg"

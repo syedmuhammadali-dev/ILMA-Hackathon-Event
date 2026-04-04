@@ -55,6 +55,7 @@ const ForgotPassword = () => {
           <div>
             <MDBInput
               label="Email Address"
+              placeholder="e.g. ali.student@university.edu"
               type="email"
               size="lg"
               value={email}

@@ -89,7 +89,8 @@ const Signup = () => {
               <div>
                 <label className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2 block">Full Name</label>
                 <MDBInput
-                  placeholder="Enter your full name"
+                  label="Full Name"
+                  placeholder="e.g. Syed Muhammad Ali"
                   name="fullName"
                   type="text"
                   value={formData.fullName}
@@ -102,7 +103,8 @@ const Signup = () => {
               <div>
                 <label className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2 block">Email address</label>
                 <MDBInput
-                  placeholder="name@example.com"
+                  label="Email address"
+                  placeholder="e.g. ali.student@university.edu"
                   name="email"
                   type="email"
                   value={formData.email}
@@ -116,7 +118,8 @@ const Signup = () => {
                 <div>
                   <label className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2 block">Password</label>
                   <MDBInput
-                    placeholder="••••••••"
+                    label="Password"
+                    placeholder="Create a strong password"
                     name="password"
                     type="password"
                     value={formData.password}
@@ -129,7 +132,8 @@ const Signup = () => {
                 <div>
                   <label className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2 block">Student ID</label>
                   <MDBInput
-                    placeholder="e.g. ST-2026"
+                    label="Student ID"
+                    placeholder="e.g. ST-2026-001"
                     name="studentId"
                     type="text"
                     value={formData.studentId}

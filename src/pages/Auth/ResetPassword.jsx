@@ -70,6 +70,7 @@ const ResetPassword = () => {
           <div>
             <MDBInput
               label="New Password"
+              placeholder="Enter at least 6 characters"
               name="password"
               type="password"
               size="lg"
@@ -83,6 +84,7 @@ const ResetPassword = () => {
           <div>
             <MDBInput
               label="Confirm New Password"
+              placeholder="Repeat your new password"
               name="confirmPassword"
               type="password"
               size="lg"
