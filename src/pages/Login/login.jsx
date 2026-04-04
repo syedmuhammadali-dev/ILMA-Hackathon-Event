@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MDBBtn,
   MDBContainer,
@@ -6,9 +6,40 @@ import {
   MDBCol,
   MDBInput,
 } from "mdb-react-ui-kit";
-import "./login.css";
+import { useNavigate, Link } from "react-router-dom";
+import { loginSchema } from "../../utils/validation";
+import { storage } from "../../utils/storage";
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const result = loginSchema.safeParse(formData);
+    if (!result.success) {
+      const formattedErrors = result.error.flatten().fieldErrors;
+      setErrors(formattedErrors);
+      return;
+    }
+
+    const user = storage.authenticateUser(formData.email, formData.password);
+    if (user) {
+      navigate("/");
+    } else {
+      setErrors({ general: "Invalid email or password" });
+    }
+  };
+
   return (
     <MDBContainer className="my-5 gradient-form">
       <MDBRow>
@@ -20,49 +51,61 @@ const Login = () => {
                 style={{ width: "185px" }}
                 alt="logo"
               />
-              <h4 className="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+              <h4 className="mt-1 mb-5 pb-1">Welcome Back!</h4>
             </div>
 
-            <p>Please login to your account</p>
+            <p>Please login to your student account</p>
 
-            <MDBInput
-              wrapperClass="mb-4"
-              label="Email address"
-              id="form1"
-              type="email"
-            />
-            <MDBInput
-              wrapperClass="mb-4"
-              label="Password"
-              id="form2"
-              type="password"
-            />
+            <form onSubmit={handleSubmit}>
+              <MDBInput
+                wrapperClass="mb-1"
+                label="Email address"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              {errors.email && <div className="text-danger small mb-3">{errors.email[0]}</div>}
 
-            <div className="text-center pt-1 mb-5 pb-1">
-              <MDBBtn className="mb-4 w-100 gradient-custom-2">Login in</MDBBtn>
-              <a className="text-muted" href="#!">
-                Forgot password?
-              </a>
-            </div>
+              <MDBInput
+                wrapperClass="mb-1"
+                label="Password"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              {errors.password && <div className="text-danger small mb-3">{errors.password[0]}</div>}
+
+              {errors.general && <div className="text-danger small mb-3 text-center">{errors.general}</div>}
+
+              <div className="text-center pt-1 mb-5 pb-1">
+                <MDBBtn type="submit" className="mb-4 w-100 gradient-custom-2">
+                  Log In
+                </MDBBtn>
+                <a className="text-muted" href="#!">
+                  Forgot password?
+                </a>
+              </div>
+            </form>
 
             <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
               <p className="mb-0">Don't have an account?</p>
-              <MDBBtn outline className="mx-2" color="danger">
-                Danger
-              </MDBBtn>
+              <Link to="/signup" className="mx-2 text-primary font-bold">
+                Join Now
+              </Link>
             </div>
           </div>
         </MDBCol>
 
         <MDBCol col="6" className="mb-5">
-          <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100 mb-4">
+          <div className="d-flex flex-column justify-content-center gradient-custom-2 h-100 mb-4 rounded-r-lg">
             <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-              <h4 className="mb-4">We are more than just a company</h4>
-              <p className="small mb-0">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+              <h4 className="mb-4 text-2xl font-bold">Your Gateway to Knowledge</h4>
+              <p className="small mb-0 leading-relaxed">
+                Log in to access your dashboard, view your grades, and communicate with your instructors. 
+                Keep track of your academic performance and never miss an update from your university.
+                Stay focused, stay driven!
               </p>
             </div>
           </div>

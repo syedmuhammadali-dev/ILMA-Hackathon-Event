@@ -1,1 +1,49 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #1e3a8a; /* Blue 900 */
+  --color-secondary: #3b82f6; /* Blue 500 */
+  --color-accent: #10b981; /* Emerald 500 */
+  --color-background: #f8fafc; /* Slate 50 */
+  --color-text-main: #0f172a; /* Slate 900 */
+  --color-text-muted: #64748b; /* Slate 500 */
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.gradient-form {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fccb90;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+@media (min-width: 768px) {
+  .gradient-form {
+    height: 100vh !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+  }
+}
