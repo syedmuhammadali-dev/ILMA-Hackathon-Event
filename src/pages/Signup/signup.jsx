@@ -92,10 +92,9 @@ const Signup = () => {
                   placeholder="Enter your full name"
                   name="fullName"
                   type="text"
-                  size="lg"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className={`bg-slate-50 border-0 rounded-2xl py-3 px-4 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all ${errors.fullName ? "border-red-500" : ""}`}
+                  className={`bg-slate-50 border-0 rounded-2xl py-2 px-4 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all ${errors.fullName ? "border-red-500" : ""}`}
                 />
                 {errors.fullName && <p className="text-red-500 text-[10px] mt-1.5 font-bold uppercase tracking-wider">{errors.fullName[0]}</p>}
               </div>
@@ -106,10 +105,9 @@ const Signup = () => {
                   placeholder="name@example.com"
                   name="email"
                   type="email"
-                  size="lg"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`bg-slate-50 border-0 rounded-2xl py-3 px-4 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all ${errors.email ? "border-red-500" : ""}`}
+                  className={`bg-slate-50 border-0 rounded-2xl py-2 px-4 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all ${errors.email ? "border-red-500" : ""}`}
                 />
                 {errors.email && <p className="text-red-500 text-[10px] mt-1.5 font-bold uppercase tracking-wider">{errors.email[0]}</p>}
               </div>
@@ -121,10 +119,9 @@ const Signup = () => {
                     placeholder="••••••••"
                     name="password"
                     type="password"
-                    size="lg"
                     value={formData.password}
                     onChange={handleChange}
-                    className={`bg-slate-50 border-0 rounded-2xl py-3 px-4 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all ${errors.password ? "border-red-500" : ""}`}
+                    className={`bg-slate-50 border-0 rounded-2xl py-2 px-4 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all ${errors.password ? "border-red-500" : ""}`}
                   />
                   {errors.password && <p className="text-red-500 text-[10px] mt-1.5 font-bold uppercase tracking-wider">{errors.password[0]}</p>}
                 </div>
@@ -135,10 +132,9 @@ const Signup = () => {
                     placeholder="e.g. ST-2026"
                     name="studentId"
                     type="text"
-                    size="lg"
                     value={formData.studentId}
                     onChange={handleChange}
-                    className={`bg-slate-50 border-0 rounded-2xl py-3 px-4 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all ${errors.studentId ? "border-red-500" : ""}`}
+                    className={`bg-slate-50 border-0 rounded-2xl py-2 px-4 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all ${errors.studentId ? "border-red-500" : ""}`}
                   />
                   {errors.studentId && <p className="text-red-500 text-[10px] mt-1.5 font-bold uppercase tracking-wider">{errors.studentId[0]}</p>}
                 </div>

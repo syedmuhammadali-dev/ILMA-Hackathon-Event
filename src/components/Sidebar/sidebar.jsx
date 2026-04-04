@@ -9,10 +9,13 @@ const Sidebar = () => {
     { title: "Home", path: "/", icon: "home" },
     { title: "Portal", path: "/portal", icon: "th-large" },
     { title: "Profile", path: "/profile", icon: "user" },
+    { title: "Academic Grades", path: "/grades", icon: "poll-h" },
+    { title: "Class Schedule", path: "/schedule", icon: "calendar-alt" },
+    { title: "Notifications", path: "/notifications", icon: "bell" },
   ];
 
   return (
-    <div className="bg-white h-screen fixed left-0 top-0 pt-20 w-64 shadow-md z-10 border-r border-gray-100 hidden md:block">
+    <div className="bg-white h-screen fixed left-0 top-0 pt-20 w-64 shadow-md z-10 border-r border-gray-100 hidden md:block overflow-y-auto">
       <div className="px-4 py-2">
         <h6 className="text-gray-400 uppercase text-xs font-bold mb-4 px-3 tracking-wider">Main Menu</h6>
         <nav className="flex flex-col gap-1">
@@ -37,7 +40,7 @@ const Sidebar = () => {
         </nav>
       </div>
       
-      <div className="absolute bottom-10 left-0 w-full px-6">
+      <div className="px-6 py-10">
         <div className="bg-gradient-to-tr from-blue-600 to-indigo-700 p-4 rounded-xl text-white shadow-lg shadow-blue-200">
           <p className="text-xs font-bold opacity-75 mb-1 uppercase tracking-tight">Need Support?</p>
           <p className="text-sm font-medium mb-3 leading-tight text-white/90">Contact student services for help with your account.</p>

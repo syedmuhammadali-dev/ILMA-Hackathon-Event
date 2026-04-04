@@ -11,6 +11,22 @@ export const storage = {
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
   },
 
+  findUserByEmail: (email) => {
+    const users = storage.getUsers();
+    return users.find((u) => u.email === email);
+  },
+
+  resetPassword: (email, newPassword) => {
+    const users = storage.getUsers();
+    const index = users.findIndex((u) => u.email === email);
+    if (index !== -1) {
+      users[index].password = newPassword;
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+      return true;
+    }
+    return false;
+  },
+
   authenticateUser: (email, password) => {
     const users = storage.getUsers();
     const user = users.find((u) => u.email === email && u.password === password);

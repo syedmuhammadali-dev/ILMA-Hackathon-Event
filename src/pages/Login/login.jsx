@@ -127,7 +127,7 @@ const Login = () => {
                 <div>
                   <div className="flex justify-between mb-1">
                     <label className="invisible text-xs">Password</label>
-                    <a href="#!" className="text-xs font-bold text-blue-600 hover:underline">Forgot?</a>
+                    <Link to="/forgot-password" title="Click to reset password" className="text-xs font-bold text-blue-600 hover:underline">Forgot?</Link>
                   </div>
                   <MDBInput
                     label="Password"
