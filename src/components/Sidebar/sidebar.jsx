@@ -1,9 +1,15 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
+import { motion } from "framer-motion";
+import { useEnrollModal } from "../../context/EnrollModalContext";
+
+const MotionDiv = motion.div;
 
 const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { openEnrollModal, closeEnrollModal } = useEnrollModal();
 
   const menuItems = [
     { title: "Home", path: "/", icon: "home" },
@@ -13,6 +19,13 @@ const Sidebar = () => {
     { title: "Class Schedule", path: "/schedule", icon: "calendar-alt" },
     { title: "Notifications", path: "/notifications", icon: "bell" },
   ];
+
+  const handleOpenEnroll = () => {
+    openEnrollModal();
+    if (location.pathname !== "/portal") {
+      navigate("/portal");
+    }
+  };
 
   return (
     <aside className="surface-card fixed left-0 top-20 h-[calc(100vh-5rem)] pt-2 w-72 shadow-md z-10 border-r border-slate-200 hidden md:block overflow-y-auto">
@@ -31,19 +44,25 @@ const Sidebar = () => {
                   : "nav-item-idle"
               }`}
             >
-              <MDBIcon
-                fas
-                icon={item.icon}
-                className={location.pathname === item.path ? "text-blue-600" : "text-gray-400 group-hover:text-blue-600"}
-              />
-              <span className="font-medium text-sm">{item.title}</span>
+              <MotionDiv
+                whileHover={{ x: 3 }}
+                transition={{ duration: 0.18 }}
+                className="flex items-center gap-3 w-full"
+              >
+                <MDBIcon
+                  fas
+                  icon={item.icon}
+                  className={location.pathname === item.path ? "text-blue-600" : "text-slate-400 group-hover:text-blue-600"}
+                />
+                <span className="font-medium text-sm">{item.title}</span>
+              </MotionDiv>
             </Link>
           ))}
         </nav>
       </div>
 
       <div className="px-6 py-10">
-        <div className="premium-gradient p-4 rounded-2xl text-white shadow-lg shadow-blue-500/20">
+        <div className="premium-gradient p-4 rounded-2xl text-white shadow-lg shadow-blue-500/20 border border-white/10">
           <p className="text-xs font-bold opacity-75 mb-1 uppercase tracking-tight">
             Need Support?
           </p>
@@ -53,20 +72,20 @@ const Sidebar = () => {
           <div className="mb-3">
             <button
               className="w-full btn-ui btn-ui-solid py-2 mb-2"
-              onClick={() => window.dispatchEvent(new CustomEvent('openEnrollModal'))}
+              onClick={handleOpenEnroll}
             >
               Open Enroll Form
             </button>
             <button
-              className="w-full btn-ui btn-ui-outline py-2"
-              onClick={() => window.dispatchEvent(new CustomEvent('closeEnrollModal'))}
+              className="w-full btn-ui btn-ui-glass py-2"
+              onClick={closeEnrollModal}
             >
               Close Enroll Form
             </button>
           </div>
           <button
-            className="w-full btn-ui btn-ui-glass py-2"
-            onClick={() => (window.location.href = 'mailto:support@example.com')}
+            className="w-full btn-ui btn-ui-muted py-2"
+            onClick={() => navigate("/notifications")}
           >
             Support Center
           </button>

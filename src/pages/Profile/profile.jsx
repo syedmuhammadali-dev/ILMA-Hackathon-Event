@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
   MDBRow,
   MDBCol,
@@ -12,6 +12,9 @@ import {
 import { storage } from "../../utils/storage";
 import { profileSchema } from "../../utils/validation";
 import PageHeader from "../../components/UI/PageHeader";
+import { motion } from "framer-motion";
+
+const MotionDiv = motion.div;
 
 const Profile = () => {
   const [user, setUser] = useState(storage.getCurrentUser());
@@ -26,11 +29,6 @@ const Profile = () => {
   const [errors, setErrors] = useState({});
 
   const fileInputRef = useRef(null);
-
-  useEffect(() => {
-    // keep formData.bio in sync if user object changes (e.g., after save)
-    setFormData((prev) => ({ ...prev, bio: user?.bio || prev.bio }));
-  }, [user?.bio]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -67,7 +65,7 @@ const Profile = () => {
         const dataUrl = reader.result;
         const updatedUser = storage.updateProfile({ avatar: dataUrl });
         if (updatedUser) setUser(updatedUser);
-      } catch (err) {
+      } catch {
         // swallow for now; consider user feedback later
       }
     };
@@ -84,7 +82,8 @@ const Profile = () => {
 
       <MDBRow className="g-6">
         <MDBCol lg="4">
-          <MDBCard className="border-0 shadow-sm text-center p-6">
+          <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+          <MDBCard className="surface-card border-0 shadow-sm text-center p-6">
             <MDBCardBody>
               <div className="relative w-32 h-32 mx-auto mb-6">
                 <MDBCardImage
@@ -112,7 +111,10 @@ const Profile = () => {
               <h3 className="text-xl font-bold text-slate-900">
                 {user?.fullName}
               </h3>
-              <p className="text-blue-600 font-bold text-sm uppercase tracking-widest mt-1">
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">
+                {user?.studentId || "No Student ID"}
+              </p>
+              <p className="text-slate-600 font-medium text-sm tracking-wide mt-2">
                 {user?.bio || formData.bio}
               </p>
 
@@ -136,10 +138,12 @@ const Profile = () => {
               </div>
             </MDBCardBody>
           </MDBCard>
+          </MotionDiv>
         </MDBCol>
 
         <MDBCol lg="8">
-          <MDBCard className="border-0 shadow-sm">
+          <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+          <MDBCard className="surface-card border-0 shadow-sm">
             <MDBCardBody className="p-8">
               <div className="flex items-center justify-between mb-8">
                 <h4 className="text-xl font-bold text-slate-800 flex items-center gap-2">
@@ -202,7 +206,7 @@ const Profile = () => {
                         )}
                       </>
                     ) : (
-                      <p className="p-3 bg-slate-50 rounded-xl font-bold text-slate-900 border border-slate-100">
+                      <p className="p-3 surface-soft rounded-xl font-bold text-slate-900 border border-slate-100">
                         {user?.fullName}
                       </p>
                     )}
@@ -226,7 +230,7 @@ const Profile = () => {
                         )}
                       </>
                     ) : (
-                      <p className="p-3 bg-slate-50 rounded-xl font-bold text-slate-900 border border-slate-100">
+                      <p className="p-3 surface-soft rounded-xl font-bold text-slate-900 border border-slate-100">
                         {user?.studentId}
                       </p>
                     )}
@@ -235,7 +239,7 @@ const Profile = () => {
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
                       Email Address
                     </label>
-                    <p className="p-3 bg-slate-50/50 rounded-xl font-medium text-slate-400 border border-slate-100 cursor-not-allowed italic">
+                    <p className="p-3 surface-soft rounded-xl font-medium text-slate-400 border border-slate-100 cursor-not-allowed italic">
                       {user?.email} (Cannot be changed)
                     </p>
                   </div>
@@ -262,7 +266,7 @@ const Profile = () => {
                         )}
                       </>
                     ) : (
-                      <p className="p-4 bg-slate-50 rounded-xl text-slate-700 leading-relaxed border border-slate-100">
+                      <p className="p-4 surface-soft rounded-xl text-slate-700 leading-relaxed border border-slate-100">
                         {user?.bio || formData.bio}
                       </p>
                     )}
@@ -271,6 +275,7 @@ const Profile = () => {
               </div>
             </MDBCardBody>
           </MDBCard>
+          </MotionDiv>
         </MDBCol>
       </MDBRow>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   MDBRow,
   MDBCol,
@@ -13,22 +13,58 @@ import {
 import { storage } from "../../utils/storage";
 import { getColorClasses } from "../../utils/colorClasses";
 import PageHeader from "../../components/UI/PageHeader";
+import { motion } from "framer-motion";
+import Swal from "sweetalert2";
+import { useEnrollModal } from "../../context/EnrollModalContext";
+import { useLoading } from "../../context/LoadingContext";
+import PageLoader from "../../components/UI/PageLoader";
+
+const MotionDiv = motion.div;
+const MotionTr = motion.tr;
 
 const Portal = () => {
   const [courses, setCourses] = useState(() => storage.getEnrolledCourses());
-  const [isEnrollOpen, setIsEnrollOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [newCourse, setNewCourse] = useState({ name: "", instructor: "", progress: 0 });
+  const { isEnrollOpen, openEnrollModal, closeEnrollModal } = useEnrollModal();
+  const { withLoader } = useLoading();
 
-  useEffect(() => {
-    const onOpen = () => setIsEnrollOpen(true);
-    const onClose = () => setIsEnrollOpen(false);
-    window.addEventListener("openEnrollModal", onOpen);
-    window.addEventListener("closeEnrollModal", onClose);
-    return () => {
-      window.removeEventListener("openEnrollModal", onOpen);
-      window.removeEventListener("closeEnrollModal", onClose);
-    };
-  }, []);
+  const handleEnroll = async () => {
+    if (!newCourse.name.trim() || !newCourse.instructor.trim()) {
+      await Swal.fire({
+        icon: "warning",
+        title: "Missing details",
+        text: "Please enter both course name and instructor.",
+        confirmButtonColor: "#2563eb",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await withLoader(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        const created = storage.addCourse({
+          name: newCourse.name.trim(),
+          instructor: newCourse.instructor.trim(),
+          progress: Number(newCourse.progress) || 0,
+        });
+        setCourses((prev) => [...prev, created]);
+      });
+
+      setNewCourse({ name: "", instructor: "", progress: 0 });
+      closeEnrollModal();
+      await Swal.fire({
+        icon: "success",
+        title: "Enrollment successful",
+        text: "Course added to your enrolled list.",
+        timer: 1300,
+        showConfirmButton: false,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="page-shell animate-in fade-in duration-700">
@@ -36,7 +72,7 @@ const Portal = () => {
         title="Student Portal"
         subtitle="Manage your academic records and enrolled courses."
         actions={
-          <MDBBtn color="primary" className="btn-ui btn-ui-solid" onClick={() => setIsEnrollOpen(true)}>
+          <MDBBtn color="primary" className="btn-ui btn-ui-solid" onClick={openEnrollModal}>
             <MDBIcon fas icon="plus" size="xs" /> Enroll New Course
           </MDBBtn>
         }
@@ -45,7 +81,7 @@ const Portal = () => {
       {/* Enroll Modal */}
       {isEnrollOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setIsEnrollOpen(false)} />
+          <div className="absolute inset-0 bg-black/50" onClick={closeEnrollModal} />
           <div className="relative w-full max-w-lg mx-4">
             <MDBCard className="surface-card p-6 shadow-lg">
               <MDBCardBody>
@@ -54,12 +90,15 @@ const Portal = () => {
                   <button
                     aria-label="Close enroll form"
                     className="btn-icon-link"
-                    onClick={() => setIsEnrollOpen(false)}
+                    onClick={closeEnrollModal}
                   >
                     <MDBIcon fas icon="times" />
                   </button>
                 </div>
 
+                {isSubmitting ? (
+                  <PageLoader label="Enrolling course" />
+                ) : (
                 <div className="space-y-4">
                   <div>
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">Course Name</label>
@@ -80,17 +119,11 @@ const Portal = () => {
                     />
                   </div>
                   <div className="flex items-center gap-3 justify-end">
-                    <MDBBtn outline color="secondary" className="btn-ui btn-ui-muted" onClick={() => setIsEnrollOpen(false)}>Cancel</MDBBtn>
-                    <MDBBtn color="primary" className="btn-ui btn-ui-solid" onClick={() => {
-                      // simple validation
-                      if (!newCourse.name) return alert('Please provide a course name');
-                      const created = storage.addCourse(newCourse);
-                      setCourses((c) => [...c, created]);
-                      setNewCourse({ name: "", instructor: "", progress: 0 });
-                      setIsEnrollOpen(false);
-                    }}>Enroll</MDBBtn>
+                    <MDBBtn outline color="secondary" className="btn-ui btn-ui-muted" onClick={closeEnrollModal}>Cancel</MDBBtn>
+                    <MDBBtn color="primary" className="btn-ui btn-ui-solid" onClick={handleEnroll}>Enroll</MDBBtn>
                   </div>
                 </div>
+                )}
               </MDBCardBody>
             </MDBCard>
           </div>
@@ -122,10 +155,12 @@ const Portal = () => {
                   </MDBTableHead>
                   <MDBTableBody>
                     {courses.map((course) => (
-                      <tr
-                          key={course.id}
-                          className="group hover-surface transition-colors"
-                        >
+                      <MotionTr
+                        key={course.id}
+                        whileHover={{ scale: 1.003 }}
+                        transition={{ duration: 0.16 }}
+                        className="group hover-surface transition-colors"
+                      >
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
                             <div className="p-2.5 bg-blue-50 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-all">
@@ -160,12 +195,19 @@ const Portal = () => {
                             className="btn-icon-link"
                             aria-label={`Open ${course.name}`}
                             title={`Open ${course.name}`}
-                            onClick={() => alert(`Open ${course.name} — details view not implemented yet`) }
+                            onClick={() =>
+                              Swal.fire({
+                                icon: "info",
+                                title: course.name,
+                                text: "Detailed course view will be available soon.",
+                                confirmButtonColor: "#2563eb",
+                              })
+                            }
                           >
                             <MDBIcon fas icon="chevron-right" />
                           </MDBBtn>
                         </td>
-                      </tr>
+                      </MotionTr>
                     ))}
                   </MDBTableBody>
                 </MDBTable>
@@ -177,6 +219,7 @@ const Portal = () => {
         <MDBCol lg="4">
           <div className="space-y-6">
             {/* GPA Card */}
+            <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
             <MDBCard className="border-0 shadow-sm premium-gradient text-white overflow-hidden relative group">
               <div className="absolute -right-4 -top-4 opacity-10 group-hover:opacity-20 transition-opacity">
                 <MDBIcon fas icon="star" size="10x" />
@@ -198,9 +241,11 @@ const Portal = () => {
                 </div>
               </MDBCardBody>
             </MDBCard>
+            </MotionDiv>
 
             {/* Academic Standing */}
-            <MDBCard className="border-0 shadow-sm">
+            <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+            <MDBCard className="surface-card border-0 shadow-sm">
               <MDBCardBody className="p-6">
                 <h3 className="font-bold text-slate-800 mb-6 flex items-center gap-2">
                   <MDBIcon
@@ -256,6 +301,7 @@ const Portal = () => {
                 </div>
               </MDBCardBody>
             </MDBCard>
+            </MotionDiv>
           </div>
         </MDBCol>
       </MDBRow>

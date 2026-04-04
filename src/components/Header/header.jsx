@@ -8,6 +8,10 @@ import {
 } from "mdb-react-ui-kit";
 import { storage } from "../../utils/storage";
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const MotionDiv = motion.div;
+const MotionButton = motion.button;
 
 const Header = () => {
   const navigate = useNavigate();
@@ -62,6 +66,7 @@ const Header = () => {
       style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1200 }}
     >
       <MDBContainer fluid className="px-6 md:px-12 flex items-center justify-between">
+        <MotionDiv whileHover={{ x: 2 }} transition={{ duration: 0.18 }}>
         <MDBNavbarBrand href="/" className="m-0 p-0 flex items-center group">
           <div className="surface-soft p-2 rounded-xl group-hover:bg-blue-100 transition-colors mr-3 border border-slate-200/70">
             <img
@@ -74,28 +79,33 @@ const Header = () => {
             Student Portal
           </span>
         </MDBNavbarBrand>
+        </MotionDiv>
 
         <div ref={mobileMenuRef} className="flex items-center gap-6 relative">
-          <button
+          <MotionButton
             type="button"
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             onClick={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
             className="inline-flex icon-btn"
+            whileHover={{ scale: 1.05, rotate: theme === "dark" ? 8 : -8 }}
+            whileTap={{ scale: 0.95 }}
           >
             <MDBIcon fas icon={theme === "dark" ? "sun" : "moon"} />
-          </button>
+          </MotionButton>
 
           {/* Mobile menu toggle */}
-          <button
+          <MotionButton
             type="button"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-menu"
             onClick={() => setMobileOpen((s) => !s)}
             className="md:hidden inline-flex icon-btn"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.95 }}
           >
             <MDBIcon fas icon={mobileOpen ? "times" : "bars"} />
-          </button>
+          </MotionButton>
 
           {mobileOpen && (
             <div
@@ -139,12 +149,14 @@ const Header = () => {
             </div>
           )}
 
+          <MotionDiv whileHover={{ y: -1 }} whileTap={{ y: 0 }}>
           <MDBBtn
             onClick={handleLogout}
             className="m-0 btn-ui btn-ui-danger"
           >
             Logout
           </MDBBtn>
+          </MotionDiv>
         </div>
       </MDBContainer>
     </MDBNavbar>

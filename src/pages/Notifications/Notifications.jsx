@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { MDBCard, MDBCardBody, MDBIcon, MDBBtn } from "mdb-react-ui-kit";
 import PageHeader from "../../components/UI/PageHeader";
+import { motion } from "framer-motion";
+import Swal from "sweetalert2";
+import { useLoading } from "../../context/LoadingContext";
+
+const MotionDiv = motion.div;
 
 const Notifications = () => {
-  const notifications = [
+  const { withLoader } = useLoading();
+  const [notifications, setNotifications] = useState([
     {
       title: "Exam Schedule Released",
       time: "2 hours ago",
       desc: "Midterm examinations for Spring 2026 are scheduled from April 20th.",
       type: "urgent",
       icon: "exclamation-circle",
+      read: false,
     },
     {
       title: "Seminar: AI in Research",
@@ -17,6 +24,7 @@ const Notifications = () => {
       desc: "A guest lecture by Dr. Arsalan on the future of AI in academic research.",
       type: "info",
       icon: "info-circle",
+      read: false,
     },
     {
       title: "Maintenance Alert: Campus Wi-Fi",
@@ -24,6 +32,7 @@ const Notifications = () => {
       desc: "Main block Wi-Fi will be down for maintenance on Saturday from 2 PM.",
       type: "warning",
       icon: "wifi",
+      read: false,
     },
     {
       title: "Library Hours Extended",
@@ -31,6 +40,7 @@ const Notifications = () => {
       desc: "The central library will now remain open until 10 PM on weekdays.",
       type: "info",
       icon: "book-reader",
+      read: false,
     },
     {
       title: "Scholarship Results",
@@ -38,8 +48,28 @@ const Notifications = () => {
       desc: "The results for the Merit Scholarship have been published. Check portal records.",
       type: "success",
       icon: "award",
+      read: false,
     },
-  ];
+  ]);
+
+  const unreadCount = notifications.filter((item) => !item.read).length;
+
+  const markAllAsRead = async () => {
+    if (unreadCount === 0) return;
+
+    await withLoader(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      setNotifications((prev) => prev.map((item) => ({ ...item, read: true })));
+    });
+
+    await Swal.fire({
+      icon: "success",
+      title: "All caught up",
+      text: "All notifications marked as read.",
+      timer: 1200,
+      showConfirmButton: false,
+    });
+  };
 
   return (
     <div className="page-shell animate-in fade-in slide-in-from-top-4 duration-700">
@@ -52,17 +82,24 @@ const Notifications = () => {
             color="secondary"
             size="sm"
             className="btn-ui btn-ui-outline"
+            onClick={markAllAsRead}
+            disabled={unreadCount === 0}
           >
-            Mark all as read
+            <MDBIcon fas icon="check-double" size="xs" />
+            {unreadCount === 0 ? "All Read" : `Mark all as read (${unreadCount})`}
           </MDBBtn>
         }
       />
 
       <div className="max-w-4xl space-y-4">
         {notifications.map((item, idx) => (
-          <MDBCard
+          <MotionDiv
             key={idx}
-            className={`border-0 shadow-sm overflow-hidden h-full border-l-4 ${
+            whileHover={{ y: -3 }}
+            transition={{ duration: 0.18 }}
+          >
+          <MDBCard
+            className={`surface-card border-0 shadow-sm overflow-hidden h-full border-l-4 ${
               item.type === "urgent"
                 ? "border-l-rose-500"
                 : item.type === "warning"
@@ -70,7 +107,7 @@ const Notifications = () => {
                   : item.type === "success"
                     ? "border-l-emerald-500"
                     : "border-l-blue-500"
-            } hover:shadow-md transition-shadow group cursor-pointer`}
+            } hover:shadow-md transition-shadow group cursor-pointer ${item.read ? "opacity-75" : ""}`}
           >
             <MDBCardBody className="p-6">
               <div className="flex gap-6 items-start">
@@ -108,6 +145,7 @@ const Notifications = () => {
               </div>
             </MDBCardBody>
           </MDBCard>
+          </MotionDiv>
         ))}
       </div>
     </div>

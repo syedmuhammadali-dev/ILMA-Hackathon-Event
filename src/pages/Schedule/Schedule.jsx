@@ -9,8 +9,15 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit";
 import PageHeader from "../../components/UI/PageHeader";
+import { motion } from "framer-motion";
+import Swal from "sweetalert2";
+import { useLoading } from "../../context/LoadingContext";
+
+const MotionDiv = motion.div;
 
 const Schedule = () => {
+  const { withLoader } = useLoading();
+
   const scheduleData = [
     {
       time: "09:00 AM - 10:30 AM",
@@ -46,6 +53,19 @@ const Schedule = () => {
     },
   ];
 
+  const handleExport = async () => {
+    await withLoader(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 600));
+    });
+
+    await Swal.fire({
+      icon: "info",
+      title: "Export queued",
+      text: "PDF export is currently being finalized. Try again shortly.",
+      confirmButtonColor: "#2563eb",
+    });
+  };
+
   return (
     <div className="page-shell animate-in fade-in slide-in-from-right-5 duration-700">
       <PageHeader
@@ -55,6 +75,7 @@ const Schedule = () => {
           <MDBBtn
             color="primary"
             className="btn-ui btn-ui-solid"
+            onClick={handleExport}
           >
             <MDBIcon fas icon="download" size="xs" /> Export PDF
           </MDBBtn>
@@ -122,7 +143,7 @@ const Schedule = () => {
                               Lunch Break
                             </span>
                           ) : (
-                            <div className="bg-blue-50/80 border border-blue-100 p-3 rounded-2xl group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-700 transition-all cursor-pointer">
+                            <div className="surface-soft border border-blue-100 p-3 rounded-2xl group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-700 transition-all cursor-pointer">
                               <p className="text-xs font-black mb-0.5 uppercase tracking-tighter">
                                 {day}
                               </p>
@@ -159,8 +180,10 @@ const Schedule = () => {
             text: "Lab sessions are mandatory.",
           },
         ].map((item, idx) => (
-          <div
+          <MotionDiv
             key={idx}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.2 }}
             className="flex items-center gap-4 surface-card p-4 rounded-3xl border border-slate-100 shadow-sm border-b-4 border-b-blue-600 transition-transform hover:-translate-y-1"
           >
             <div className="bg-blue-50 text-blue-600 p-3 rounded-2xl border border-blue-100">
@@ -172,7 +195,7 @@ const Schedule = () => {
               </p>
               <p className="text-xs text-slate-500 font-medium">{item.text}</p>
             </div>
-          </div>
+          </MotionDiv>
         ))}
       </div>
     </div>

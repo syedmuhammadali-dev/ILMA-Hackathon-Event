@@ -10,6 +10,9 @@ import {
 import { storage } from "../../utils/storage";
 import { getColorClasses } from "../../utils/colorClasses";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const MotionDiv = motion.div;
 
 const Home = () => {
   const user = storage.getCurrentUser();
@@ -62,6 +65,7 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
             <MDBCard className="data-grid-card group border-blue-500">
               <MDBCardBody className="p-6">
                 <div className="bg-blue-50 text-blue-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-blue-100 group-hover:bg-blue-600 group-hover:text-white transition-all">
@@ -83,7 +87,9 @@ const Home = () => {
                 </div>
               </MDBCardBody>
             </MDBCard>
+            </MotionDiv>
 
+            <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
             <MDBCard className="data-grid-card group border-indigo-500">
               <MDBCardBody className="p-6">
                 <div className="bg-indigo-50 text-indigo-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all">
@@ -105,7 +111,9 @@ const Home = () => {
                 </div>
               </MDBCardBody>
             </MDBCard>
+            </MotionDiv>
 
+            <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
             <MDBCard className="data-grid-card group border-emerald-500">
               <MDBCardBody className="p-6">
                 <div className="bg-emerald-50 text-emerald-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-emerald-100 group-hover:bg-emerald-600 group-hover:text-white transition-all">
@@ -128,7 +136,9 @@ const Home = () => {
                 </div>
               </MDBCardBody>
             </MDBCard>
+            </MotionDiv>
 
+            <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
             <MDBCard className="data-grid-card group border-amber-500">
               <MDBCardBody className="p-6">
                 <div className="bg-amber-50 text-amber-600 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border border-amber-100 group-hover:bg-amber-600 group-hover:text-white transition-all">
@@ -148,6 +158,7 @@ const Home = () => {
                 </div>
               </MDBCardBody>
             </MDBCard>
+            </MotionDiv>
           </div>
         </MDBCol>
 
@@ -207,6 +218,7 @@ const Home = () => {
                 outline
                 color="primary"
                 className="w-full mt-10 btn-ui btn-ui-outline"
+                onClick={() => navigate("/notifications")}
               >
                 Full News Archive
               </MDBBtn>

@@ -11,8 +11,16 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 import PageHeader from "../../components/UI/PageHeader";
+import { motion } from "framer-motion";
+import Swal from "sweetalert2";
+import { useLoading } from "../../context/LoadingContext";
+
+const MotionDiv = motion.div;
+const MotionTr = motion.tr;
 
 const Grades = () => {
+  const { withLoader } = useLoading();
+
   const gradeData = [
     {
       course: "Object Oriented Programming",
@@ -51,6 +59,19 @@ const Grades = () => {
     },
   ];
 
+  const handleDownloadTranscript = async () => {
+    await withLoader(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 600));
+    });
+
+    await Swal.fire({
+      icon: "info",
+      title: "Transcript Ready",
+      text: "Transcript download feature is being finalized. Your request was captured.",
+      confirmButtonColor: "#2563eb",
+    });
+  };
+
   return (
     <div className="page-shell animate-in fade-in duration-700">
       <PageHeader
@@ -70,7 +91,7 @@ const Grades = () => {
               </div>
               <div className="overflow-x-auto">
                 <MDBTable hover borderless align="middle" className="mb-0">
-                  <MDBTableHead className="bg-slate-50 border-b border-slate-100">
+                  <MDBTableHead className="surface-soft border-b border-slate-100">
                     <tr className="text-left">
                       <th className="table-head-cell">
                         Course
@@ -88,10 +109,12 @@ const Grades = () => {
                   </MDBTableHead>
                   <MDBTableBody>
                     {gradeData.map((item, idx) => (
-                      <tr
-                          key={idx}
-                          className="group hover-surface transition-colors"
-                        >
+                      <MotionTr
+                        key={idx}
+                        whileHover={{ scale: 1.003 }}
+                        transition={{ duration: 0.16 }}
+                        className="group hover-surface transition-colors"
+                      >
                         <td className="px-6 py-4">
                           <div>
                             <p className="font-bold text-slate-900 mb-0">
@@ -121,7 +144,7 @@ const Grades = () => {
                             {item.status}
                           </span>
                         </td>
-                      </tr>
+                      </MotionTr>
                     ))}
                   </MDBTableBody>
                 </MDBTable>
@@ -132,6 +155,7 @@ const Grades = () => {
 
         <MDBCol lg="4">
           <div className="space-y-6">
+            <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
             <MDBCard className="border-0 shadow-sm premium-gradient text-white p-6">
               <MDBCardBody className="p-2">
                 <p className="text-xs font-bold uppercase tracking-widest opacity-70 mb-4">
@@ -149,8 +173,10 @@ const Grades = () => {
                 </div>
               </MDBCardBody>
             </MDBCard>
+            </MotionDiv>
 
-            <MDBCard className="border-0 shadow-sm">
+            <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+            <MDBCard className="surface-card border-0 shadow-sm">
               <MDBCardBody className="p-6">
                 <h3 className="font-bold text-slate-800 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
                   Performance Insight
@@ -163,11 +189,14 @@ const Grades = () => {
                   outline
                   color="primary"
                   className="w-full mt-6 btn-ui btn-ui-outline"
+                  onClick={handleDownloadTranscript}
                 >
+                  <MDBIcon fas icon="download" size="xs" />
                   Download Transcript
                 </MDBBtn>
               </MDBCardBody>
             </MDBCard>
+            </MotionDiv>
           </div>
         </MDBCol>
       </MDBRow>
