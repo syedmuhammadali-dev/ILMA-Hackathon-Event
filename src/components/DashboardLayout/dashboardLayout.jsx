@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../Header/header";
 import Sidebar from "../Sidebar/sidebar";
 import { Outlet } from "react-router-dom";
+import ErrorBoundary from "../ErrorBoundary/errorBoundary";
 
 const DashboardLayout = () => {
   return (
@@ -11,7 +12,9 @@ const DashboardLayout = () => {
         <Sidebar />
         <main className="flex-1 md:ml-64 p-6 transition-all duration-300">
           <div className="max-w-6xl mx-auto">
-            <Outlet />
+            <ErrorBoundary>
+              <Outlet />
+            </ErrorBoundary>
           </div>
         </main>
       </div>

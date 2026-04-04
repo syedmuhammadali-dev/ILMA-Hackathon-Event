@@ -7,6 +7,7 @@ import {
   MDBTable,
   MDBTableHead,
   MDBTableBody,
+  MDBBtn,
   MDBIcon,
 } from "mdb-react-ui-kit";
 
