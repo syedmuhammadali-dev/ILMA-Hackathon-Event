@@ -213,3 +213,36 @@ textarea:focus-visible,
 .data-grid-card {
   @apply border-0 shadow-lg shadow-slate-200/70 hover:shadow-xl hover:-translate-y-1 transition-all p-2 rounded-3xl cursor-pointer border-t-4 overflow-hidden;
 }
+
+/* Compatibility layer for existing Tailwind classes when dark theme is active */
+[data-theme="dark"] .text-slate-900,
+[data-theme="dark"] .text-slate-800,
+[data-theme="dark"] .text-slate-700 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .text-slate-600,
+[data-theme="dark"] .text-slate-500,
+[data-theme="dark"] .text-slate-400 {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: var(--surface-card) !important;
+}
+
+[data-theme="dark"] .bg-slate-50,
+[data-theme="dark"] .bg-slate-50\/50 {
+  background-color: #111827 !important;
+}
+
+[data-theme="dark"] .bg-slate-100 {
+  background-color: #1f2937 !important;
+}
+
+[data-theme="dark"] .border-slate-50,
+[data-theme="dark"] .border-slate-100,
+[data-theme="dark"] .border-slate-200,
+[data-theme="dark"] .border-gray-100 {
+  border-color: var(--border-soft) !important;
+}

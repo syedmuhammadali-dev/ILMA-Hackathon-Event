@@ -13,9 +13,10 @@ const Header = () => {
   const navigate = useNavigate();
   const user = storage.getCurrentUser();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [theme, setTheme] = useState(
-    () => localStorage.getItem("theme") || "light",
-  );
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    return saved === "dark" ? "dark" : "light";
+  });
   const mobileMenuRef = useRef(null);
 
   const handleLogout = () => {
@@ -68,12 +69,12 @@ const Header = () => {
               alt="logo"
             />
           </div>
-          <span className="text-xl font-black tracking-tight transition-transform group-hover:translate-x-1 duration-200 text-slate-900 dark:text-slate-100">
+          <span className="text-xl font-black tracking-tight transition-transform group-hover:translate-x-1 duration-200 text-slate-900">
             Student Portal
           </span>
         </MDBNavbarBrand>
 
-        <div className="flex items-center gap-6 relative">
+        <div ref={mobileMenuRef} className="flex items-center gap-6 relative">
           <button
             type="button"
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
@@ -87,6 +88,8 @@ const Header = () => {
           <button
             type="button"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-menu"
             onClick={() => setMobileOpen((s) => !s)}
             className="md:hidden inline-flex items-center justify-center p-2 rounded-lg surface-soft border border-slate-200/70 text-slate-600 hover:bg-slate-100"
           >
@@ -95,7 +98,7 @@ const Header = () => {
 
           {mobileOpen && (
             <div
-              ref={mobileMenuRef}
+              id="mobile-nav-menu"
               className="md:hidden absolute top-full right-0 mt-2 w-64 max-w-[calc(100vw-2rem)] surface-card shadow-xl rounded-2xl p-3 z-50 border border-slate-200"
             >
               <nav className="flex flex-col gap-2">

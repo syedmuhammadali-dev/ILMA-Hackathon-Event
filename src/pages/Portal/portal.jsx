@@ -89,7 +89,7 @@ const Portal = () => {
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-full h-1.5 bg-slate-100 rounded-full max-w-25 overflow-hidden">
+                            <div className="w-full h-1.5 bg-slate-100 rounded-full max-w-[100px] overflow-hidden">
                               <div
                                 className="h-full bg-blue-600 rounded-full transition-all duration-1000"
                                 style={{ width: `${course.progress}%` }}

@@ -66,7 +66,7 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6 md:p-12">
-      <MDBContainer className="max-w-6xl ui-card flex flex-col md:flex-row h-full min-h-[700px]">
+      <MDBContainer className="max-w-6xl ui-card flex flex-col md:flex-row h-full min-h-175">
         {/* Left Side: Modern Form */}
         <div className="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
           <div className="mb-12">
