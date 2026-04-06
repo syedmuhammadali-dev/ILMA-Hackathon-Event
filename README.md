@@ -1,16 +1,161 @@
-# React + Vite
+# Ilma Hackathon - Student Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern student portal built with React and Vite. The app provides a complete front-end experience for student authentication, profile management, course enrollment, grades, schedule, and notifications.
 
-Currently, two official plugins are available:
+## Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project is a front-end only student dashboard.
 
-## React Compiler
+- Authentication and session state are handled with localStorage.
+- Route protection is done with React Router guards.
+- UI is built with MDB React UI Kit + Tailwind CSS utilities.
+- Motion and transitions are implemented with Framer Motion.
+- Form validation is handled by Zod.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Key Features
 
-## Expanding the ESLint configuration
+- Signup, Login, Forgot Password, and Reset Password flows.
+- Protected dashboard routes with public/private route guards.
+- Responsive dashboard layout with:
+	- Top header
+	- Sidebar navigation (desktop)
+	- Mobile navigation menu
+- Theme toggle (light/dark mode) persisted in localStorage.
+- Student Portal page with enrolled course list and enroll-course modal.
+- Profile page with editable user data and avatar upload.
+- Grades page with transcript-download simulation.
+- Schedule page with export-PDF simulation.
+- Notifications page with mark-all-as-read behavior.
+- Global loading overlay via context.
+- Error boundary in dashboard content area.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- React 18
+- Vite 8
+- React Router DOM 7
+- Tailwind CSS 4
+- MDB React UI Kit
+- Framer Motion
+- SweetAlert2
+- Zod
+- Font Awesome
+- ESLint 9
+
+## Routes
+
+### Public Routes
+
+- /login
+- /signup
+- /forgot-password
+- /reset-password
+
+### Protected Routes
+
+- /
+- /portal
+- /profile
+- /grades
+- /schedule
+- /notifications
+
+## Local Storage Keys
+
+The app currently uses these localStorage keys:
+
+- token: dummy auth token for protected routing.
+- portal_users: registered users array.
+- portal_user: currently logged-in user.
+- portal_courses: enrolled courses list.
+- theme: light or dark theme state.
+
+## Project Structure
+
+```text
+src/
+	components/
+		DashboardLayout/
+		ErrorBoundary/
+		Header/
+		ProtectedRoutes/
+		PublicRoutes/
+		Sidebar/
+		UI/
+	context/
+		EnrollModalContext.jsx
+		LoadingContext.jsx
+	pages/
+		Auth/
+		Grades/
+		Home/
+		Login/
+		Notifications/
+		Portal/
+		Profile/
+		Schedule/
+		Signup/
+	utils/
+		colorClasses.js
+		routes.jsx
+		storage.js
+		validation.js
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ recommended
+- npm
+
+### Installation
+
+```bash
+npm install
+```
+
+### Run Development Server
+
+```bash
+npm run dev
+```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+### Lint
+
+```bash
+npm run lint
+```
+
+## Demo Flow
+
+1. Open signup page and create a new student account.
+2. Login using the same credentials.
+3. Explore dashboard pages (Portal, Profile, Grades, Schedule, Notifications).
+4. Logout from the top-right header button.
+
+## Validation Rules (Zod)
+
+- Full name: minimum 3 characters.
+- Student ID: minimum 4 characters.
+- Email: valid email format.
+- Password: minimum 6 characters.
+- Reset password: confirm password must match.
+
+## Notes
+
+- This is currently a front-end project with mock/local data.
+- Backend APIs and real authentication are not integrated yet.
+- Some actions are intentionally simulated (for example transcript and PDF export).
