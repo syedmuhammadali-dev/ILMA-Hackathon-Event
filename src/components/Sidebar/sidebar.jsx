@@ -2,94 +2,74 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
 import { motion } from "framer-motion";
-import { useEnrollModal } from "../../context/EnrollModalContext";
+import { getTranslation } from "../../utils/linguaEngine";
 
 const MotionDiv = motion.div;
 
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { openEnrollModal, closeEnrollModal } = useEnrollModal();
 
   const menuItems = [
-    { title: "Home", path: "/", icon: "home" },
-    { title: "Portal", path: "/portal", icon: "th-large" },
-    { title: "Profile", path: "/profile", icon: "user" },
-    { title: "Academic Grades", path: "/grades", icon: "poll-h" },
-    { title: "Class Schedule", path: "/schedule", icon: "calendar-alt" },
-    { title: "Notifications", path: "/notifications", icon: "bell" },
+    { title: "Home", key: 'dashboard', path: "/", icon: "home" },
+    { title: "Portal", key: 'portal', path: "/portal", icon: "th-large" },
+    { title: "Profile", key: 'profile', path: "/profile", icon: "user" },
+    { title: "Academic Grades", key: 'grades', path: "/grades", icon: "poll-h" },
+    { title: "Class Schedule", key: 'schedule', path: "/schedule", icon: "calendar-alt" },
+    { title: "Financial Ledger", key: 'financial', path: "/financial", icon: "credit-card" },
+    { title: "Assignment Hub", key: 'assignments', path: "/assignments", icon: "tasks" },
+    { title: "Campus Pulse", key: 'campus', path: "/campus-pulse", icon: "satellite-dish" },
+    { title: "Notifications", key: 'notifications', path: "/notifications", icon: "bell" },
+    { title: "Appearance Settings", key: 'appearance', path: "/appearance", icon: "paint-brush" },
   ];
-
-  const handleOpenEnroll = () => {
-    openEnrollModal();
-    if (location.pathname !== "/portal") {
-      navigate("/portal");
-    }
-  };
-
   return (
-    <aside className="surface-card fixed left-0 top-20 h-[calc(100vh-5rem)] pt-2 w-72 shadow-md z-10 border-r border-slate-200 hidden md:block overflow-y-auto">
-      <div className="px-4 py-2">
-        <h6 className="text-slate-400 uppercase text-xs font-bold mb-4 px-3 tracking-wider">
-          Main Menu
-        </h6>
-        <nav className="flex flex-col gap-1">
-          {menuItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`nav-item group ${
-                location.pathname === item.path
-                  ? "nav-item-active"
-                  : "nav-item-idle"
-              }`}
-            >
-              <MotionDiv
-                whileHover={{ x: 3 }}
-                transition={{ duration: 0.18 }}
-                className="flex items-center gap-3 w-full"
-              >
-                <MDBIcon
-                  fas
-                  icon={item.icon}
-                  className={location.pathname === item.path ? "text-blue-600" : "text-slate-400 group-hover:text-blue-600"}
-                />
-                <span className="font-medium text-sm">{item.title}</span>
-              </MotionDiv>
-            </Link>
-          ))}
-        </nav>
-      </div>
+    <aside className="fixed left-0 top-20 h-[calc(100vh-5rem)] w-72 border-r border-[var(--border-soft)] hidden md:block z-[90] shadow-sm rounded-none">
+      <div className="h-full flex flex-col px-4 py-6">
 
-      <div className="px-6 py-10">
-        <div className="premium-gradient p-4 rounded-2xl text-white shadow-lg shadow-blue-500/20 border border-white/10">
-          <p className="text-xs font-bold opacity-75 mb-1 uppercase tracking-tight">
-            Need Support?
-          </p>
-          <p className="text-sm font-medium mb-3 leading-tight text-white/90">
-            Contact student services for help with your account.
-          </p>
-          <div className="mb-3">
-            <button
-              className="w-full btn-ui btn-ui-solid py-2 mb-2"
-              onClick={handleOpenEnroll}
-            >
-              Open Enroll Form
-            </button>
-            <button
-              className="w-full btn-ui btn-ui-glass py-2"
-              onClick={closeEnrollModal}
-            >
-              Close Enroll Form
-            </button>
-          </div>
-          <button
-            className="w-full btn-ui btn-ui-muted py-2"
-            onClick={() => navigate("/notifications")}
-          >
-            Support Center
-          </button>
-        </div>
+        <nav className="flex-1 space-y-1.5 overflow-y-auto custom-scrollbar pr-2 pt-4">
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            const translatedTitle = getTranslation(item.key) || item.title;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`group relative flex items-center gap-3.5 px-4 py-3 rounded-2xl transition-all duration-300 ${isActive
+                  ? "bg-primary-theme text-white shadow-primary-theme"
+                  : "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white"
+                  }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="active-pill"
+                    className="absolute inset-0 bg-primary-theme rounded-2xl -z-10"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <MotionDiv
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <MDBIcon
+                    fas
+                    icon={item.icon}
+                    className={`text-base ${isActive ? "text-white" : "text-slate-400 group-hover:text-blue-600"}`}
+                  />
+                </MotionDiv>
+                <span className={`text-sm font-bold tracking-tight ${isActive ? "text-white" : "text-slate-500 group-hover:text-slate-900"}`}>
+                  {translatedTitle}
+                </span>
+
+                {item.title === "Notifications" && (
+                  <span className="ml-auto h-5 w-5 rounded-full bg-rose-500 text-[10px] flex items-center justify-center text-white font-black border-2 border-white dark:border-slate-800">
+                    3
+                  </span>
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
       </div>
     </aside>
   );

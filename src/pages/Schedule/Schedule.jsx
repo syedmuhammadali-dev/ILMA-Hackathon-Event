@@ -143,11 +143,11 @@ const Schedule = () => {
                               Lunch Break
                             </span>
                           ) : (
-                            <div className="surface-soft border border-blue-100 p-3 rounded-2xl group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-700 transition-all cursor-pointer">
+                            <div className="surface-soft border border-blue-100 p-3 rounded-2xl text-blue-900 dark:text-blue-200 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-700 transition-all cursor-pointer">
                               <p className="text-xs font-black mb-0.5 uppercase tracking-tighter">
                                 {day}
                               </p>
-                              <p className="text-[9px] font-bold opacity-60 uppercase tracking-widest">
+                              <p className="text-[9px] font-bold opacity-70 uppercase tracking-widest">
                                 Main Block
                               </p>
                             </div>

@@ -1,138 +1,178 @@
 import React, { useState } from "react";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBInput,
-  MDBBtn,
-} from "mdb-react-ui-kit";
 import { useNavigate, Link } from "react-router-dom";
 import { forgotPasswordSchema } from "../../utils/validation";
 import { storage } from "../../utils/storage";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
+import Particles from "../../components/UI/Particles";
+
+const Spinner = () => (
+  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+  </svg>
+);
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     const result = forgotPasswordSchema.safeParse({ email });
     if (!result.success) {
-      setError(result.error.flatten().fieldErrors.email[0]);
+      setError(result.error.flatten().fieldErrors.email?.[0] || "Invalid email.");
       return;
     }
 
+    setLoading(true);
+    await new Promise((r) => setTimeout(r, 700));
+
     const user = storage.findUserByEmail(email);
+    setLoading(false);
+
     if (!user) {
       Swal.fire({
         icon: "error",
-        title: "User Not Found",
-        text: "No account associated with this email address.",
-        confirmButtonColor: "#3b82f6",
+        title: "Not Found",
+        text: "No account is associated with this email address.",
+        confirmButtonColor: "#6366f1",
+        background: "#0f172a",
+        color: "#e2e8f0",
+        customClass: { popup: "rounded-2xl" },
       });
       return;
     }
 
     Swal.fire({
       icon: "success",
-      title: "Reset Link 'Sent'",
-      text: "We've simulated sending a reset link to your email. Redirecting you to the reset page.",
-      timer: 3000,
+      title: "Reset Link Sent",
+      text: "Redirecting you to reset your password…",
+      timer: 2500,
       showConfirmButton: false,
+      background: "#0f172a",
+      color: "#e2e8f0",
+      customClass: { popup: "rounded-2xl" },
     }).then(() => {
-      navigate(`/reset-password?email=${email}`);
+      navigate(`/reset-password?email=${encodeURIComponent(email)}`);
     });
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-      <MDBContainer className="max-w-5xl ui-card">
-        <MDBRow className="g-0">
-          <MDBCol md="6" className="hidden md:block">
-            <div className="h-full premium-gradient p-12 flex flex-col justify-center text-white relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-80 h-80 surface-blob rounded-full -ml-40 -mt-40 blur-3xl"></div>
-              <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full -mr-40 -mb-40 blur-3xl"></div>
+    <div className="auth-page relative flex items-center justify-center p-6 overflow-hidden">
 
-              <h3 className="text-4xl font-extrabold mb-6 leading-tight relative z-10">
-                Recover Your <br />
-                Account Access.
-              </h3>
-              <p className="text-lg opacity-80 leading-relaxed mb-10 relative z-10">
-                Enter your registered email and we will guide you to set a new
-                password securely.
-              </p>
+      {/* Blobs */}
+      <div className="auth-blob-1" style={{ background: "radial-gradient(circle, rgba(6,182,212,0.30) 0%, transparent 70%)" }} />
+      <div className="auth-blob-2" style={{ background: "radial-gradient(circle, rgba(99,102,241,0.22) 0%, transparent 70%)" }} />
+      <div className="auth-blob-3" />
 
-              <div className="grid grid-cols-2 gap-4 relative z-10">
-                {[
-                  { label: "Quick", sub: "Recovery" },
-                  { label: "Safe", sub: "Verification" },
-                  { label: "Simple", sub: "Steps" },
-                  { label: "Secure", sub: "Process" },
-                ].map((stat, idx) => (
-                  <div key={idx} className="glass-badge p-4 rounded-2xl">
-                    <p className="text-2xl font-bold leading-none mb-1">
-                      {stat.label}
-                    </p>
-                    <p className="text-xs font-medium opacity-60 uppercase tracking-widest">
-                      {stat.sub}
-                    </p>
-                  </div>
-                ))}
-              </div>
+      {/* Particles */}
+      <div className="auth-particles absolute inset-0 z-0">
+        <Particles count={45} />
+      </div>
+
+      {/* Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 28, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative z-10 w-full max-w-md"
+      >
+        <div className="auth-glass-card rounded-3xl p-10 md:p-12">
+
+          {/* Icon */}
+          <motion.div
+            initial={{ scale: 0.7, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.15, type: "spring", stiffness: 200 }}
+            className="w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-white/10"
+            style={{ background: "rgba(6,182,212,0.15)", backdropFilter: "blur(8px)" }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.6" style={{ color: "#06b6d4" }}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </motion.div>
+
+          {/* Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-center mb-5"
+          >
+            <h1 className="text-3xl font-black text-white-force tracking-tight mb-2">
+              Forgot Password?
+            </h1>
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(148,163,184,0.75)" }}>
+              Enter your registered email and we'll send you a password reset link.
+            </p>
+          </motion.div>
+
+          {/* Form */}
+          <motion.form
+            onSubmit={handleSubmit}
+            className="space-y-5"
+            noValidate
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <div>
+              <label className="auth-label">Email Address</label>
+              <input
+                id="forgot-email"
+                type="email"
+                autoComplete="email"
+                placeholder="yourname@ilmauniversity.edu"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); setError(""); }}
+                className={`auth-input${error ? " has-error" : ""}`}
+              />
+              {error && (
+                <p className="mt-1.5 text-xs font-semibold text-red-400">⚠ {error}</p>
+              )}
             </div>
-          </MDBCol>
 
-          <MDBCol md="6" className="p-8 md:p-12">
-            <div className="flex flex-col h-full max-w-sm mx-auto justify-center">
-              <div className="mb-10">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                  className="w-16 mb-6"
-                  alt="logo"
-                />
-                <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-                  Forgot Password
-                </h2>
-                <p className="text-slate-500 font-medium">
-                  Enter your email to continue.
-                </p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <MDBInput
-                    label="Email address"
-                    placeholder="Enter your university email"
-                    type="email"
-                    size="lg"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className={`input-field ${error ? "border-red-500" : ""}`}
-                  />
-                  {error && (
-                    <p className="text-red-500 text-xs mt-1 font-bold">{error}</p>
-                  )}
-                </div>
-
-                <MDBBtn type="submit" className="ui-btn-primary mt-2">
+            <motion.button
+              type="submit"
+              disabled={loading}
+              whileHover={!loading ? { scale: 1.01 } : {}}
+              whileTap={!loading ? { scale: 0.98 } : {}}
+              className="auth-btn"
+            >
+              {loading ? (
+                <><Spinner /> Sending…</>
+              ) : (
+                <>
                   Send Reset Link
-                </MDBBtn>
-              </form>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </>
+              )}
+            </motion.button>
+          </motion.form>
 
-              <div className="mt-12 text-center pt-8 border-t border-slate-100">
-                <Link
-                  to="/login"
-                  className="text-blue-600 font-bold hover:underline text-sm"
-                >
-                  Return to Login
-                </Link>
-              </div>
-            </div>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+          {/* Back to login */}
+          <div className="mt-8 pt-6 text-center" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+            <Link
+              to="/login"
+              className="inline-flex items-center gap-2 text-sm font-bold transition-colors hover:underline underline-offset-2"
+              style={{ color: "#6366f1" }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+              </svg>
+              Back to Login
+            </Link>
+          </div>
+
+        </div>
+      </motion.div>
     </div>
   );
 };

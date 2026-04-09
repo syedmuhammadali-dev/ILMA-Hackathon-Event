@@ -1,0 +1,106 @@
+export const translations = {
+  en: {
+    portal_title: "ILMA Student Portal",
+    command_center: "Command Center",
+    welcome_msg: "Welcome to the next generation of academic management. Securely monitor your course trajectory.",
+    dashboard: "Dashboard",
+    grades: "Academic Nexus",
+    financial: "Financial Ledger",
+    assignments: "Assignment Hub",
+    campus: "Campus Pulse",
+    appearance: "Appearance",
+    portal: "Portal Node",
+    profile: "Student Profile",
+    schedule: "Class Schedule",
+    notifications: "Notifications",
+    logout: "Log Out",
+    search: "Search content...",
+    academic_trajectory: "Academic Trajectory",
+    system_alerts: "System Alerts",
+    attendance: "Attendance Pulse",
+    gpa: "GPA Estimate",
+    fee_breakdown: "Fee Breakdown",
+    scholarship: "Scholarship Node",
+    extracurricular: "Society Events",
+    assignment_header: "Assignment Sanctuary",
+    assignment_subtitle: "Securely monitor academic objectives and track feedback nodes.",
+    active_deadlines: "Active Deadlines",
+    performance_equilibrium: "Performance Equilibrium",
+    mission_history: "Mission History Matrix",
+    initialize_uplink: "Initialize Uplink",
+    language_label: "Eng"
+  },
+  ur: {
+    portal_title: "علما اسٹوڈنٹ پورٹل",
+    command_center: "کمانڈ سینٹر",
+    welcome_msg: "تعلیمی انتظام کی اگلی نسل میں خوش آمدید۔ اپنے کورس کی نگرانی باحفاظت کریں۔",
+    dashboard: "ڈیش بورڈ",
+    grades: "تعلیمی رابطہ",
+    financial: "مالیاتی رجسٹر",
+    assignments: "اسائنمنٹ سینٹر",
+    campus: "کیمپس اپ ڈیٹس",
+    appearance: "ظاہری ترتیبات",
+    portal: "پورٹل نوڈ",
+    profile: "طالب علم کی پروفائل",
+    schedule: "کلاس شیڈول",
+    notifications: "سسٹم اطلاعات",
+    logout: "لاگ آؤٹ",
+    search: "تلاش کریں...",
+    academic_trajectory: "تعلیمی گراف",
+    system_alerts: "سسٹم الرٹس",
+    attendance: "حاضری کی شرح",
+    gpa: "جی پی اے ٹریکر",
+    fee_breakdown: "فیس کی تفصیل",
+    scholarship: "اسکالرشپ نوڈ",
+    extracurricular: "کیمپس ایونٹس",
+    assignment_header: "اسائنمنٹ سینکچری",
+    assignment_subtitle: "اپنے تعلیمی اہداف کی نگرانی کریں اور فیڈ بیک ٹریک کریں۔",
+    active_deadlines: "فعال ڈیڈ لائنز",
+    performance_equilibrium: "کارکردگی کا توازن",
+    mission_history: "مشن ہسٹری میٹرکس",
+    initialize_uplink: "اپ لنک شروع کریں",
+    language_label: "اردو"
+  },
+  ur_roman: {
+    portal_title: "ILMA Student Portal",
+    command_center: "Command Center",
+    welcome_msg: "Academic management ki agli nasal mein khush amdeed. Apne courses ki nigraani karein.",
+    dashboard: "Dashboard",
+    grades: "Parhai Ka Link",
+    financial: "Fees Ka Hisab",
+    assignments: "Assignment Hub",
+    campus: "Campus Ki Khabrein",
+    appearance: "Design Badalain",
+    portal: "Portal Node",
+    profile: "Student Profile",
+    schedule: "Class Ka Time",
+    notifications: "Alerts & Messages",
+    logout: "Bahir Nikalain",
+    search: "Kuch dhondein...",
+    academic_trajectory: "Parhai Ka Graph",
+    system_alerts: "Zaroori Khabrein",
+    attendance: "Hazri Ka Pulse",
+    gpa: "GPA Ka Hisab",
+    fee_breakdown: "Fees Ki Detail",
+    scholarship: "Scholarship Node",
+    extracurricular: "Baher Ki Activities",
+    assignment_header: "Assignment Sanctuary",
+    assignment_subtitle: "Apne parhai ke targets check karein aur feedback dekhain.",
+    active_deadlines: "Active Deadlines",
+    performance_equilibrium: "Performance Check",
+    mission_history: "Purani History",
+    initialize_uplink: "Upload Karein",
+    language_label: "Roman"
+  }
+};
+
+export const applyLanguage = (lang) => {
+  localStorage.setItem("portal-lang", lang);
+  document.documentElement.lang = lang === 'ur' ? 'ur' : 'en';
+  document.documentElement.dir = lang === 'ur' ? 'rtl' : 'ltr';
+};
+
+export const getTranslation = (key) => {
+  const lang = localStorage.getItem("portal-lang") || "en";
+  return translations[lang][key] || translations['en'][key] || key;
+};
