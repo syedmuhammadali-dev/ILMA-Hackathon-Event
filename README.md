@@ -1,7 +1,7 @@
 # Ilma Hackathon - Student Portal
 
 A modern student portal built with React and Vite. The app provides a complete front-end experience for student authentication, profile management, course enrollment, grades, schedule, and notifications.
-
+   
 ## Project Overview
 
 This project is a front-end only student dashboard.
@@ -159,3 +159,8 @@ npm run lint
 - This is currently a front-end project with mock/local data.
 - Backend APIs and real authentication are not integrated yet.
 - Some actions are intentionally simulated (for example transcript and PDF export).
+
+
+___
+
+updating...
