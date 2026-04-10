@@ -6,6 +6,10 @@ import Profile from "../pages/Profile/profile";
 import Grades from "../pages/Grades/Grades";
 import Schedule from "../pages/Schedule/Schedule";
 import Notifications from "../pages/Notifications/Notifications";
+import Financial from "../pages/Financial/Financial";
+import Assignments from "../pages/Assignments/Assignments";
+import CampusPulse from "../pages/CampusPulse/CampusPulse";
+import Appearance from "../pages/Appearance/Appearance";
 import PublicRoute from "../components/PublicRoutes/publicRoutes";
 import Login from "../pages/Login/login";
 import Signup from "../pages/Signup/signup";
@@ -28,6 +32,10 @@ const RoutesComponent = () => {
             <Route path="/grades" element={<Grades />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/financial" element={<Financial />} />
+            <Route path="/assignments" element={<Assignments />} />
+            <Route path="/campus-pulse" element={<CampusPulse />} />
+            <Route path="/appearance" element={<Appearance />} />
           </Route>
         </Route>
 

@@ -4,7 +4,6 @@ import {
   MDBCol,
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
   MDBBtn,
   MDBInput,
   MDBIcon,
@@ -12,22 +11,20 @@ import {
 import { storage } from "../../utils/storage";
 import { profileSchema } from "../../utils/validation";
 import PageHeader from "../../components/UI/PageHeader";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const MotionDiv = motion.div;
 
 const Profile = () => {
   const [user, setUser] = useState(storage.getCurrentUser());
   const [isEditing, setIsEditing] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
   const [formData, setFormData] = useState({
     fullName: user?.fullName || "",
     studentId: user?.studentId || "",
-    bio:
-      user?.bio ||
-      "Enthusiastic computer science student with a passion for web technologies.",
+    bio: user?.bio || "Passionately pursuing excellence in engineering and technology.",
   });
   const [errors, setErrors] = useState({});
-
   const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
@@ -38,11 +35,9 @@ const Profile = () => {
   const handleSave = () => {
     const result = profileSchema.safeParse(formData);
     if (!result.success) {
-      const formattedErrors = result.error.flatten().fieldErrors;
-      setErrors(formattedErrors);
+      setErrors(result.error.flatten().fieldErrors);
       return;
     }
-
     const updatedUser = storage.updateProfile(formData);
     if (updatedUser) {
       setUser(updatedUser);
@@ -51,230 +46,245 @@ const Profile = () => {
     }
   };
 
-  const handleAvatarClick = () => {
+  const handleAvatarClick = (e) => {
+    e.stopPropagation();
     fileInputRef.current?.click();
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files && e.target.files[0];
+    const file = e.target.files?.[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.onload = () => {
-      try {
-        const dataUrl = reader.result;
-        const updatedUser = storage.updateProfile({ avatar: dataUrl });
-        if (updatedUser) setUser(updatedUser);
-      } catch {
-        // swallow for now; consider user feedback later
-      }
+      const updatedUser = storage.updateProfile({ profileImage: reader.result });
+      if (updatedUser) setUser(updatedUser);
     };
     reader.readAsDataURL(file);
-    e.target.value = null;
   };
 
   return (
-    <div className="page-shell animate-in fade-in slide-in-from-bottom-5 duration-700">
+    <div className="page-shell space-y-8 animate-in fade-in duration-700">
       <PageHeader
-        title="Your Profile"
-        subtitle="Manage your personal information and student credentials."
+        title="Student Identity"
+        subtitle="Manage your academic profile and digital credentials."
       />
 
-      <MDBRow className="g-6">
-        <MDBCol lg="4">
-          <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-          <MDBCard className="surface-card border-0 shadow-sm text-center p-6">
-            <MDBCardBody>
-              <div className="relative w-32 h-32 mx-auto mb-6">
-                <MDBCardImage
-                  src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.fullName}&background=random&size=128`}
-                  className="rounded-full shadow-lg border-4 border-white"
-                  alt="avatar"
-                />
-                <button
-                  type="button"
-                  aria-label="Change avatar"
-                  onClick={handleAvatarClick}
-                  className="absolute bottom-1 right-1 inline-flex icon-btn rounded-full h-9 w-9"
+      <MDBRow className="g-8">
+        {/* Left Column: ID Card & Stats */}
+        <MDBCol lg="5" xl="4">
+          <div className="flex flex-col gap-8">
+            {/* 3D Flippable ID Card */}
+            <div
+              className="relative w-full aspect-[1.6/1] perspective-1000 cursor-pointer"
+              onClick={() => setIsFlipped(!isFlipped)}
+            >
+              <motion.div
+                className="w-full h-full relative preserve-3d transition-all duration-700"
+                animate={{ rotateY: isFlipped ? 180 : 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              >
+                {/* Front of Card */}
+                <div
+                  className="absolute inset-0 backface-hidden rounded-[2rem] overflow-hidden shadow-2xl text-white border border-white/20"
+                  style={{
+                    background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)",
+                    boxShadow: "0 25px 50px -12px rgba(49, 46, 129, 0.5)"
+                  }}
                 >
-                  <MDBIcon fas icon="camera" size="sm" />
-                </button>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="hidden"
-                  aria-hidden="true"
-                />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900">
-                {user?.fullName}
-              </h3>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">
-                {user?.studentId || "No Student ID"}
-              </p>
-              <p className="text-slate-600 font-medium text-sm tracking-wide mt-2">
-                {user?.bio || formData.bio}
-              </p>
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-400/20 blur-[60px] rounded-full mix-blend-screen -mr-10 -mt-10"></div>
+                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-500/20 blur-[60px] rounded-full mix-blend-screen -ml-10 -mb-10"></div>
 
-                <div className="mt-8 pt-8 border-t border-gray-100 grid grid-cols-2 gap-4">
-                <div className="text-center group cursor-pointer p-4 rounded-xl hover-surface transition-colors">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">
-                    Courses
-                  </p>
-                  <p className="text-lg font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">
-                    12
-                  </p>
+                  <div className="relative z-10 flex flex-col h-full justify-between p-7">
+                    {/* Header */}
+                    <div className="flex justify-between items-start">
+                      <div className="flex flex-col">
+                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-cyan-300 opacity-80 mb-1">Official ID / 2026</span>
+                        <h4 className="text-xl font-black text-white-force tracking-widest uppercase">ILMA N<span className="text-cyan-400">e</span>xus</h4>
+                      </div>
+                      <MDBIcon fas icon="microchip" className="text-3xl text-slate-300 drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+                    </div>
+
+                    {/* Body */}
+                    <div className="flex items-center gap-5 mt-4">
+                      {/* Avatar with glowing ring */}
+                      <div className="relative group shrink-0" onClick={handleAvatarClick}>
+                        <div className="h-24 w-24 rounded-2xl p-1 bg-gradient-to-br from-cyan-400 to-fuchsia-500 shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all group-hover:scale-105">
+                          <div className="h-full w-full rounded-[14px] bg-slate-900, overflow-hidden flex items-center justify-center">
+                            {user?.profileImage ? (
+                              <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
+                            ) : (
+                              <span className="text-3xl font-black text-white-force">{user?.fullName?.charAt(0)}</span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="absolute -bottom-2 -right-2 h-8 w-8 bg-slate-800 rounded-lg flex items-center justify-center text-white border border-slate-600 shadow-xl group-hover:-translate-y-1 transition-transform">
+                          <MDBIcon fas icon="camera" className="text-[10px] text-cyan-400" />
+                        </div>
+                        <input ref={fileInputRef} type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
+                      </div>
+
+                      <div className="flex flex-col overflow-hidden">
+                        <p className="text-2xl font-black text-white-force truncate tracking-tight drop-shadow-md">{user?.fullName}</p>
+                        <div className="flex items-center gap-2 mt-0">
+                          <div className="bg-white/10 px-2 py-0.5 rounded text-[10px] font-bold text-cyan-300 tracking-widest backdrop-blur-sm">{user?.studentId || "2024-CORE-V2"}</div>
+                        </div>
+                        <div className="mt-3 flex items-center gap-2">
+                          <span className="relative flex h-2.5 w-2.5 ms-2 mb-1">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                          </span>
+                          <span className="text-[9px] font-black uppercase tracking-[0.15em] text-emerald-300 mb-1">Active</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="flex justify-between items-end border-t border-white/10 pt-4 mt-2">
+                      <div className="flex flex-col gap-1">
+                        <span className="text-[8px] font-bold uppercase opacity-60 tracking-[0.2em] text-slate-300">Valid Thru</span>
+                        <span className="text-sm font-black text-white px-2.5 py-1 bg-white/10 rounded tracking-widest backdrop-blur-sm">12 / 26</span>
+                      </div>
+                      <MDBIcon fab icon="nfc" className="text-3xl text-white/50" />
+                    </div>
+                  </div>
                 </div>
-                <div className="text-center group cursor-pointer p-4 rounded-xl hover-surface transition-colors">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">
-                    Points
-                  </p>
-                  <p className="text-lg font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">
-                    2.4k
-                  </p>
+
+                {/* Back of Card */}
+                <div
+                  className="absolute inset-0 backface-hidden rounded-[2rem] overflow-hidden shadow-2xl flex flex-col items-center justify-center text-center border border-white/10"
+                  style={{ transform: "rotateY(180deg)", background: "linear-gradient(135deg, #020617 0%, #0f172a 100%)" }}
+                >
+                  <div className="relative z-10 w-full px-8 flex flex-col items-center justify-center h-full">
+                    <div className="bg-white p-3 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.1)] mb-5">
+                      <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${user?.fullName}-${user?.studentId}`} alt="QR" className="h-28 w-28 object-contain" />
+                    </div>
+                    <h5 className="text-cyan-400 text-xs font-black mb-1.5 uppercase tracking-widest">Scan to Verify</h5>
+                    <p className="text-slate-400 text-[9px] leading-relaxed max-w-[220px] font-bold uppercase tracking-wider">
+                      Property of ILMA University.<br />If found, return to administration.
+                    </p>
+                    <div className="mt-8 pt-4 w-full border-t border-white/5 flex justify-center gap-6 opacity-40">
+                      <MDBIcon fab icon="apple-pay" className="text-2xl text-white" />
+                      <MDBIcon fab icon="google-pay" className="text-2xl text-white" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-          </MotionDiv>
+              </motion.div>
+            </div>
+
+            {/* Quick Stats Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: "Aggregate GPA", value: "3.86", color: "blue", icon: "graduation-cap" },
+                { label: "Attendance", value: "94.2%", color: "emerald", icon: "user-check" },
+                { label: "Total Credits", value: "86", color: "purple", icon: "book-open" },
+                { label: "Portal Points", value: "1.2k", color: "amber", icon: "fire" },
+              ].map((stat, i) => (
+                <MotionDiv
+                  key={i}
+                  whileHover={{ scale: 1.02 }}
+                  className="surface-card p-5 rounded-[1.5rem] shadow-sm flex flex-col gap-3"
+                >
+                  <div className={`h-8 w-8 rounded-lg bg-${stat.color}-50 dark:bg-${stat.color}-500/10 flex items-center justify-center`}>
+                    <MDBIcon fas icon={stat.icon} className={`text-sm text-${stat.color}-500`} />
+                  </div>
+                  <div>
+                    <h5 className="text-xl font-black text-slate-800 dark:text-white leading-none">{stat.value}</h5>
+                    <p className="text-[9px] font-bold uppercase tracking-widest text-slate-400 mt-1">{stat.label}</p>
+                  </div>
+                </MotionDiv>
+              ))}
+            </div>
+          </div>
         </MDBCol>
 
-        <MDBCol lg="8">
-          <MotionDiv whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-          <MDBCard className="surface-card border-0 shadow-sm">
-            <MDBCardBody className="p-8">
-              <div className="flex items-center justify-between mb-8">
-                <h4 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                  <MDBIcon fas icon="id-card" className="text-blue-500" />
-                  Account Information
-                </h4>
-                {!isEditing ? (
-                  <MDBBtn
-                    outline
-                    color="primary"
-                    size="sm"
-                    onClick={() => setIsEditing(true)}
-                    className="btn-ui btn-ui-outline"
-                  >
-                    Edit Profile
-                  </MDBBtn>
+        {/* Right Column: Information Forms */}
+        <MDBCol lg="7" xl="8">
+          <MotionDiv
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/20"
+          >
+            <div className="flex items-center justify-between mb-10 pb-6 border-b border-slate-50 dark:border-slate-800">
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 rounded-2xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center">
+                  <MDBIcon fas icon="user-edit" className="text-blue-600" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Account Profile</h2>
+                  <p className="text-xs font-bold text-slate-400">Update your public identity on the portal.</p>
+                </div>
+              </div>
+              {!isEditing ? (
+                <MDBBtn onClick={() => setIsEditing(true)} className="btn-ui btn-ui-solid px-6 rounded-xl shadow-lg shadow-blue-500/20">
+                  Edit Profile
+                </MDBBtn>
+              ) : (
+                <div className="flex gap-2">
+                  <button onClick={() => setIsEditing(false)} className="px-5 py-2 text-xs font-bold text-slate-400 hover:text-slate-600">Cancel</button>
+                  <MDBBtn onClick={handleSave} className="btn-ui btn-ui-solid px-6 rounded-xl">Save Changes</MDBBtn>
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-8 max-w-2xl">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[11px] font-black uppercase text-slate-500 tracking-widest ml-1">Full Identity Name</label>
+                  {isEditing ? (
+                    <input name="fullName" value={formData.fullName} onChange={handleChange} className="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-3.5 font-bold outline-none focus:ring-4 focus:ring-blue-500/10 transition-all" />
+                  ) : (
+                    <div className="text-lg font-bold text-slate-800 dark:text-slate-200 px-5 py-3.5 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl border border-transparent">{user?.fullName}</div>
+                  )}
+                  {errors.fullName && <p className="text-[10px] text-rose-500 font-bold ml-1">{errors.fullName[0]}</p>}
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-black uppercase text-slate-500 tracking-widest ml-1">Official Student ID</label>
+                  {isEditing ? (
+                    <input name="studentId" value={formData.studentId} onChange={handleChange} className="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-3.5 font-bold outline-none focus:ring-4 focus:ring-blue-500/10 transition-all" />
+                  ) : (
+                    <div className="text-lg font-bold text-slate-800 dark:text-slate-200 px-5 py-3.5 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl border border-transparent">{user?.studentId}</div>
+                  )}
+                  {errors.studentId && <p className="text-[10px] text-rose-500 font-bold ml-1">{errors.studentId[0]}</p>}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[11px] font-black uppercase text-slate-500 tracking-widest ml-1">Verified Email Address</label>
+                <div className="flex items-center gap-3 text-slate-400 px-5 py-3.5 bg-slate-50/30 dark:bg-slate-800/20 rounded-2xl border border-slate-100 dark:border-slate-800 italic text-sm">
+                  <MDBIcon fas icon="lock" className="text-[10px]" /> {user?.email}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[11px] font-black uppercase text-slate-500 tracking-widest ml-1">Personal Academic Bio</label>
+                {isEditing ? (
+                  <textarea name="bio" rows={4} value={formData.bio} onChange={handleChange} className="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-3.5 font-bold outline-none focus:ring-4 focus:ring-blue-500/10 transition-all resize-none" />
                 ) : (
-                  <div className="flex gap-2">
-                    <MDBBtn
-                      outline
-                      color="secondary"
-                      size="sm"
-                      onClick={() => setIsEditing(false)}
-                      className="btn-ui btn-ui-muted"
-                    >
-                      Cancel
-                    </MDBBtn>
-                    <MDBBtn
-                      color="primary"
-                      size="sm"
-                      onClick={handleSave}
-                      className="btn-ui btn-ui-solid"
-                    >
-                      Save Changes
-                    </MDBBtn>
-                  </div>
+                  <div className="text-md leading-relaxed text-slate-600 dark:text-slate-400 px-5 py-6 bg-slate-50/50 dark:bg-slate-800/40 rounded-3xl border border-transparent">{user?.bio || formData.bio}</div>
                 )}
               </div>
 
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
-                      Full Name
-                    </label>
-                    {isEditing ? (
-                      <>
-                        <MDBInput
-                          label="Full Name"
-                          placeholder="e.g. Syed Muhammad Ali"
-                          name="fullName"
-                          value={formData.fullName}
-                          onChange={handleChange}
-                          className={`input-field ${errors.fullName ? "border-red-500" : ""}`}
-                        />
-                        {errors.fullName && (
-                          <p className="text-red-500 text-xs mt-1 font-medium">
-                            {errors.fullName[0]}
-                          </p>
-                        )}
-                      </>
-                    ) : (
-                      <p className="p-3 surface-soft rounded-xl font-bold text-slate-900 border border-slate-100">
-                        {user?.fullName}
-                      </p>
-                    )}
+              <div className="pt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <MotionDiv whileHover={{ y: -2 }} className="p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-900/30 flex items-center gap-4 cursor-pointer">
+                  <div className="h-10 w-10 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm">
+                    <MDBIcon fas icon="shield-alt" className="text-indigo-600" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
-                      Student ID
-                    </label>
-                    {isEditing ? (
-                      <>
-                        <MDBInput
-                          name="studentId"
-                          value={formData.studentId}
-                          onChange={handleChange}
-                          className={`input-field ${errors.studentId ? "border-red-500" : ""}`}
-                        />
-                        {errors.studentId && (
-                          <p className="text-red-500 text-xs mt-1 font-medium">
-                            {errors.studentId[0]}
-                          </p>
-                        )}
-                      </>
-                    ) : (
-                      <p className="p-3 surface-soft rounded-xl font-bold text-slate-900 border border-slate-100">
-                        {user?.studentId}
-                      </p>
-                    )}
+                    <p className="text-[10px] font-black uppercase text-indigo-400 tracking-widest">Security Status</p>
+                    <p className="text-xs font-bold text-indigo-900 dark:text-indigo-200">Reset Credentials</p>
                   </div>
-                  <div className="md:col-span-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
-                      Email Address
-                    </label>
-                    <p className="p-3 surface-soft rounded-xl font-medium text-slate-400 border border-slate-100 cursor-not-allowed italic">
-                      {user?.email} (Cannot be changed)
-                    </p>
+                </MotionDiv>
+                <MotionDiv whileHover={{ y: -2 }} className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-900/10 border border-rose-100 dark:border-rose-900/30 flex items-center gap-4 cursor-pointer">
+                  <div className="h-10 w-10 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm">
+                    <MDBIcon fas icon="sign-out-alt" className="text-rose-600" />
                   </div>
-                  <div className="md:col-span-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
-                      Short Bio
-                    </label>
-                    {isEditing ? (
-                      <>
-                        <MDBInput
-                          label="Student Bio"
-                          placeholder="Tell us about your academic goals..."
-                          name="bio"
-                          textarea
-                          rows={4}
-                          value={formData.bio}
-                          onChange={handleChange}
-                          className={`input-field ${errors.bio ? "border-red-500" : ""}`}
-                        />
-                        {errors.bio && (
-                          <p className="text-red-500 text-xs mt-1 font-medium">
-                            {errors.bio[0]}
-                          </p>
-                        )}
-                      </>
-                    ) : (
-                      <p className="p-4 surface-soft rounded-xl text-slate-700 leading-relaxed border border-slate-100">
-                        {user?.bio || formData.bio}
-                      </p>
-                    )}
+                  <div>
+                    <p className="text-[10px] font-black uppercase text-rose-400 tracking-widest">Termination</p>
+                    <p className="text-xs font-bold text-rose-900 dark:text-rose-200">Deactivate Session</p>
                   </div>
-                </div>
+                </MotionDiv>
               </div>
-            </MDBCardBody>
-          </MDBCard>
+            </div>
           </MotionDiv>
         </MDBCol>
       </MDBRow>
