@@ -255,15 +255,14 @@ const Header = () => {
             </div>
 
             <MotionButton
-              className={`h-10 w-10 flex items-center justify-center rounded-full border border-slate-200 dark:border-white/5 ${isNotificationsOpen ? 'bg-slate-100 dark:bg-slate-800' : 'bg-transparent'}`}
-              whileHover={{ scale: 1.1, backgroundColor: "var(--surface-card-soft)" }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-              title="Notifications"
-            >
-              <div className="relative">
-                <MDBIcon fas icon="bell" className={isNotificationsOpen ? 'text-blue-600' : 'text-slate-500'} />
-                <span className="absolute -top-1 -right-1 h-2 w-2 bg-rose-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+                className={`h-10 w-10 flex items-center justify-center rounded-full border border-slate-200 dark:border-white/5 bg-transparent`}
+                whileHover={{ scale: 1.1, backgroundColor: "var(--surface-card-soft)" }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => navigate("/notifications")}
+                title="Notifications"
+              >
+                <div className="relative">
+                  <MDBIcon fas icon="bell" className="text-slate-500" />
               </div>
             </MotionButton>
 

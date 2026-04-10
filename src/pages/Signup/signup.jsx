@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { signupSchema } from "../../utils/validation";
 import { storage } from "../../utils/storage";
 import Swal from "sweetalert2";
-import { motion } from "framer-motion";
 import Particles from "../../components/UI/Particles";
 import Logo from "../../assets/Logo.png";
 
