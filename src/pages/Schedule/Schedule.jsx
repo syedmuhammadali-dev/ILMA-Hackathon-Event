@@ -145,26 +145,26 @@ const Schedule = () => {
           </div>
 
           {/* Mobile/Tablet List View */}
-          <div className="lg:hidden p-4 space-y-6">
+          <div className="lg:hidden p-2 xs:p-4 space-y-5">
             {scheduleData.map((row, idx) => (
-              <div key={idx} className="space-y-3">
-                <div className="flex items-center gap-3">
+              <div key={idx} className="space-y-2">
+                <div className="flex items-center gap-2">
                   <span className="h-px flex-1 bg-slate-100 dark:bg-slate-800"></span>
-                  <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                  <span className="text-[9px] xs:text-[10px] font-black text-blue-600 uppercase tracking-[0.15em] bg-blue-50 dark:bg-blue-900/10 px-2 py-0.5 rounded-full border border-blue-100 dark:border-blue-900/30">
                     {row.time}
                   </span>
                   <span className="h-px flex-1 bg-slate-100 dark:bg-slate-800"></span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 xs:grid-cols-2 gap-2">
                   {days.map((day, dIdx) => row[day] !== "-" && (
-                    <div key={dIdx} className="surface-card p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center justify-between">
-                       <div className="flex flex-col">
-                          <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{day.toUpperCase()}</span>
-                          <span className={`text-xs font-black ${row[day] === "Break" ? 'text-slate-400 italic' : 'text-slate-900'}`}>{row[day]}</span>
+                    <div key={dIdx} className="surface-card p-3 xs:p-4 rounded-xl xs:rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center justify-between gap-2">
+                       <div className="flex flex-col min-w-0">
+                          <span className="text-[7px] xs:text-[8px] font-black text-slate-400 uppercase tracking-widest">{day.toUpperCase()}</span>
+                          <span className={`text-[10px] xs:text-xs font-black truncate ${row[day] === "Break" ? 'text-slate-400 italic' : 'text-slate-900 dark:text-slate-100'}`}>{row[day]}</span>
                        </div>
                        {row[day] !== "Break" && (
-                         <div className="h-8 w-8 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
-                            <MDBIcon fas icon="map-marker-alt" className="text-[10px]" />
+                         <div className="h-7 w-7 xs:h-8 xs:w-8 shrink-0 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
+                            <MDBIcon fas icon="map-marker-alt" className="text-[9px] xs:text-[10px]" />
                          </div>
                        )}
                     </div>

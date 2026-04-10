@@ -131,36 +131,36 @@ const Grades = () => {
             </div>
 
             {/* Mobile Card View */}
-            <div className="md:hidden p-4 space-y-4">
+            <div className="md:hidden p-2 xs:p-4 space-y-3">
               {gradeData.map((item, idx) => (
                 <MotionDiv
                   key={idx}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
-                  className="surface-card p-5 rounded-3xl border border-white/5 bg-white/[0.02]"
+                  className="surface-card p-4 xs:p-5 rounded-[1.5rem] xs:rounded-3xl border border-white/5 bg-white/[0.02]"
                 >
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex flex-col gap-1">
-                      <p className="text-sm font-black text-white">{item.course}</p>
-                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{item.code}</p>
+                  <div className="flex justify-between items-start gap-2 mb-3">
+                    <div className="flex flex-col gap-0.5 min-w-0">
+                      <p className="text-xs xs:text-sm font-black text-white truncate">{item.course}</p>
+                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">{item.code}</p>
                     </div>
-                    <div className={`h-10 w-10 rounded-2xl flex items-center justify-center font-black text-sm border-2 ${item.grade === 'A' ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-400 shadow-lg shadow-emerald-500/10' : 'border-blue-500/30 bg-blue-500/10 text-blue-400'}`}>
+                    <div className={`h-8 w-8 xs:h-10 xs:w-10 rounded-[0.8rem] xs:rounded-2xl shrink-0 flex items-center justify-center font-black text-xs xs:text-sm border-2 ${item.grade === 'A' ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-400 shadow-lg shadow-emerald-500/10' : 'border-blue-500/30 bg-blue-500/10 text-blue-400'}`}>
                       {item.grade}
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                  <div className="flex items-center justify-between pt-3 border-t border-white/5 gap-2">
                     <div className="flex flex-col">
                       <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest">{getTranslation("index")}</span>
-                      <span className="text-sm font-black text-blue-400">{item.gpa}</span>
+                      <span className="text-xs xs:text-sm font-black text-blue-400">{item.gpa}</span>
                     </div>
-                    <div className="flex flex-col items-end">
-                      <span className={`text-[9px] font-black uppercase tracking-[0.15em] mb-1 ${item.status === 'Passed' ? 'text-emerald-500' : 'text-blue-500'}`}>
+                    <div className="flex flex-col items-end min-w-0">
+                      <span className={`text-[8px] xs:text-[9px] font-black uppercase tracking-[0.15em] mb-1 truncate ${item.status === 'Passed' ? 'text-emerald-500' : 'text-blue-500'}`}>
                          {item.status}
                       </span>
-                      <div className="h-1.5 w-20 bg-white/5 rounded-full overflow-hidden">
-                         <div className={`h-full ${item.status === 'Passed' ? 'bg-emerald-500' : 'bg-blue-50'} rounded-full`} style={{ width: `${item.progress}%` }} />
+                      <div className="h-1 w-16 xs:h-1.5 xs:w-20 bg-white/5 rounded-full overflow-hidden">
+                         <div className={`h-full ${item.status === 'Passed' ? 'bg-emerald-500' : 'bg-blue-500'} rounded-full`} style={{ width: `${item.progress}%` }} />
                       </div>
                     </div>
                   </div>

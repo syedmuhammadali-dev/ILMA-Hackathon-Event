@@ -107,29 +107,29 @@ const CampusPulse = () => {
                   <span className="text-[10px] font-black uppercase text-emerald-500 animate-pulse">Online</span>
                </div>
                
-               <div className="p-4 space-y-4">
+                <div className="p-2 xs:p-4 space-y-3">
                   {newsFeed.map((news) => (
                     <MotionDiv 
                        key={news.id} 
                        whileHover={{ x: 5 }}
-                       className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/5 transition-colors cursor-pointer"
+                       className="p-3 xs:p-4 rounded-xl xs:rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/5 transition-colors cursor-pointer"
                     >
-                       <div className="flex items-start gap-3">
-                          <div className="h-8 w-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
-                             <MDBIcon fas icon={news.icon} className="text-xs" />
+                       <div className="flex items-start gap-2 xs:gap-3">
+                          <div className="h-7 w-7 xs:h-8 xs:w-8 shrink-0 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+                             <MDBIcon fas icon={news.icon} className="text-[10px]" />
                           </div>
-                          <div>
-                             <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">{news.type}</p>
-                             <h5 className="text-xs font-bold text-slate-200 mt-0.5">{news.title}</h5>
-                             <p className="text-[8px] font-bold text-slate-600 mt-1 uppercase">{news.time}</p>
+                          <div className="min-w-0">
+                             <p className="text-[8px] xs:text-[10px] font-black uppercase tracking-widest text-slate-500 truncate">{news.type}</p>
+                             <h5 className="text-[10px] xs:text-xs font-bold text-slate-200 mt-0.5 truncate">{news.title}</h5>
+                             <p className="text-[7px] xs:text-[8px] font-bold text-slate-600 mt-0.5 uppercase">{news.time}</p>
                           </div>
                        </div>
                     </MotionDiv>
                   ))}
                </div>
                
-               <div className="px-8 py-6 border-t border-white/5 text-center bg-white/[0.01]">
-                  <MDBBtn outline className="btn-ui-glass w-full rounded-xl py-2.5 text-[10px] font-black uppercase tracking-widest text-slate-400">
+               <div className="px-4 xs:px-8 py-4 xs:py-6 border-t border-white/5 text-center bg-white/[0.01]">
+                  <MDBBtn outline className="btn-ui-glass w-full rounded-xl py-2 xs:py-2.5 text-[9px] xs:text-[10px] font-black uppercase tracking-widest text-slate-400">
                      Historical Logs
                   </MDBBtn>
                </div>
@@ -138,24 +138,24 @@ const CampusPulse = () => {
 
          {/* Right Column: Events and Guilds */}
          <MDBCol lg="8" className="order-1 lg:order-2">
-            <div className="space-y-8">
-               <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 pl-4">Event Nexus Nodes</h4>
-               <MDBRow className="g-4">
+            <div className="space-y-6 xs:space-y-8">
+               <h4 className="text-[9px] xs:text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 pl-4">Event Nexus Nodes</h4>
+               <MDBRow className="g-3 xs:g-4">
                   {upcomingEvents.map((event) => (
                     <MDBCol sm="6" key={event.id}>
                        <MotionDiv 
                          whileHover={{ y: -5 }}
-                         className="relative h-64 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group shadow-2xl"
+                         className="relative h-48 xs:h-64 rounded-[1.5rem] xs:rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group shadow-2xl"
                        >
                           <img src={event.img} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={event.title} />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent" />
                           
-                          <div className="absolute inset-x-6 bottom-6 flex flex-col items-start">
-                             <span className="text-[9px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded bg-blue-600 text-white mb-2">{event.category}</span>
-                             <h4 className="text-xl font-black text-white mb-1 leading-tight">{event.title}</h4>
-                             <p className="text-[10px] text-slate-400 font-bold mb-4">{event.date} • Digital Campus Hub</p>
+                          <div className="absolute inset-x-4 xs:inset-x-6 bottom-4 xs:bottom-6 flex flex-col items-start">
+                             <span className="text-[8px] xs:text-[9px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded bg-blue-600 text-white mb-2">{event.category}</span>
+                             <h4 className="text-base xs:text-xl font-black text-white mb-1 leading-tight truncate w-full">{event.title}</h4>
+                             <p className="text-[8px] xs:text-[10px] text-slate-400 font-bold mb-3 xs:mb-4">{event.date} • Digital Campus Hub</p>
                              
-                             <MDBBtn onClick={() => handleRegisterEvent(event.title)} className="btn-ui btn-ui-solid py-2 px-6 rounded-xl font-black text-[10px] uppercase tracking-widest">
+                             <MDBBtn onClick={() => handleRegisterEvent(event.title)} className="btn-ui btn-ui-solid py-1.5 xs:py-2 px-4 xs:px-6 rounded-lg xs:rounded-xl font-black text-[9px] xs:text-[10px] uppercase tracking-widest">
                                 Secure Token
                              </MDBBtn>
                           </div>
@@ -165,22 +165,22 @@ const CampusPulse = () => {
                </MDBRow>
 
                {/* Guild Directory */}
-               <div className="pt-4 md:pt-8 space-y-4">
-                  <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 pl-4">Verified Campus Guilds</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+               <div className="pt-4 space-y-4">
+                  <h4 className="text-[9px] xs:text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 pl-4">Verified Campus Guilds</h4>
+                  <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 xs:gap-4">
                      {societies.map((club, idx) => (
                        <MotionDiv 
                          key={idx}
                          whileHover={{ scale: 1.05 }}
-                         className="surface-card p-5 rounded-3xl border border-white/5 text-center group transition-all"
+                         className="surface-card p-4 xs:p-5 rounded-2xl xs:rounded-3xl border border-white/5 text-center group transition-all"
                        >
-                          <div className={`h-12 w-12 rounded-2xl bg-${club.color}-500/10 flex items-center justify-center text-${club.color}-400 mx-auto mb-3 border border-${club.color}-500/10 shadow-lg shadow-${club.color}-500/10`}>
-                             <MDBIcon fas icon={club.icon} />
+                          <div className={`h-10 w-10 xs:h-12 xs:w-12 rounded-xl xs:rounded-2xl bg-${club.color}-500/10 flex items-center justify-center text-${club.color}-400 mx-auto mb-2 xs:mb-3 border border-${club.color}-500/10 shadow-lg shadow-${club.color}-500/10`}>
+                             <MDBIcon fas icon={club.icon} className="text-sm xs:text-base" />
                           </div>
-                          <h6 className="text-[10px] font-black text-white uppercase tracking-tighter mb-1">{club.title}</h6>
-                          <p className="text-[8px] font-bold text-slate-500 uppercase tracking-widest mb-3">{club.members} Members</p>
+                          <h6 className="text-[9px] xs:text-[10px] font-black text-white uppercase tracking-tighter mb-1 truncate">{club.title}</h6>
+                          <p className="text-[7px] xs:text-[8px] font-bold text-slate-500 uppercase tracking-widest mb-3">{club.members} Members</p>
                           
-                          <MDBBtn onClick={() => handleJoinSociety(club.title)} size="sm" outline className={`w-full rounded-xl py-2 border-${club.color}-500/30 text-${club.color}-400 font-black text-[8px] uppercase tracking-widest hover:bg-${club.color}-500 hover:text-white transition-all`}>
+                          <MDBBtn onClick={() => handleJoinSociety(club.title)} size="sm" outline className={`w-full rounded-lg xs:rounded-xl py-1.5 xs:py-2 border-${club.color}-500/30 text-${club.color}-400 font-black text-[7px] xs:text-[8px] uppercase tracking-widest hover:bg-${club.color}-500 hover:text-white transition-all`}>
                              Join Node
                           </MDBBtn>
                        </MotionDiv>

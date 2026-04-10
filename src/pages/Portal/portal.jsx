@@ -49,27 +49,27 @@ const Portal = () => {
   };
 
   return (
-    <div className="page-shell space-y-8 animate-in fade-in duration-700 pb-16">
+    <div className="page-shell space-y-6 sm:space-y-8 animate-in fade-in duration-700 pb-16">
       <PageHeader
         title={getTranslation("portal")}
         subtitle={getTranslation("welcome_msg")}
       />
 
       {/* ── Two-column layout: stacks on mobile, side-by-side on lg ── */}
-      <div className="flex flex-col lg:flex-row gap-8 items-start">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
 
         {/* ───── LEFT column ───── */}
-        <div className="w-full lg:flex-1 space-y-10 min-w-0">
+        <div className="w-full lg:flex-1 space-y-8 sm:space-y-10 min-w-0">
 
           {/* Active Enrollment header */}
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 shrink-0">
-                <MDBIcon fas icon="book-reader" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 shrink-0">
+                <MDBIcon fas icon="book-reader" className="text-xs sm:text-base" />
               </div>
-              <h3 className="text-lg sm:text-2xl font-black text-slate-800 dark:text-white tracking-tight">Active Enrollment</h3>
+              <h3 className="text-base sm:text-2xl font-black text-slate-800 dark:text-white tracking-tight">Active Enrollment</h3>
             </div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+            <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
               {enrolled.length} Courses
             </span>
           </div>
@@ -83,24 +83,24 @@ const Portal = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: idx * 0.1 }}
-                className="surface-card p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm relative group"
+                className="surface-card p-4 xs:p-5 sm:p-6 rounded-[1.2rem] xs:rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm relative group"
               >
-                <div className="flex justify-between items-start mb-5">
-                  <div className={`h-11 w-11 rounded-2xl bg-${idx % 2 === 0 ? "blue" : "emerald"}-500/10 flex items-center justify-center text-${idx % 2 === 0 ? "blue" : "emerald"}-600`}>
-                    <MDBIcon fas icon="laptop-code" className="text-lg" />
+                <div className="flex justify-between items-start mb-4 xs:mb-5">
+                  <div className={`h-10 w-10 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-${idx % 2 === 0 ? "blue" : "emerald"}-500/10 flex items-center justify-center text-${idx % 2 === 0 ? "blue" : "emerald"}-600`}>
+                    <MDBIcon fas icon="laptop-code" className="text-base sm:text-lg" />
                   </div>
                   <button className="h-8 w-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                     <MDBIcon fas icon="ellipsis-v" className="text-slate-400 text-xs" />
                   </button>
                 </div>
-                <h4 className="text-base font-black text-slate-800 dark:text-white leading-tight mb-1">{course.name}</h4>
-                <p className="text-xs font-bold text-slate-400 mb-5">{course.instructor}</p>
+                <h4 className="text-sm sm:text-base font-black text-slate-800 dark:text-white leading-tight mb-1">{course.name}</h4>
+                <p className="text-[10px] sm:text-xs font-bold text-slate-400 mb-4 xs:mb-5">{course.instructor}</p>
                 <div className="space-y-2">
-                  <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+                  <div className="flex justify-between text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
                     <span className="text-slate-400">Progress</span>
                     <span className="text-blue-600">{course.progress}%</span>
                   </div>
-                  <div className="h-2 w-full bg-slate-50 dark:bg-slate-800/50 rounded-full overflow-hidden">
+                  <div className="h-1.5 xs:h-2 w-full bg-slate-50 dark:bg-slate-800/50 rounded-full overflow-hidden">
                     <motion.div
                       className="h-full bg-blue-600 rounded-full"
                       initial={{ width: 0 }}
@@ -111,9 +111,9 @@ const Portal = () => {
                 </div>
               </MotionDiv>
             )) : (
-              <div className="col-span-1 sm:col-span-2 py-14 text-center bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
-                <MDBIcon fas icon="ghost" className="text-4xl text-slate-300 mb-3" />
-                <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">No courses enrolled yet</p>
+              <div className="col-span-1 sm:col-span-2 py-10 xs:py-14 text-center bg-slate-50 dark:bg-slate-800/20 rounded-[1.5rem] xs:rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
+                <MDBIcon fas icon="ghost" className="text-3xl xs:text-4xl text-slate-300 mb-3" />
+                <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] xs:text-xs">No courses enrolled yet</p>
               </div>
             )}
           </div>
@@ -125,21 +125,21 @@ const Portal = () => {
 
           {/* Marketplace */}
           <div className="border-t border-slate-100 dark:border-slate-800 pt-8">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-xl bg-purple-600/10 flex items-center justify-center text-purple-600 shrink-0">
-                  <MDBIcon fas icon="compass" />
+            <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-4 mb-6">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-purple-600/10 flex items-center justify-center text-purple-600 shrink-0">
+                  <MDBIcon fas icon="compass" className="text-xs sm:text-base" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">Marketplace</h3>
+                <h3 className="text-base sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">Marketplace</h3>
               </div>
 
               {/* Scrollable tabs */}
-              <div className="flex overflow-x-auto no-scrollbar surface-soft p-1 rounded-2xl gap-1 max-w-full">
+              <div className="flex overflow-x-auto no-scrollbar surface-soft p-1 rounded-xl xs:rounded-2xl gap-1 max-w-full">
                 {["All", "CS", "Design", "AI"].map(tab => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-1.5 text-[10px] whitespace-nowrap font-black uppercase tracking-wider rounded-xl transition-all ${activeTab === tab ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm border border-slate-100 dark:border-slate-600" : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"}`}
+                    className={`px-3 sm:px-4 py-1.5 text-[9px] sm:text-[10px] whitespace-nowrap font-black uppercase tracking-wider rounded-lg sm:rounded-xl transition-all ${activeTab === tab ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm border border-slate-100 dark:border-slate-600" : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"}`}
                   >
                     {tab}
                   </button>
@@ -147,29 +147,29 @@ const Portal = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-4 sm:gap-6">
               {filteredAvailable.map(course => (
                 <MotionDiv
                   key={course.id}
                   whileHover={{ scale: 1.02 }}
-                  className="surface-card p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col justify-between"
+                  className="surface-card p-4 sm:p-6 rounded-[1.2rem] sm:rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col justify-between"
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <span className={`text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full bg-${course.color}-500/10 text-${course.color}-600 border border-${course.color}-500/10`}>
+                    <span className={`text-[8px] xs:text-[9px] font-black uppercase tracking-[0.2em] px-2 xs:px-3 py-1 xs:py-1.5 rounded-full bg-${course.color}-500/10 text-${course.color}-600 border border-${course.color}-500/10`}>
                       {course.category}
                     </span>
-                    <div className="flex items-center gap-1.5 text-amber-500">
-                      <MDBIcon fas icon="star" className="text-[10px]" />
-                      <span className="text-[11px] font-black">{course.rating}</span>
+                    <div className="flex items-center gap-1 text-amber-500">
+                      <MDBIcon fas icon="star" className="text-[8px] xs:text-[10px]" />
+                      <span className="text-[10px] xs:text-[11px] font-black">{course.rating}</span>
                     </div>
                   </div>
-                  <h4 className="text-sm font-black text-slate-800 dark:text-white leading-tight mb-4">{course.name}</h4>
+                  <h4 className="text-xs sm:text-sm font-black text-slate-800 dark:text-white leading-tight mb-4 min-h-[2.5rem]">{course.name}</h4>
                   <div className="flex items-center justify-between mt-auto">
-                    <div className="flex flex-col min-w-0 mr-3">
-                      <span className="text-[10px] font-bold text-slate-400 capitalize truncate">{course.instructor}</span>
-                      <span className="text-xs font-black text-slate-900 dark:text-white mt-0.5">{course.price}</span>
+                    <div className="flex flex-col min-w-0 mr-2">
+                      <span className="text-[8px] xs:text-[10px] font-bold text-slate-400 capitalize truncate">{course.instructor}</span>
+                      <span className="text-[10px] xs:text-xs font-black text-slate-900 dark:text-white mt-0.5">{course.price}</span>
                     </div>
-                    <MDBBtn onClick={() => handleQuickEnroll(course)} className="btn-ui btn-ui-solid px-4 py-2 rounded-xl shadow-lg shadow-blue-500/20 text-[10px] font-black shrink-0">
+                    <MDBBtn onClick={() => handleQuickEnroll(course)} className="btn-ui btn-ui-solid px-3 xs:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl shadow-lg shadow-blue-500/20 text-[9px] xs:text-[10px] font-black shrink-0">
                       Join
                     </MDBBtn>
                   </div>

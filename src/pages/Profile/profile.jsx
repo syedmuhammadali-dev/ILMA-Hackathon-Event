@@ -69,13 +69,13 @@ const Profile = () => {
         subtitle="Manage your academic profile and digital credentials."
       />
 
-      <MDBRow className="g-8">
+      <MDBRow className="g-4 xs:g-6 lg:g-8">
         {/* Left Column: ID Card & Stats */}
         <MDBCol lg="5" xl="4">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6 xs:gap-8">
             {/* 3D Flippable ID Card */}
             <div
-              className="relative w-full aspect-[1.6/1] perspective-1000 cursor-pointer"
+              className="relative w-full aspect-[1.4/1] xs:aspect-[1.6/1] perspective-1000 cursor-pointer"
               onClick={() => setIsFlipped(!isFlipped)}
             >
               <motion.div
@@ -85,7 +85,7 @@ const Profile = () => {
               >
                 {/* Front of Card */}
                 <div
-                  className="absolute inset-0 backface-hidden rounded-[2rem] overflow-hidden shadow-2xl text-white border border-white/20"
+                  className="absolute inset-0 backface-hidden rounded-[1.5rem] xs:rounded-[2rem] overflow-hidden shadow-2xl text-white border border-white/20"
                   style={{
                     background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)",
                     boxShadow: "0 25px 50px -12px rgba(49, 46, 129, 0.5)"
@@ -94,85 +94,81 @@ const Profile = () => {
                   <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-400/20 blur-[60px] rounded-full mix-blend-screen -mr-10 -mt-10"></div>
                   <div className="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-500/20 blur-[60px] rounded-full mix-blend-screen -ml-10 -mb-10"></div>
 
-                  <div className="relative z-10 flex flex-col h-full justify-between p-7">
+                  <div className="relative z-10 flex flex-col h-full justify-between p-4 xs:p-7">
                     {/* Header */}
                     <div className="flex justify-between items-start">
-                      <div className="flex flex-col">
-                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-cyan-300 opacity-80 mb-1">Official ID / 2026</span>
-                        <h4 className="text-xl font-black text-white-force tracking-widest uppercase">ILMA N<span className="text-cyan-400">e</span>xus</h4>
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-[7px] xs:text-[9px] font-black uppercase tracking-wider xs:tracking-[0.3em] text-cyan-300 opacity-80 mb-0.5 xs:mb-1">Official ID / 2026</span>
+                        <h4 className="text-sm xs:text-xl font-black text-white-force tracking-widest uppercase truncate">ILMA N<span className="text-cyan-400">e</span>xus</h4>
                       </div>
-                      <MDBIcon fas icon="microchip" className="text-3xl text-slate-300 drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+                      <MDBIcon fas icon="microchip" className="text-xl xs:text-3xl text-slate-300 drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
                     </div>
 
                     {/* Body */}
-                    <div className="flex items-center gap-5 mt-4">
+                    <div className="flex items-center gap-3 xs:gap-5 mt-2 xs:mt-4">
                       {/* Avatar with glowing ring */}
                       <div className="relative group shrink-0" onClick={handleAvatarClick}>
-                        <div className="h-24 w-24 rounded-2xl p-1 bg-gradient-to-br from-cyan-400 to-fuchsia-500 shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all group-hover:scale-105">
-                          <div className="h-full w-full rounded-[14px] bg-slate-900, overflow-hidden flex items-center justify-center">
+                        <div className="h-16 w-16 xs:h-24 xs:w-24 rounded-xl xs:rounded-2xl p-0.5 xs:p-1 bg-gradient-to-br from-cyan-400 to-fuchsia-500 shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all group-hover:scale-105">
+                          <div className="h-full w-full rounded-[10px] xs:rounded-[14px] bg-slate-900 overflow-hidden flex items-center justify-center">
                             {user?.profileImage ? (
                               <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
                             ) : (
-                              <span className="text-3xl font-black text-white-force">{user?.fullName?.charAt(0)}</span>
+                              <span className="text-xl xs:text-3xl font-black text-white-force">{user?.fullName?.charAt(0)}</span>
                             )}
                           </div>
                         </div>
-                        <div className="absolute -bottom-2 -right-2 h-8 w-8 bg-slate-800 rounded-lg flex items-center justify-center text-white border border-slate-600 shadow-xl group-hover:-translate-y-1 transition-transform">
-                          <MDBIcon fas icon="camera" className="text-[10px] text-cyan-400" />
+                        <div className="absolute -bottom-1 -right-1 h-6 w-6 xs:h-8 xs:w-8 bg-slate-800 rounded-lg flex items-center justify-center text-white border border-slate-600 shadow-xl group-hover:-translate-y-1 transition-transform">
+                          <MDBIcon fas icon="camera" className="text-[8px] xs:text-[10px] text-cyan-400" />
                         </div>
                         <input ref={fileInputRef} type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
                       </div>
 
                       <div className="flex flex-col overflow-hidden">
-                        <p className="text-2xl font-black text-white-force truncate tracking-tight drop-shadow-md">{user?.fullName}</p>
+                        <p className="text-base xs:text-2xl font-black text-white-force truncate tracking-tight drop-shadow-md">{user?.fullName}</p>
                         <div className="flex items-center gap-2 mt-0">
-                          <div className="bg-white/10 px-2 py-0.5 rounded text-[10px] font-bold text-cyan-300 tracking-widest backdrop-blur-sm">{user?.studentId || "2024-CORE-V2"}</div>
+                          <div className="bg-white/10 px-1.5 xs:px-2 py-0.5 rounded text-[8px] xs:text-[10px] font-bold text-cyan-300 tracking-wider xs:tracking-widest backdrop-blur-sm truncate max-w-[120px]">{user?.studentId || "2024-CORE-V2"}</div>
                         </div>
-                        <div className="mt-3 flex items-center gap-2">
-                          <span className="relative flex h-2.5 w-2.5 ms-2 mb-1">
+                        <div className="mt-2 xs:mt-3 flex items-center gap-1.5 xs:gap-2">
+                          <span className="relative flex h-2 w-2 xs:h-2.5 xs:w-2.5">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 xs:h-2.5 xs:w-2.5 bg-emerald-500"></span>
                           </span>
-                          <span className="text-[9px] font-black uppercase tracking-[0.15em] text-emerald-300 mb-1">Active</span>
+                          <span className="text-[7px] xs:text-[9px] font-black uppercase tracking-widest text-emerald-300">Active</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Footer */}
-                    <div className="flex justify-between items-end border-t border-white/10 pt-4 mt-2">
-                      <div className="flex flex-col gap-1">
-                        <span className="text-[8px] font-bold uppercase opacity-60 tracking-[0.2em] text-slate-300">Valid Thru</span>
-                        <span className="text-sm font-black text-white px-2.5 py-1 bg-white/10 rounded tracking-widest backdrop-blur-sm">12 / 26</span>
+                    <div className="flex justify-between items-end border-t border-white/10 pt-2 xs:pt-4 mt-1 xs:mt-2">
+                      <div className="flex flex-col gap-0.5 xs:gap-1">
+                        <span className="text-[7px] xs:text-[8px] font-bold uppercase opacity-60 tracking-widest text-slate-300">Valid Thru</span>
+                        <span className="text-[10px] xs:text-sm font-black text-white px-2 py-0.5 xs:py-1 bg-white/10 rounded tracking-widest backdrop-blur-sm">12 / 26</span>
                       </div>
-                      <MDBIcon fab icon="nfc" className="text-3xl text-white/50" />
+                      <MDBIcon fab icon="nfc" className="text-xl xs:text-3xl text-white/50" />
                     </div>
                   </div>
                 </div>
 
                 {/* Back of Card */}
                 <div
-                  className="absolute inset-0 backface-hidden rounded-[2rem] overflow-hidden shadow-2xl flex flex-col items-center justify-center text-center border border-white/10"
+                  className="absolute inset-0 backface-hidden rounded-[1.5rem] xs:rounded-[2rem] overflow-hidden shadow-2xl flex flex-col items-center justify-center text-center border border-white/10"
                   style={{ transform: "rotateY(180deg)", background: "linear-gradient(135deg, #020617 0%, #0f172a 100%)" }}
                 >
-                  <div className="relative z-10 w-full px-8 flex flex-col items-center justify-center h-full">
-                    <div className="bg-white p-3 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.1)] mb-5">
-                      <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${user?.fullName}-${user?.studentId}`} alt="QR" className="h-28 w-28 object-contain" />
+                  <div className="relative z-10 w-full px-6 xs:px-8 flex flex-col items-center justify-center h-full">
+                    <div className="bg-white p-2 xs:p-3 rounded-xl xs:rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.1)] mb-3 xs:mb-5">
+                      <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${user?.fullName}-${user?.studentId}`} alt="QR" className="h-20 w-20 xs:h-28 xs:w-28 object-contain" />
                     </div>
-                    <h5 className="text-cyan-400 text-xs font-black mb-1.5 uppercase tracking-widest">Scan to Verify</h5>
-                    <p className="text-slate-400 text-[9px] leading-relaxed max-w-[220px] font-bold uppercase tracking-wider">
+                    <h5 className="text-cyan-400 text-[9px] xs:text-xs font-black mb-1 xs:mb-1.5 uppercase tracking-widest">Scan to Verify</h5>
+                    <p className="text-slate-400 text-[7px] xs:text-[9px] leading-relaxed max-w-[200px] xs:max-w-[220px] font-bold uppercase tracking-wider">
                       Property of ILMA University.<br />If found, return to administration.
                     </p>
-                    <div className="mt-8 pt-4 w-full border-t border-white/5 flex justify-center gap-6 opacity-40">
-                      <MDBIcon fab icon="apple-pay" className="text-2xl text-white" />
-                      <MDBIcon fab icon="google-pay" className="text-2xl text-white" />
-                    </div>
                   </div>
                 </div>
               </motion.div>
             </div>
 
             {/* Quick Stats Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 xs:gap-4">
               {[
                 { label: "Aggregate GPA", value: "3.86", color: "blue", icon: "graduation-cap" },
                 { label: "Attendance", value: "94.2%", color: "emerald", icon: "user-check" },
@@ -182,14 +178,14 @@ const Profile = () => {
                 <MotionDiv
                   key={i}
                   whileHover={{ scale: 1.02 }}
-                  className="surface-card p-5 rounded-[1.5rem] shadow-sm flex flex-col gap-3"
+                  className="surface-card p-4 xs:p-5 rounded-2xl xs:rounded-[1.5rem] shadow-sm flex flex-col gap-2 xs:gap-3"
                 >
-                  <div className={`h-8 w-8 rounded-lg bg-${stat.color}-50 dark:bg-${stat.color}-500/10 flex items-center justify-center`}>
-                    <MDBIcon fas icon={stat.icon} className={`text-sm text-${stat.color}-500`} />
+                  <div className={`h-7 w-7 xs:h-8 xs:w-8 rounded-lg bg-${stat.color}-50 dark:bg-${stat.color}-500/10 flex items-center justify-center`}>
+                    <MDBIcon fas icon={stat.icon} className={`text-xs xs:text-sm text-${stat.color}-500`} />
                   </div>
                   <div>
-                    <h5 className="text-xl font-black text-slate-800 dark:text-white leading-none">{stat.value}</h5>
-                    <p className="text-[9px] font-bold uppercase tracking-widest text-slate-400 mt-1">{stat.label}</p>
+                     <h5 className="text-base xs:text-xl font-black text-slate-800 dark:text-white leading-none">{stat.value}</h5>
+                     <p className="text-[7px] xs:text-[9px] font-bold uppercase tracking-widest text-slate-400 mt-0.5 xs:mt-1 truncate">{stat.label}</p>
                   </div>
                 </MotionDiv>
               ))}
@@ -202,16 +198,16 @@ const Profile = () => {
           <MotionDiv
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/20"
+            className="bg-white dark:bg-slate-900 rounded-[2rem] xs:rounded-[2.5rem] p-5 xs:p-8 md:p-12 border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/20"
           >
-            <div className="flex items-center justify-between mb-10 pb-6 border-b border-slate-50 dark:border-slate-800">
-              <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-2xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center">
+            <div className="flex flex-col xs:flex-row xs:items-center justify-between mb-8 xs:mb-10 pb-6 border-b border-slate-50 dark:border-slate-800 gap-4">
+              <div className="flex items-center gap-3 xs:gap-4">
+                <div className="h-10 w-10 xs:h-12 xs:w-12 rounded-xl xs:rounded-2xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center">
                   <MDBIcon fas icon="user-edit" className="text-blue-600" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Account Profile</h2>
-                  <p className="text-xs font-bold text-slate-400">Update your public identity on the portal.</p>
+                  <h2 className="text-xl xs:text-2xl font-black text-slate-900 dark:text-white tracking-tight">Account Profile</h2>
+                  <p className="text-[10px] xs:text-xs font-bold text-slate-400">Update your public identity on the portal.</p>
                 </div>
               </div>
               {!isEditing ? (

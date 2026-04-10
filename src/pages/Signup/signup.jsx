@@ -167,7 +167,7 @@ const Signup = () => {
           </div>
 
           {/* ── Right panel (form) ── */}
-          <div className="flex-1 flex flex-col justify-center p-8 md:p-12">
+          <div className="flex-1 flex flex-col justify-center p-6 xs:p-8 md:p-12">
             <div className="max-w-sm mx-auto w-full">
 
               {/* Header */}
@@ -175,17 +175,17 @@ const Signup = () => {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.5 }}
-                className="mb-8"
+                className="mb-6 xs:mb-8"
               >
                 {/* Mobile logo */}
                 <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 lg:hidden border border-white/10 overflow-hidden"
+                  className="w-12 h-12 xs:w-14 xs:h-14 rounded-2xl flex items-center justify-center mb-4 xs:mb-5 lg:hidden border border-white/10 overflow-hidden"
                   style={{ background: "rgba(255,255,255,0.05)" }}
                 >
-                  <img src={Logo} alt="Logo" className="w-10 h-10 object-contain" />
+                  <img src={Logo} alt="Logo" className="w-8 h-8 xs:w-10 xs:h-10 object-contain" />
                 </div>
-                <h1 className="text-3xl font-black text-white-force tracking-tight mb-1.5">Create Account</h1>
-                <p className="text-sm font-medium" style={{ color: "rgba(148,163,184,0.75)" }}>
+                <h1 className="text-2xl xs:text-3xl font-black text-white-force tracking-tight mb-1 xs:mb-1.5">Create Account</h1>
+                <p className="text-xs xs:text-sm font-medium" style={{ color: "rgba(148,163,184,0.75)" }}>
                   Register with your student details below.
                 </p>
               </motion.div>
@@ -231,7 +231,7 @@ const Signup = () => {
                 </div>
 
                 {/* Full name + Student ID — 2 cols */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
                   <div>
                     <label className="auth-label">Full Name</label>
                     <input

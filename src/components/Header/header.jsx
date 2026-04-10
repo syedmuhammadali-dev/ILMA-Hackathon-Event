@@ -140,22 +140,22 @@ const Header = () => {
         alignItems: 'center'
       }}
     >
-      <MDBContainer fluid className="px-3 sm:px-6 md:px-12 flex items-center justify-between gap-2">
+      <MDBContainer fluid className="px-2 sm:px-6 md:px-12 flex items-center justify-between gap-1 sm:gap-2">
         <div className="flex items-center shrink-0">
           <MotionDiv whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
             <MDBNavbarBrand href="/" className="m-0 p-0 flex items-center group">
 
               <img
                 src={Logo}
-                className="h-8 sm:h-10 w-auto object-contain"
+                className="h-6 xs:h-8 sm:h-10 w-auto object-contain"
                 alt="University Logo"
               />
 
               <div className="flex flex-col ml-1 me-2 sm:me-5">
-                <span className="text-base sm:text-xl font-black tracking-tight leading-none text-slate-900 dark:text-black">
-                  Student<span className="text-blue-600">Portal</span>
+                <span className="text-[14px] xs:text-base sm:text-xl font-black tracking-tight leading-none text-slate-900 dark:text-black">
+                  <span className="hidden min-[360px]:inline">Student</span><span className="text-blue-600">Portal</span>
                 </span>
-                <span className="hidden xs:block text-[10px] uppercase tracking-widest font-black text-slate-400 mt-1">
+                <span className="hidden sm:block text-[10px] uppercase tracking-widest font-black text-slate-400 mt-1">
                   University Admin
                 </span>
               </div>
@@ -177,7 +177,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div ref={mobileMenuRef} className="flex items-center gap-4 relative">
+        <div ref={mobileMenuRef} className="flex items-center gap-1.5 sm:gap-4 relative">
           <div className="hidden md:flex items-center gap-2 mr-2 relative" ref={notificationsRef}>
             {/* Animated Theme Toggle */}
             <MotionButton
@@ -327,7 +327,7 @@ const Header = () => {
           <MotionButton
             type="button"
             onClick={() => setMobileOpen((s) => !s)}
-            className="md:hidden inline-flex icon-btn border-none"
+            className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-none"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -337,10 +337,10 @@ const Header = () => {
           {mobileOpen && (
             <div
               id="mobile-nav-menu"
-              className="md:hidden absolute top-full right-0 mt-2"
+              className="md:hidden absolute top-full right-0 mt-2 z-[2000]"
               style={{ width: 'min(16rem, calc(100vw - 1rem))' }}
             >
-              <div className="glass-panel backdrop-blur-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden" style={{ maxHeight: 'calc(100dvh - 6rem)', overflowY: 'auto' }}>
+              <div className="glass-panel backdrop-blur-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden" style={{ maxHeight: 'calc(100dvh - 5.5rem)', overflowY: 'auto' }}>
                 <nav className="flex flex-col gap-0.5 p-3">
                   {[
                     { title: "Home", key: 'dashboard', path: "/", icon: "home" },
@@ -413,7 +413,7 @@ const Header = () => {
               </div>
             </div>
             <div className="relative group">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-blue-500/30 overflow-hidden group-hover:scale-105 transition-transform cursor-pointer">
+              <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/30 overflow-hidden group-hover:scale-105 transition-transform cursor-pointer">
                 {user.profileImage ? (
                   <img src={user.profileImage} alt="Profile" className="h-full w-full object-cover" />
                 ) : (
@@ -426,9 +426,9 @@ const Header = () => {
             <button
               onClick={handleLogout}
               title="Logout"
-              className="h-10 w-10 flex items-center justify-center rounded-full bg-transparent border-2 border-rose-500/50 text-rose-500 transition-all hover:bg-rose-500/10 hover:scale-110 active:scale-95 shadow-lg shadow-rose-500/5"
+              className="h-9 w-9 sm:h-10 sm:w-10 flex items-center justify-center rounded-full bg-transparent border-2 border-rose-500/50 text-rose-500 transition-all hover:bg-rose-500/10 hover:scale-110 active:scale-95 shadow-lg shadow-rose-500/5"
             >
-              <MDBIcon fas icon="sign-out-alt" />
+              <MDBIcon fas icon="sign-out-alt" className="text-xs sm:text-base" />
             </button>
           </div>
 

@@ -62,23 +62,23 @@ const Notifications = () => {
                     item.type === 'success' ? 'bg-emerald-500' : 'bg-blue-600'
                  }`} />
 
-                 <MDBCardBody className="p-4 pl-6 md:p-6 md:pl-10">
-                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center">
-                       <div className={`h-11 w-11 rounded-2xl flex items-center justify-center shrink-0 border transition-all duration-300 ${
+                 <MDBCardBody className="p-3 xs:p-4 pl-5 xs:pl-6 md:p-6 md:pl-10">
+                    <div className="flex flex-col sm:flex-row gap-3 xs:gap-4 sm:gap-6 sm:items-center">
+                       <div className={`h-10 w-10 xs:h-11 xs:w-11 rounded-xl xs:rounded-2xl flex items-center justify-center shrink-0 border transition-all duration-300 ${
                           item.type === 'urgent' ? 'bg-rose-50 dark:bg-rose-500/10 text-rose-600 border-rose-100 dark:border-rose-900/30' : 
                           item.type === 'warning' ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 border-amber-100 dark:border-amber-900/30' : 
                           item.type === 'success' ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 border-emerald-100 dark:border-emerald-900/30' : 
                           'bg-blue-50 dark:bg-blue-500/10 text-blue-600 border-blue-100 dark:border-blue-900/30'
                        } group-hover:scale-110 shadow-sm sm:shadow-none`}>
-                          <MDBIcon fas icon={item.icon} className="text-lg" />
+                          <MDBIcon fas icon={item.icon} className="text-base xs:text-lg" />
                        </div>
 
                        <div className="flex-1 min-w-0">
-                          <div className="flex flex-wrap justify-between items-center mb-1 gap-2">
-                             <h4 className="text-sm font-black text-slate-800 dark:text-white tracking-tight leading-none group-hover:text-blue-600 transition-colors uppercase">{item.title}</h4>
-                             <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{item.time}</span>
+                          <div className="flex flex-wrap justify-between items-center mb-1 gap-1 xs:gap-2">
+                             <h4 className="text-xs xs:text-sm font-black text-slate-800 dark:text-white tracking-tight leading-none group-hover:text-blue-600 transition-colors uppercase truncate w-full sm:w-auto">{item.title}</h4>
+                             <span className="text-[8px] xs:text-[9px] font-black text-slate-400 uppercase tracking-widest">{item.time}</span>
                           </div>
-                          <p className="text-xs font-bold text-slate-500 leading-relaxed break-words">{item.desc}</p>
+                          <p className="text-[11px] xs:text-xs font-bold text-slate-500 leading-relaxed break-words">{item.desc}</p>
                        </div>
 
                        <div className="hidden md:flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">

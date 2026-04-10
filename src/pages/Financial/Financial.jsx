@@ -56,26 +56,26 @@ const Financial = () => {
            <MotionDiv 
              initial={{ opacity: 0, scale: 0.95 }}
              animate={{ opacity: 1, scale: 1 }}
-             className="bg-gradient-to-br from-emerald-600 to-teal-800 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 text-white shadow-2xl relative overflow-hidden group h-full"
+             className="bg-gradient-to-br from-emerald-600 to-teal-800 rounded-[2rem] md:rounded-[2.5rem] p-5 xs:p-8 text-white shadow-2xl relative overflow-hidden group h-full"
            >
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-[50px] rounded-full translate-x-10 -translate-y-10 group-hover:scale-150 transition-transform duration-700" />
               <div className="relative z-10 h-full flex flex-col justify-between">
                  <div>
-                    <div className="flex justify-between items-start mb-6">
-                       <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-70">Current Balance Hub</p>
-                       <MDBIcon fas icon="wallet" className="text-xl opacity-50" />
+                    <div className="flex justify-between items-start mb-4 xs:mb-6">
+                       <p className="text-[8px] xs:text-[10px] font-black uppercase tracking-[0.2em] xs:tracking-[0.3em] opacity-70">Current Balance Hub</p>
+                       <MDBIcon fas icon="wallet" className="text-base xs:text-xl opacity-50" />
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-1">PKR 0.00</h2>
-                    <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest">Next Due: March 15, 2026</p>
+                    <h2 className="text-3xl xs:text-4xl md:text-5xl font-black tracking-tighter mb-1">PKR 0.00</h2>
+                    <p className="text-[8px] xs:text-[10px] font-bold opacity-60 uppercase tracking-widest">Next Due: March 15, 2026</p>
                  </div>
                  
-                 <div className="mt-8 pt-6 md:pt-8 border-t border-white/10">
-                    <div className="flex justify-between items-center bg-white/10 p-4 rounded-2xl backdrop-blur-md">
+                 <div className="mt-6 xs:mt-8 pt-6 xs:pt-8 border-t border-white/10">
+                    <div className="flex justify-between items-center bg-white/10 p-3 xs:p-4 rounded-xl xs:rounded-2xl backdrop-blur-md">
                        <div>
-                          <p className="text-[9px] font-black uppercase tracking-widest opacity-60">Status</p>
-                          <p className="text-sm font-black">SOLVENT</p>
+                          <p className="text-[8px] xs:text-[9px] font-black uppercase tracking-widest opacity-60">Status</p>
+                          <p className="text-xs xs:text-sm font-black">SOLVENT</p>
                        </div>
-                       <MDBIcon fas icon="check-circle" className="text-2xl text-emerald-300" />
+                       <MDBIcon fas icon="check-circle" className="text-lg xs:text-2xl text-emerald-300" />
                     </div>
                  </div>
               </div>
@@ -87,28 +87,28 @@ const Financial = () => {
              initial={{ opacity: 0, scale: 0.95 }}
              animate={{ opacity: 1, scale: 1 }}
              transition={{ delay: 0.1 }}
-             className="surface-card rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 border border-white/5 shadow-2xl relative overflow-hidden group h-full"
+             className="surface-card rounded-[2rem] md:rounded-[2.5rem] p-5 xs:p-8 border border-white/5 shadow-2xl relative overflow-hidden group h-full"
            >
               <div className="flex flex-col h-full justify-between">
                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-6">Scholarship Metrics</p>
-                    <div className="flex items-center gap-4 mb-6">
-                       <div className="h-12 md:h-14 w-12 md:w-14 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400 border border-purple-500/20">
-                          <MDBIcon fas icon="award" className="text-xl md:text-2xl" />
+                    <p className="text-[8px] xs:text-[10px] font-black uppercase tracking-[0.2em] xs:tracking-[0.3em] text-slate-500 mb-4 xs:mb-6">Scholarship Metrics</p>
+                    <div className="flex items-center gap-3 xs:gap-4 mb-4 xs:mb-6">
+                       <div className="h-10 xs:h-12 md:h-14 w-10 xs:w-12 md:w-14 shrink-0 rounded-xl xs:rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400 border border-purple-500/20">
+                          <MDBIcon fas icon="award" className="text-lg xs:text-xl md:text-2xl" />
                        </div>
-                       <div>
-                          <h4 className="text-lg md:text-xl font-black text-white">Merit Node Beta</h4>
-                          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Discount: 25%</p>
+                       <div className="min-w-0">
+                          <h4 className="text-base xs:text-lg md:text-xl font-black text-white truncate">Merit Node Beta</h4>
+                          <p className="text-[9px] xs:text-[10px] font-bold text-slate-500 uppercase tracking-widest">Discount: 25%</p>
                        </div>
                     </div>
                  </div>
 
-                 <div className="space-y-4">
-                    <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+                 <div className="space-y-3 xs:space-y-4">
+                    <div className="flex justify-between items-center text-[8px] xs:text-[10px] font-black uppercase tracking-widest">
                        <span className="text-slate-500">Eligibility Sync</span>
                        <span className="text-emerald-500">92%</span>
                     </div>
-                    <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 xs:h-2 w-full bg-white/5 rounded-full overflow-hidden">
                        <motion.div 
                           className="h-full bg-purple-500"
                           initial={{ width: 0 }}
@@ -116,21 +116,21 @@ const Financial = () => {
                           transition={{ duration: 1.5, ease: "easeOut" }}
                        />
                     </div>
-                    <p className="text-[9px] md:text-[10px] text-slate-400 italic">Maintain GPA {'>'} 3.5 to sustain scholarship status.</p>
+                    <p className="text-[8px] xs:text-[9px] md:text-[10px] text-slate-400 italic">Maintain GPA {'>'} 3.5 to sustain scholarship status.</p>
                  </div>
               </div>
            </MotionDiv>
         </MDBCol>
 
         <MDBCol lg="4">
-           <div className="flex flex-col sm:flex-row lg:flex-col gap-4 h-full">
-              <MDBBtn onClick={handleDownloadVoucher} className="btn-ui btn-ui-solid flex-1 rounded-[1.5rem] flex flex-col items-center justify-center gap-2 p-6 transition-all hover:scale-[1.02] w-full">
-                 <MDBIcon fas icon="file-invoice-dollar" className="text-2xl md:text-3xl mb-1 md:mb-2" />
-                 <span className="font-black text-[10px] md:text-xs uppercase tracking-[0.2em]">{getTranslation("generate_voucher") || "Generate Voucher"}</span>
+           <div className="flex flex-col sm:flex-row lg:flex-col gap-3 xs:gap-4 h-full">
+              <MDBBtn onClick={handleDownloadVoucher} className="btn-ui btn-ui-solid flex-1 rounded-2xl xs:rounded-[1.5rem] flex flex-col items-center justify-center gap-1 xs:gap-2 p-4 xs:p-6 transition-all hover:scale-[1.02] w-full">
+                 <MDBIcon fas icon="file-invoice-dollar" className="text-xl xs:text-2xl md:text-3xl mb-1 md:mb-2" />
+                 <span className="font-black text-[9px] xs:text-[10px] md:text-xs uppercase tracking-[0.15em] xs:tracking-[0.2em]">{getTranslation("generate_voucher") || "Generate Voucher"}</span>
               </MDBBtn>
-              <MDBBtn outline className="btn-ui-glass flex-1 rounded-[1.5rem] flex flex-col items-center justify-center gap-2 p-6 border-white/10 hover:border-blue-500/50 w-full">
-                 <MDBIcon fas icon="hands-helping" className="text-2xl md:text-3xl mb-1 md:mb-2 text-blue-400" />
-                 <span className="font-black text-[10px] md:text-xs uppercase tracking-[0.2em] text-slate-300">Apply Installments</span>
+              <MDBBtn outline className="btn-ui-glass flex-1 rounded-2xl xs:rounded-[1.5rem] flex flex-col items-center justify-center gap-1 xs:gap-2 p-4 xs:p-6 border-white/10 hover:border-blue-500/50 w-full">
+                 <MDBIcon fas icon="hands-helping" className="text-xl xs:text-2xl md:text-3xl mb-1 md:mb-2 text-blue-400" />
+                 <span className="font-black text-[9px] xs:text-[10px] md:text-xs uppercase tracking-[0.15em] xs:tracking-[0.2em] text-slate-300">Apply Installments</span>
               </MDBBtn>
            </div>
         </MDBCol>
@@ -204,31 +204,31 @@ const Financial = () => {
         </div>
 
         {/* Mobile List View */}
-        <div className="md:hidden p-4 space-y-4">
+        <div className="md:hidden p-2 xs:p-4 space-y-3">
            {transactions.map((tx, idx) => (
               <MotionDiv
                 key={tx.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className="surface-card p-5 rounded-3xl border border-white/5 bg-white/[0.02] space-y-4"
+                className="surface-card p-4 xs:p-5 rounded-[1.5rem] xs:rounded-3xl border border-white/5 bg-white/[0.02] space-y-3 xs:space-y-4"
               >
-                 <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-black text-blue-400 bg-blue-500/5 px-2 py-1 rounded-md border border-blue-500/10">{tx.id}</span>
-                    <div className="flex items-center gap-2">
+                 <div className="flex justify-between items-center gap-2">
+                    <span className="text-[9px] xs:text-[10px] font-black text-blue-400 bg-blue-500/5 px-1.5 xs:px-2 py-0.5 xs:py-1 rounded-md border border-blue-500/10 truncate">{tx.id}</span>
+                    <div className="flex items-center gap-1.5 xs:gap-2 shrink-0">
                        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                       <span className="text-[9px] font-black uppercase tracking-widest text-emerald-500">{tx.status}</span>
+                       <span className="text-[8px] xs:text-[9px] font-black uppercase tracking-widest text-emerald-500">{tx.status}</span>
                     </div>
                  </div>
                  
-                 <div>
-                    <h4 className="text-sm font-black text-white leading-tight">{tx.desc}</h4>
-                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">{tx.date}</p>
+                 <div className="min-w-0">
+                    <h4 className="text-xs xs:text-sm font-black text-white leading-tight truncate">{tx.desc}</h4>
+                    <p className="text-[9px] xs:text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-0.5 xs:mt-1">{tx.date}</p>
                  </div>
                  
-                 <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                    <span className="text-lg font-black text-white">{tx.amount}</span>
-                    <span className="text-[9px] font-bold text-slate-400 bg-white/5 px-3 py-1 rounded-full uppercase">{tx.method}</span>
+                 <div className="flex items-center justify-between pt-3 xs:pt-4 border-t border-white/5 gap-2">
+                    <span className="text-sm xs:text-lg font-black text-white">{tx.amount}</span>
+                    <span className="text-[8px] xs:text-[9px] font-bold text-slate-400 bg-white/5 px-2 xs:px-3 py-1 rounded-full uppercase truncate">{tx.method}</span>
                  </div>
               </MotionDiv>
            ))}

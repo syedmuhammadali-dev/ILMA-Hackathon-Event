@@ -82,23 +82,23 @@ const Assignments = () => {
                    animate={{ opacity: 1, scale: 1 }}
                    transition={{ delay: idx * 0.1 }}
                    whileHover={{ y: -5 }}
-                   className="surface-card p-6 md:p-8 rounded-[2rem] border border-white/5 shadow-2xl relative overflow-hidden group"
+                   className="surface-card p-4 xs:p-6 md:p-8 rounded-[1.5rem] xs:rounded-[2rem] border border-white/5 shadow-2xl relative overflow-hidden group"
                  >
                     <div className={`absolute -top-10 -right-10 w-32 h-32 bg-${task.color}-500/5 blur-[50px] rounded-full group-hover:bg-${task.color}-500/10 transition-colors`} />
-                    <div className="flex justify-between items-start mb-6">
-                       <div className={`h-12 w-12 rounded-2xl bg-${task.color}-500/10 flex items-center justify-center text-${task.color}-400 border border-${task.color}-500/20`}>
-                          <MDBIcon fas icon={task.icon} className="text-xl" />
+                    <div className="flex justify-between items-start gap-2 mb-4 xs:mb-6">
+                       <div className={`h-10 w-10 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl shrink-0 bg-${task.color}-500/10 flex items-center justify-center text-${task.color}-400 border border-${task.color}-500/20`}>
+                          <MDBIcon fas icon={task.icon} className="text-base sm:text-xl" />
                        </div>
-                       <div className="flex flex-col items-end">
-                          <span className={`text-[8px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded bg-${task.color}-500/20 text-${task.color}-400 mb-2 border border-${task.color}-500/30`}>{task.priority}</span>
-                          <p className="text-[10px] font-black text-rose-500 animate-pulse uppercase tracking-widest">{task.due} LEFT</p>
+                       <div className="flex flex-col items-end min-w-0">
+                          <span className={`text-[7px] xs:text-[8px] font-black uppercase tracking-[0.15em] px-2 py-0.5 rounded bg-${task.color}-500/20 text-${task.color}-400 mb-1 border border-${task.color}-500/30 truncate`}>{task.priority}</span>
+                          <p className="text-[9px] xs:text-[10px] font-black text-rose-500 animate-pulse uppercase tracking-widest">{task.due} LEFT</p>
                        </div>
                     </div>
                     
-                    <h4 className="text-lg font-black text-white mb-1 leading-tight">{task.title}</h4>
-                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-6">{task.course}</p>
+                    <h4 className="text-sm xs:text-lg font-black text-white mb-1 leading-tight truncate">{task.title}</h4>
+                    <p className="text-[9px] xs:text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4 xs:mb-6 truncate">{task.course}</p>
                     
-                    <MDBBtn onClick={handleFileUpload} outline block className="btn-ui-glass py-3 rounded-xl border-white/5 text-[9px] font-black uppercase tracking-widest text-slate-400 group-hover:border-blue-500/30 group-hover:text-blue-400">
+                    <MDBBtn onClick={handleFileUpload} outline block className="btn-ui-glass py-2 xs:py-3 rounded-lg xs:rounded-xl border-white/5 text-[8px] xs:text-[9px] font-black uppercase tracking-widest text-slate-400 group-hover:border-blue-500/30 group-hover:text-blue-400">
                        {getTranslation('initialize_uplink')}
                     </MDBBtn>
                  </MotionDiv>
@@ -207,31 +207,31 @@ const Assignments = () => {
         </div>
 
         {/* Mobile View */}
-        <div className="md:hidden p-4 space-y-4">
+        <div className="md:hidden p-2 xs:p-4 space-y-3">
            {submittedTasks.map((task, idx) => (
               <MotionDiv
                 key={task.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className="surface-card p-5 rounded-3xl border border-white/5 bg-white/[0.02] space-y-4"
+                className="surface-card p-4 xs:p-5 rounded-[1.5rem] xs:rounded-3xl border border-white/5 bg-white/[0.02] space-y-3"
               >
-                 <div className="flex justify-between items-start">
-                    <div>
-                       <h4 className="text-sm font-black text-white leading-tight">{task.title}</h4>
-                       <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">{task.date}</p>
+                 <div className="flex justify-between items-start gap-2">
+                    <div className="min-w-0">
+                       <h4 className="text-xs xs:text-sm font-black text-white leading-tight truncate">{task.title}</h4>
+                       <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-1">{task.date}</p>
                     </div>
-                    <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${task.status === 'Graded' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'}`}>
+                    <span className={`text-[8px] xs:text-[9px] font-black uppercase tracking-widest px-2 xs:px-3 py-1 rounded-full shrink-0 ${task.status === 'Graded' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-blue-500/10 text-blue-400'}`}>
                        {task.status}
                     </span>
                  </div>
                  
-                 <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                 <div className="flex items-center justify-between pt-3 border-t border-white/5 gap-2">
                     <div className="flex flex-col">
-                       <span className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Score</span>
-                       <span className="text-sm font-black text-white">{task.score}</span>
+                       <span className="text-[8px] xs:text-[9px] font-black uppercase text-slate-500 tracking-widest">Score</span>
+                       <span className="text-xs xs:text-sm font-black text-white">{task.score}</span>
                     </div>
-                    <p className="text-[9px] font-bold text-slate-400 italic text-right max-w-[150px]">"{task.remarks}"</p>
+                    <p className="text-[8px] xs:text-[9px] font-bold text-slate-400 italic text-right max-w-[150px] truncate">"{task.remarks}"</p>
                  </div>
               </MotionDiv>
            ))}
