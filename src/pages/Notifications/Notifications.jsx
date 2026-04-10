@@ -4,6 +4,7 @@ import PageHeader from "../../components/UI/PageHeader";
 import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
 import { useLoading } from "../../context/LoadingContext";
+import { getTranslation } from "../../utils/linguaEngine";
 
 const MotionDiv = motion.div;
 
@@ -29,14 +30,14 @@ const Notifications = () => {
   };
 
   return (
-    <div className="page-shell space-y-8 animate-in fade-in duration-700">
+    <div className="page-shell space-y-8 animate-in fade-in duration-700 pb-12">
       <PageHeader
-        title="Bulletin Center"
-        subtitle="Manage your academic alerts and university-wide announcements."
+        title={getTranslation("bulletin_center")}
+        subtitle={getTranslation("bulletin_subtitle")}
         actions={
-          <MDBBtn onClick={markAllAsRead} disabled={unreadCount === 0} className="btn-ui btn-ui-solid px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/10">
+          <MDBBtn onClick={markAllAsRead} disabled={unreadCount === 0} className="btn-ui btn-ui-solid px-4 md:px-5 py-2 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/10 w-full md:w-auto">
             <MDBIcon fas icon="check-double" className="mr-2" />
-            Dismiss All ({unreadCount})
+            {getTranslation("dismiss_all")} ({unreadCount})
           </MDBBtn>
         }
       />
@@ -55,29 +56,29 @@ const Notifications = () => {
             >
               <MDBCard className={`bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm relative group cursor-pointer ${item.read ? 'opacity-60' : ''}`}>
                  {/* Lateral Status Bar */}
-                 <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${
+                 <div className={`absolute left-0 top-0 bottom-0 w-1 ${
                     item.type === 'urgent' ? 'bg-rose-500' : 
                     item.type === 'warning' ? 'bg-amber-500' : 
                     item.type === 'success' ? 'bg-emerald-500' : 'bg-blue-600'
                  }`} />
 
-                 <MDBCardBody className="p-4 pl-8 md:p-6 md:pl-10">
-                    <div className="flex gap-6 items-center">
+                 <MDBCardBody className="p-4 pl-6 md:p-6 md:pl-10">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center">
                        <div className={`h-11 w-11 rounded-2xl flex items-center justify-center shrink-0 border transition-all duration-300 ${
                           item.type === 'urgent' ? 'bg-rose-50 dark:bg-rose-500/10 text-rose-600 border-rose-100 dark:border-rose-900/30' : 
                           item.type === 'warning' ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 border-amber-100 dark:border-amber-900/30' : 
                           item.type === 'success' ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 border-emerald-100 dark:border-emerald-900/30' : 
                           'bg-blue-50 dark:bg-blue-500/10 text-blue-600 border-blue-100 dark:border-blue-900/30'
-                       } group-hover:scale-110`}>
+                       } group-hover:scale-110 shadow-sm sm:shadow-none`}>
                           <MDBIcon fas icon={item.icon} className="text-lg" />
                        </div>
 
                        <div className="flex-1 min-w-0">
-                          <div className="flex justify-between items-center mb-1">
+                          <div className="flex flex-wrap justify-between items-center mb-1 gap-2">
                              <h4 className="text-sm font-black text-slate-800 dark:text-white tracking-tight leading-none group-hover:text-blue-600 transition-colors uppercase">{item.title}</h4>
                              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{item.time}</span>
                           </div>
-                          <p className="text-xs font-bold text-slate-500 leading-relaxed truncate md:whitespace-normal">{item.desc}</p>
+                          <p className="text-xs font-bold text-slate-500 leading-relaxed break-words">{item.desc}</p>
                        </div>
 
                        <div className="hidden md:flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -96,3 +97,4 @@ const Notifications = () => {
 };
 
 export default Notifications;
+

@@ -12,6 +12,7 @@ import PageHeader from "../../components/UI/PageHeader";
 import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
 import { useLoading } from "../../context/LoadingContext";
+import { getTranslation } from "../../utils/linguaEngine";
 
 const MotionDiv = motion.div;
 
@@ -62,29 +63,29 @@ const Portal = () => {
   };
 
   return (
-    <div className="page-shell space-y-10 animate-in fade-in duration-700">
+    <div className="page-shell space-y-10 animate-in fade-in duration-700 pb-12">
       <PageHeader
-        title="Course Center"
-        subtitle="Manage your current studies and explore new academic opportunities."
+        title={getTranslation("portal")}
+        subtitle={getTranslation("welcome_msg")}
       />
 
       <MDBRow className="g-8">
         {/* Left Column: My Current Courses */}
-        <MDBCol lg="7" xl="8">
+        <MDBCol lg="7" xl="8" className="mb-8">
            <div className="space-y-8">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center justify-between gap-4">
                  <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
                        <MDBIcon fas icon="book-reader" />
                     </div>
-                    <h3 className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">Active Enrollment</h3>
+                    <h3 className="text-xl md:text-2xl font-black text-slate-800 dark:text-white tracking-tight">Active Enrollment</h3>
                  </div>
                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
                     {enrolled.length} Courses Total
                  </span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                  {enrolled.length > 0 ? enrolled.map((course, idx) => (
                     <MotionDiv
                       key={course.id}
@@ -122,7 +123,7 @@ const Portal = () => {
                        </div>
                     </MotionDiv>
                  )) : (
-                    <div className="col-span-2 py-20 text-center bg-slate-50 dark:bg-slate-800/20 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
+                    <div className="col-span-1 sm:col-span-2 py-16 md:py-20 text-center bg-slate-50 dark:bg-slate-800/20 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
                        <MDBIcon fas icon="ghost" className="text-4xl text-slate-300 mb-4" />
                        <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">No courses enrolled yet</p>
                     </div>
@@ -130,21 +131,21 @@ const Portal = () => {
               </div>
 
               {/* Browse Marketplace Section */}
-              <div className="pt-12">
+              <div className="pt-8 md:pt-12">
                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-t border-slate-100 dark:border-slate-800 pt-12">
                     <div className="flex items-center gap-3">
                        <div className="h-10 w-10 rounded-xl bg-purple-600/10 flex items-center justify-center text-purple-600">
                           <MDBIcon fas icon="compass" />
                        </div>
-                       <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Browse Marketplace</h3>
+                       <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Marketplace</h3>
                     </div>
                     
-                    <div className="flex surface-soft p-1.5 rounded-2xl gap-1">
+                    <div className="flex overflow-x-auto no-scrollbar surface-soft p-1.5 rounded-2xl gap-1">
                        {["All", "CS", "Design", "AI"].map(tab => (
                           <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
-                            className={`px-5 py-2 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all ${activeTab === tab ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm border border-slate-100 dark:border-slate-600' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'}`}
+                            className={`px-5 py-2 text-[10px] whitespace-nowrap font-black uppercase tracking-wider rounded-xl transition-all ${activeTab === tab ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm border border-slate-100 dark:border-slate-600' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'}`}
                           >
                              {tab}
                           </button>
@@ -152,7 +153,7 @@ const Portal = () => {
                     </div>
                  </div>
 
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {filteredAvailable.map((course) => (
                        <MotionDiv
                          key={course.id}
@@ -177,7 +178,7 @@ const Portal = () => {
                                 <span className="text-xs font-black text-slate-900 dark:text-white mt-0.5">{course.price}</span>
                              </div>
                              <MDBBtn onClick={() => handleQuickEnroll(course)} className="btn-ui btn-ui-solid px-5 py-2.5 rounded-xl shadow-lg shadow-blue-500/20 text-[10px] font-black">
-                                Quick Enroll
+                                Join
                              </MDBBtn>
                           </div>
                        </MotionDiv>
@@ -187,7 +188,7 @@ const Portal = () => {
            </div>
         </MDBCol>
 
-        {/* Right Column: Calendar & Stats */}
+        {/* Right Column: Profile & Stats */}
         <MDBCol lg="5" xl="4">
            <div className="flex flex-col gap-8">
               {/* Profile Shortcut Card */}
@@ -204,7 +205,7 @@ const Portal = () => {
                      
                      <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
                         <div>
-                           <p className="text-[9px] font-black uppercase text-white/50">Academic Status</p>
+                           <p className="text-[9px] font-black uppercase text-white/50">{getTranslation("academic_status")}</p>
                            <p className="text-xs font-bold text-emerald-400 mt-1">Excellent (3.86 GPA)</p>
                         </div>
                         <MDBIcon fas icon="angle-right" className="text-white/30" />
@@ -220,7 +221,7 @@ const Portal = () => {
                     <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
                        <MDBIcon fas icon="calendar-check" />
                     </div>
-                    <h3 className="text-xl font-black text-slate-800 dark:text-white tracking-tight">Priority Calendar</h3>
+                    <h3 className="text-xl font-black text-slate-800 dark:text-white tracking-tight">Timeline</h3>
                  </div>
 
                  <div className="space-y-6">
@@ -250,3 +251,4 @@ const Portal = () => {
 };
 
 export default Portal;
+

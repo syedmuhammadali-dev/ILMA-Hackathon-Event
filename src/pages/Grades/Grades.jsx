@@ -14,6 +14,7 @@ import PageHeader from "../../components/UI/PageHeader";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import { useLoading } from "../../context/LoadingContext";
+import { getTranslation } from "../../utils/linguaEngine";
 
 const MotionDiv = motion.div;
 const MotionTr = motion.tr;
@@ -50,38 +51,39 @@ const Grades = () => {
   return (
     <div className="page-shell space-y-8 pb-12">
       <PageHeader
-        title="Academic Nexus"
-        subtitle="Quantum visualization of your academic trajectory and degree synchronization."
+        title={getTranslation("grades_title")}
+        subtitle={getTranslation("grades_subtitle")}
       />
 
       <MDBRow className="g-8">
-        <MDBCol lg="8">
+        <MDBCol lg="8" className="mb-4">
           <MotionDiv 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="surface-card rounded-[2.5rem] border border-white/5 shadow-2xl overflow-hidden"
+            className="surface-card rounded-[2rem] md:rounded-[2.5rem] border border-white/5 shadow-2xl overflow-hidden"
           >
-            <div className="px-8 py-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+            <div className="px-6 md:px-8 py-6 border-b border-white/5 flex flex-wrap items-center justify-between bg-white/[0.02] gap-4">
                <div className="flex items-center gap-3">
                   <div className="h-10 w-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
                     <MDBIcon fas icon="analytics" />
                   </div>
-                  <h3 className="text-xl font-black text-white tracking-tight">Active Semester Node</h3>
+                  <h3 className="text-lg md:text-xl font-black text-white tracking-tight">{getTranslation("active_semester")}</h3>
                </div>
                <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Spring 2026 Batch</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{getTranslation("semester_batch")}</span>
                </div>
             </div>
             
-            <div className="overflow-x-auto p-2">
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto p-2">
               <MDBTable borderless align="middle" className="mb-0 text-white">
                 <MDBTableHead className="bg-white/[0.03]">
                   <tr>
-                    <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Module Entry</th>
-                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center text-slate-400">Index</th>
-                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center text-slate-400">Rank</th>
-                    <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-right text-slate-400">Sync Status</th>
+                    <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">{getTranslation("module_entry")}</th>
+                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center text-slate-400">{getTranslation("index")}</th>
+                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center text-slate-400">{getTranslation("rank")}</th>
+                    <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-right text-slate-400">{getTranslation("sync_status")}</th>
                   </tr>
                 </MDBTableHead>
                 <MDBTableBody>
@@ -127,6 +129,44 @@ const Grades = () => {
                 </MDBTableBody>
               </MDBTable>
             </div>
+
+            {/* Mobile Card View */}
+            <div className="md:hidden p-4 space-y-4">
+              {gradeData.map((item, idx) => (
+                <MotionDiv
+                  key={idx}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="surface-card p-5 rounded-3xl border border-white/5 bg-white/[0.02]"
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex flex-col gap-1">
+                      <p className="text-sm font-black text-white">{item.course}</p>
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{item.code}</p>
+                    </div>
+                    <div className={`h-10 w-10 rounded-2xl flex items-center justify-center font-black text-sm border-2 ${item.grade === 'A' ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-400 shadow-lg shadow-emerald-500/10' : 'border-blue-500/30 bg-blue-500/10 text-blue-400'}`}>
+                      {item.grade}
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                    <div className="flex flex-col">
+                      <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest">{getTranslation("index")}</span>
+                      <span className="text-sm font-black text-blue-400">{item.gpa}</span>
+                    </div>
+                    <div className="flex flex-col items-end">
+                      <span className={`text-[9px] font-black uppercase tracking-[0.15em] mb-1 ${item.status === 'Passed' ? 'text-emerald-500' : 'text-blue-500'}`}>
+                         {item.status}
+                      </span>
+                      <div className="h-1.5 w-20 bg-white/5 rounded-full overflow-hidden">
+                         <div className={`h-full ${item.status === 'Passed' ? 'bg-emerald-500' : 'bg-blue-50'} rounded-full`} style={{ width: `${item.progress}%` }} />
+                      </div>
+                    </div>
+                  </div>
+                </MotionDiv>
+              ))}
+            </div>
           </MotionDiv>
         </MDBCol>
 
@@ -136,40 +176,40 @@ const Grades = () => {
               <MotionDiv 
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="surface-card rounded-[2.5rem] p-8 border border-white/5 shadow-2xl relative overflow-hidden group"
+                className="surface-card rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 border border-white/5 shadow-2xl relative overflow-hidden group"
               >
                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-purple-500/5 blur-[80px] rounded-full group-hover:bg-purple-500/10 transition-colors" />
                  
                  <div className="flex flex-col items-center text-center relative z-10">
-                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-6">Degree Completion Hub</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-6">{getTranslation("degree_completion")}</p>
                     
-                    <div className="relative w-40 h-40 flex items-center justify-center mb-6">
+                    <div className="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center mb-6">
                        <svg className="w-full h-full transform -rotate-90">
-                          <circle cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-white/5" />
-                          <motion.circle 
-                             cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="12" fill="transparent"
-                             strokeDasharray="440"
-                             initial={{ strokeDashoffset: 440 }}
-                             animate={{ strokeDashoffset: 440 - (440 * 0.65) }}
-                             transition={{ duration: 2, ease: "easeOut" }}
-                             className="text-purple-500"
-                             strokeLinecap="round"
-                          />
+                           <circle cx="50%" cy="50%" r="44%" stroke="currentColor" strokeWidth="10" fill="transparent" className="text-white/5" />
+                           <motion.circle 
+                              cx="50%" cy="50%" r="44%" stroke="currentColor" strokeWidth="10" fill="transparent"
+                              strokeDasharray="276"
+                              initial={{ strokeDashoffset: 276 }}
+                              animate={{ strokeDashoffset: 276 - (276 * 0.65) }}
+                              transition={{ duration: 2, ease: "easeOut" }}
+                              className="text-purple-500"
+                              strokeLinecap="round"
+                           />
                        </svg>
                        <div className="absolute inset-0 flex flex-col items-center justify-center">
-                          <h2 className="text-4xl font-black text-white tracking-tighter">65%</h2>
+                          <h2 className="text-3xl md:text-4xl font-black text-white tracking-tighter">65%</h2>
                           <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Verified</p>
                        </div>
                     </div>
                     
                     <div className="grid grid-cols-2 gap-4 w-full pt-6 border-t border-white/5">
                        <div>
-                          <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Earned</p>
-                          <p className="text-lg font-black text-white">78/130</p>
+                          <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">{getTranslation("earned_credits")}</p>
+                          <p className="text-md md:text-lg font-black text-white">78/130</p>
                        </div>
                        <div>
-                          <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Status</p>
-                          <p className="text-lg font-black text-emerald-500">Junior</p>
+                          <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">{getTranslation("academic_status")}</p>
+                          <p className="text-md md:text-lg font-black text-emerald-500">Junior</p>
                        </div>
                     </div>
                  </div>
@@ -180,17 +220,17 @@ const Grades = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-gradient-to-br from-slate-900 to-[#1e1e2d] rounded-[2.5rem] p-8 border border-white/5 shadow-2xl overflow-hidden relative"
+                className="bg-gradient-to-br from-slate-900 to-[#1e1e2d] rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 border border-white/5 shadow-2xl overflow-hidden relative"
               >
                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[60px] rounded-full" />
                  
                  <div className="relative z-10">
                     <div className="flex justify-between items-start mb-6">
                        <div>
-                          <p className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 mb-1">Cumulative Index</p>
+                          <p className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 mb-1">{getTranslation("cumulative_index")}</p>
                           <div className="flex items-baseline gap-2">
-                             <h2 className="text-5xl font-black text-blue-400 tracking-tighter">3.82</h2>
-                             <span className="text-sm font-bold text-slate-600">/4.0</span>
+                             <h2 className="text-4xl md:text-5xl font-black text-blue-400 tracking-tighter">3.82</h2>
+                             <span className="text-xs md:text-sm font-bold text-slate-600">/4.0</span>
                           </div>
                        </div>
                        <div className="h-10 w-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
@@ -198,7 +238,7 @@ const Grades = () => {
                        </div>
                     </div>
                     
-                    <div className="h-32 w-full mt-4">
+                    <div className="h-24 md:h-32 w-full mt-4">
                        <svg viewBox="0 0 400 100" className="w-full h-full overflow-visible">
                           <defs>
                              <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
@@ -224,16 +264,6 @@ const Grades = () => {
                              animate={{ pathLength: 1 }}
                              transition={{ duration: 1.5, ease: "easeInOut" }}
                           />
-                          {gpaTrend.map((v, i) => (
-                             <motion.circle 
-                                key={i} 
-                                cx={(i * 70) + 15} cy={90 - (v / 4 * 70)} r="4" 
-                                fill="#3b82f6"
-                                stroke="#1e1e2d"
-                                strokeWidth="2"
-                                whileHover={{ r: 6 }}
-                             />
-                          ))}
                        </svg>
                     </div>
                     
@@ -248,12 +278,12 @@ const Grades = () => {
               {/* Action Node */}
               <MDBBtn 
                 onClick={handleDownloadTranscript} 
-                className="btn-ui btn-ui-solid py-4 rounded-[1.5rem] shadow-2xl shadow-blue-500/20 font-black text-[10px] uppercase tracking-[0.2em] relative group overflow-hidden"
+                className="btn-ui btn-ui-solid py-4 rounded-[1.5rem] shadow-2xl shadow-blue-500/20 font-black text-[10px] uppercase tracking-[0.2em] relative group overflow-hidden w-full"
               >
                  <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                  <span className="relative z-10 flex items-center justify-center gap-2">
                     <MDBIcon fas icon="fingerprint" />
-                    Secure Transcript Extraction
+                    {getTranslation("secure_transcript")}
                  </span>
               </MDBBtn>
            </div>
@@ -264,4 +294,5 @@ const Grades = () => {
 };
 
 export default Grades;
+
 

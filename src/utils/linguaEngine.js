@@ -28,7 +28,33 @@ export const translations = {
     performance_equilibrium: "Performance Equilibrium",
     mission_history: "Mission History Matrix",
     initialize_uplink: "Initialize Uplink",
-    language_label: "Eng"
+    language_label: "Eng",
+    // Grades Page
+    grades_title: "Academic Nexus",
+    grades_subtitle: "Quantum visualization of your academic trajectory and degree synchronization.",
+    active_semester: "Active Semester Node",
+    semester_batch: "Spring 2026 Batch",
+    module_entry: "Module Entry",
+    index: "Index",
+    rank: "Rank",
+    sync_status: "Sync Status",
+    degree_completion: "Degree Completion Hub",
+    earned_credits: "Earned Credits",
+    academic_status: "Academic Status",
+    cumulative_index: "Cumulative Index",
+    secure_transcript: "Secure Transcript Extraction",
+    // Schedule Page
+    schedule_title: "Class Timetable",
+    schedule_subtitle: "Manage your weekly schedule and academic commitments.",
+    weekly_schedule: "Weekly Schedule",
+    spring_semester: "Spring Semester 2026",
+    time_slot: "Time Slot",
+    export_pdf: "Export PDF",
+    // Notifications Page
+    bulletin_center: "Bulletin Center",
+    bulletin_subtitle: "Manage your academic alerts and university-wide announcements.",
+    dismiss_all: "Dismiss All",
+    unread_alerts: "Unread Alerts"
   },
   ur: {
     portal_title: "علما اسٹوڈنٹ پورٹل",
@@ -59,7 +85,33 @@ export const translations = {
     performance_equilibrium: "کارکردگی کا توازن",
     mission_history: "مشن ہسٹری میٹرکس",
     initialize_uplink: "اپ لنک شروع کریں",
-    language_label: "اردو"
+    language_label: "اردو",
+    // Grades Page
+    grades_title: "تعلیمی رابطہ",
+    grades_subtitle: "آپ کے تعلیمی سفر اور ڈگری کی تکمیل کا کوانٹم تصور۔",
+    active_semester: "فعال سمسٹر نوڈ",
+    semester_batch: "بہار 2026 بیچ",
+    module_entry: "ماڈیول انٹری",
+    index: "انڈیکس",
+    rank: "رینک",
+    sync_status: "مطابقت کی صورتحال",
+    degree_completion: "ڈگری کی تکمیل کا مرکز",
+    earned_credits: "حاصل کردہ کریڈٹ",
+    academic_status: "تعلیمی حیثیت",
+    cumulative_index: "مجموعی انڈیکس",
+    secure_transcript: "محفوظ ٹرانسکرپٹ کا حصول",
+    // Schedule Page
+    schedule_title: "کلاس ٹائم ٹیبل",
+    schedule_subtitle: "اپنے ہفتہ وار شیڈول اور تعلیمی مصروفیات کا انتظام کریں۔",
+    weekly_schedule: "ہفتہ وار شیڈول",
+    spring_semester: "بہار سمسٹر 2026",
+    time_slot: "وقت کا وقفہ",
+    export_pdf: "پی ڈی ایف ایکسپورٹ",
+    // Notifications Page
+    bulletin_center: "بلیٹن سینٹر",
+    bulletin_subtitle: "اپنے تعلیمی انتباہات اور یونیورسٹی کے اعلانات کا انتظام کریں۔",
+    dismiss_all: "تمام ختم کریں",
+    unread_alerts: "غیر پڑھے ہوئے الرٹس"
   },
   ur_roman: {
     portal_title: "ILMA Student Portal",
@@ -90,7 +142,33 @@ export const translations = {
     performance_equilibrium: "Performance Check",
     mission_history: "Purani History",
     initialize_uplink: "Upload Karein",
-    language_label: "Roman"
+    language_label: "Roman",
+    // Grades Page
+    grades_title: "Parhai Ka Link",
+    grades_subtitle: "Aapki academic history aur degree syncing ki digital tasveer.",
+    active_semester: "Active Semester Node",
+    semester_batch: "Spring 2026 Batch",
+    module_entry: "Course Name",
+    index: "GPA",
+    rank: "Grade",
+    sync_status: "Result Status",
+    degree_completion: "Degree Poori Hone Ka Hub",
+    earned_credits: "Poore Kiye Gaye Credits",
+    academic_status: "Pahrhai Ki Status",
+    cumulative_index: "Total GPA",
+    secure_transcript: "Transcript Download Karein",
+    // Schedule Page
+    schedule_title: "Class Ka Time Table",
+    schedule_subtitle: "Apna hafta-war schedule check karein.",
+    weekly_schedule: "Hafta-war Schedule",
+    spring_semester: "Spring Semester 2026",
+    time_slot: "Time Slot",
+    export_pdf: "PDF Download",
+    // Notifications Page
+    bulletin_center: "Alerts Center",
+    bulletin_subtitle: "Apne campus notifications aur news check karein.",
+    dismiss_all: "Sab Hatayein",
+    unread_alerts: "Naye Alerts"
   }
 };
 
@@ -104,3 +182,4 @@ export const getTranslation = (key) => {
   const lang = localStorage.getItem("portal-lang") || "en";
   return translations[lang][key] || translations['en'][key] || key;
 };
+

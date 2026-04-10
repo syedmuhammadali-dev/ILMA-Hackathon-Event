@@ -12,6 +12,7 @@ import PageHeader from "../../components/UI/PageHeader";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import { useLoading } from "../../context/LoadingContext";
+import { getTranslation } from "../../utils/linguaEngine";
 
 const MotionDiv = motion.div;
 
@@ -66,86 +67,69 @@ const Schedule = () => {
     });
   };
 
+  const days = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+
   return (
     <div className="page-shell animate-in fade-in slide-in-from-right-5 duration-700">
       <PageHeader
-        title="Class Timetable"
-        subtitle="Manage your weekly schedule and academic commitments."
+        title={getTranslation("schedule_title")}
+        subtitle={getTranslation("schedule_subtitle")}
         actions={
           <MDBBtn
             color="primary"
             className="btn-ui btn-ui-solid"
             onClick={handleExport}
           >
-            <MDBIcon fas icon="download" size="xs" /> Export PDF
+            <MDBIcon fas icon="download" size="xs" /> {getTranslation("export_pdf")}
           </MDBBtn>
         }
       />
 
         <MDBCard className="table-shell surface-card">
         <MDBCardBody className="p-0">
-          <div className="p-6 border-b border-gray-100 surface-soft sticky top-0 z-10 flex items-center justify-between">
+          <div className="p-4 md:p-6 border-b border-gray-100 surface-soft sticky top-0 z-10 flex flex-wrap items-center justify-between gap-4">
             <h3 className="font-bold text-slate-800 flex items-center gap-2">
               <MDBIcon fas icon="calendar-alt" className="text-blue-500" />
-              Weekly Schedule
+              {getTranslation("weekly_schedule")}
             </h3>
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest surface-soft px-3 py-1 rounded-full">
-              Spring Semester 2026
+            <span className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest surface-soft px-3 py-1 rounded-full border border-slate-200">
+              {getTranslation("spring_semester")}
             </span>
           </div>
-          <div className="overflow-x-auto">
+
+          {/* Desktop Table */}
+          <div className="hidden lg:block overflow-x-auto">
             <MDBTable hover borderless align="middle" className="mb-0">
               <MDBTableHead className="surface-soft border-b border-slate-100">
                 <tr className="text-left">
-                  <th className="table-head-cell">
-                    Time Slot
-                  </th>
-                  <th className="table-head-cell text-center">
-                    Mon
-                  </th>
-                  <th className="table-head-cell text-center">
-                    Tue
-                  </th>
-                  <th className="table-head-cell text-center">
-                    Wed
-                  </th>
-                  <th className="table-head-cell text-center">
-                    Thu
-                  </th>
-                  <th className="table-head-cell text-center">
-                    Fri
-                  </th>
+                  <th className="table-head-cell">{getTranslation("time_slot")}</th>
+                  <th className="table-head-cell text-center">Mon</th>
+                  <th className="table-head-cell text-center">Tue</th>
+                  <th className="table-head-cell text-center">Wed</th>
+                  <th className="table-head-cell text-center">Thu</th>
+                  <th className="table-head-cell text-center">Fri</th>
                 </tr>
               </MDBTableHead>
               <MDBTableBody>
                 {scheduleData.map((row, idx) => (
-                  <tr
-                    key={idx}
-                    className="group hover-surface transition-colors"
-                  >
+                  <tr key={idx} className="group hover-surface transition-colors">
                     <td className="px-6 py-4">
                       <span className="text-xs font-black text-slate-900 glass-badge px-3 py-1 rounded-lg border border-slate-200">
                         {row.time}
                       </span>
                     </td>
-                    {[
-                      row.monday,
-                      row.tuesday,
-                      row.wednesday,
-                      row.thursday,
-                      row.friday,
-                    ].map((day, dIdx) => (
+                    {days.map((day, dIdx) => (
                       <td key={dIdx} className="px-6 py-4 text-center">
-                          {day === "-" ? (
+                          {row[day] === "-" ? (
                             <span className="text-slate-200 font-bold">-</span>
-                          ) : day === "Break" ? (
+                          ) : row[day] === "Break" ? (
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest glass-badge px-2 py-0.5 rounded-md">
                               Lunch Break
                             </span>
                           ) : (
                             <div className="surface-soft border border-blue-100 p-3 rounded-2xl text-blue-900 dark:text-blue-200 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-700 transition-all cursor-pointer">
                               <p className="text-xs font-black mb-0.5 uppercase tracking-tighter">
-                                {day}
+                                {row[day]}
                               </p>
                               <p className="text-[9px] font-bold opacity-70 uppercase tracking-widest">
                                 Main Block
@@ -158,6 +142,36 @@ const Schedule = () => {
                 ))}
               </MDBTableBody>
             </MDBTable>
+          </div>
+
+          {/* Mobile/Tablet List View */}
+          <div className="lg:hidden p-4 space-y-6">
+            {scheduleData.map((row, idx) => (
+              <div key={idx} className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <span className="h-px flex-1 bg-slate-100 dark:bg-slate-800"></span>
+                  <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    {row.time}
+                  </span>
+                  <span className="h-px flex-1 bg-slate-100 dark:bg-slate-800"></span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {days.map((day, dIdx) => row[day] !== "-" && (
+                    <div key={dIdx} className="surface-card p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center justify-between">
+                       <div className="flex flex-col">
+                          <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{day.toUpperCase()}</span>
+                          <span className={`text-xs font-black ${row[day] === "Break" ? 'text-slate-400 italic' : 'text-slate-900'}`}>{row[day]}</span>
+                       </div>
+                       {row[day] !== "Break" && (
+                         <div className="h-8 w-8 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
+                            <MDBIcon fas icon="map-marker-alt" className="text-[10px]" />
+                         </div>
+                       )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </MDBCardBody>
       </MDBCard>
@@ -203,3 +217,4 @@ const Schedule = () => {
 };
 
 export default Schedule;
+

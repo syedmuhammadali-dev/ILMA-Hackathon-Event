@@ -276,7 +276,7 @@ const Header = () => {
                   className="absolute top-full right-0 mt-3 w-[480px] bg-white border border-slate-200 shadow-[0_10px_30px_rgba(0,0,0,0.1)] z-[2000] overflow-hidden rounded-xl"
                 >
                   <div className="px-3 py-1.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                    <h3 className="font-black text-[8px] text-slate-400 uppercase tracking-widest">Student Notifications</h3>
+                    <h3 className="font-black text-[8px] text-slate-400 uppercase tracking-widest">{getTranslation('system_alerts')}</h3>
                     <div className="text-[8px] font-bold text-blue-600 bg-blue-50/50 px-1.5 rounded-full border border-blue-100">
                       3 NEW
                     </div>
@@ -337,16 +337,20 @@ const Header = () => {
           {mobileOpen && (
             <div
               id="mobile-nav-menu"
-              className="md:hidden absolute top-full right-0 mt-3 w-64 glass-panel premium-shadow rounded-2xl p-4 z-50 border border-slate-200/50"
+              className="md:hidden absolute top-full right-0 mt-3 w-64 glass-panel backdrop-blur-xl bg-white dark:bg-slate-900 premium-shadow rounded-2xl p-4 z-[2000] border border-slate-200 dark:border-white/10"
             >
               <nav className="flex flex-col gap-1">
                 {[
                   { title: "Home", key: 'dashboard', path: "/", icon: "home" },
                   { title: "Portal", key: 'portal', path: "/portal", icon: "th-large" },
                   { title: "Profile", key: 'profile', path: "/profile", icon: "user" },
-                  { title: "Academic Grades", key: 'grades', path: "/grades", icon: "poll-h" },
-                  { title: "Class Schedule", key: 'schedule', path: "/schedule", icon: "calendar-alt" },
+                  { title: "Grades", key: 'grades', path: "/grades", icon: "poll-h" },
+                  { title: "Financial", key: 'financial', path: "/financial", icon: "wallet" },
+                  { title: "Assignments", key: 'assignments', path: "/assignments", icon: "tasks" },
+                  { title: "Schedule", key: 'schedule', path: "/schedule", icon: "calendar-alt" },
+                  { title: "Campus Pulse", key: 'campus', path: "/campus-pulse", icon: "heartbeat" },
                   { title: "Notifications", key: 'notifications', path: "/notifications", icon: "bell" },
+                  { title: "Appearance", key: 'appearance', path: "/appearance", icon: "paint-brush" },
                 ].map((item) => (
                   <Link
                     key={item.path}
@@ -365,7 +369,7 @@ const Header = () => {
                  <div className="flex items-center gap-3 py-2 px-3">
                    <button onClick={toggleMode} className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold transition-all active:scale-95">
                      <MDBIcon fas icon={currentMode === 'dark' ? 'sun' : 'moon'} className={currentMode === 'dark' ? 'text-amber-400' : 'text-slate-600'} />
-                     {currentMode === 'dark' ? 'Solar' : 'Lunar'}
+                     {currentMode === 'dark' ? (getTranslation('light_mode') || 'Solar') : (getTranslation('dark_mode') || 'Lunar')}
                    </button>
                    <button onClick={() => {
                         const next = localStorage.getItem("portal-lang") === 'en' ? 'ur' : localStorage.getItem("portal-lang") === 'ur' ? 'ur_roman' : 'en';
@@ -383,7 +387,7 @@ const Header = () => {
                   className="nav-item text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 w-full text-left"
                 >
                   <MDBIcon fas icon="sign-out-alt" className="w-5" />
-                  Logout
+                  {getTranslation('logout')}
                 </button>
               </nav>
             </div>
