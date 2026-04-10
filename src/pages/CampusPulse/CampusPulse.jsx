@@ -10,6 +10,7 @@ import {
 import PageHeader from "../../components/UI/PageHeader";
 import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
+import { getTranslation } from "../../utils/linguaEngine";
 
 const MotionDiv = motion.div;
 
@@ -84,20 +85,22 @@ const CampusPulse = () => {
   return (
     <div className="page-shell space-y-8 pb-12">
       <PageHeader
-        title="Campus Pulse"
+        title={getTranslation("campus")}
         subtitle="The digital heartbeat of ILMA. Synchronize with latest news, events, and campus guilds."
       />
 
       <MDBRow className="g-6">
-         {/* News Stream Sidebar */}
-         <MDBCol lg="4">
+         {/* Featured Events - Main Column on mobile it should come first or second? 
+             User usually reads News first, but Events are more visual. 
+             I'll stick to news sidebar first as it's quick to read. */}
+         <MDBCol lg="4" className="mb-8 lg:mb-0 order-2 lg:order-1">
             <MotionDiv 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="surface-card rounded-[2.5rem] border border-white/5 h-full shadow-2xl overflow-hidden"
+              className="surface-card rounded-[2rem] md:rounded-[2.5rem] border border-white/5 h-full shadow-2xl overflow-hidden"
             >
-               <div className="px-8 py-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
-                  <h3 className="text-xl font-black text-white tracking-tight flex items-center gap-2">
+               <div className="px-6 md:px-8 py-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                  <h3 className="text-lg md:text-xl font-black text-white tracking-tight flex items-center gap-2">
                      <MDBIcon fas icon="satellite-dish" className="text-blue-500 text-sm" />
                      Live Stream
                   </h3>
@@ -133,24 +136,24 @@ const CampusPulse = () => {
             </MotionDiv>
          </MDBCol>
 
-         {/* Featured Events */}
-         <MDBCol lg="8">
-            <div className="space-y-6">
+         {/* Right Column: Events and Guilds */}
+         <MDBCol lg="8" className="order-1 lg:order-2">
+            <div className="space-y-8">
                <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 pl-4">Event Nexus Nodes</h4>
                <MDBRow className="g-4">
                   {upcomingEvents.map((event) => (
-                    <MDBCol md="6" key={event.id}>
+                    <MDBCol sm="6" key={event.id}>
                        <MotionDiv 
                          whileHover={{ y: -5 }}
-                         className="relative h-64 rounded-[2.5rem] overflow-hidden group shadow-2xl"
+                         className="relative h-64 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group shadow-2xl"
                        >
                           <img src={event.img} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={event.title} />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent" />
                           
                           <div className="absolute inset-x-6 bottom-6 flex flex-col items-start">
                              <span className="text-[9px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded bg-blue-600 text-white mb-2">{event.category}</span>
-                             <h4 className="text-xl font-black text-white mb-1">{event.title}</h4>
-                             <p className="text-xs text-slate-400 font-bold mb-4">{event.date} • Digital Campus Hub</p>
+                             <h4 className="text-xl font-black text-white mb-1 leading-tight">{event.title}</h4>
+                             <p className="text-[10px] text-slate-400 font-bold mb-4">{event.date} • Digital Campus Hub</p>
                              
                              <MDBBtn onClick={() => handleRegisterEvent(event.title)} className="btn-ui btn-ui-solid py-2 px-6 rounded-xl font-black text-[10px] uppercase tracking-widest">
                                 Secure Token
@@ -162,14 +165,14 @@ const CampusPulse = () => {
                </MDBRow>
 
                {/* Guild Directory */}
-               <div className="pt-8 space-y-4">
+               <div className="pt-4 md:pt-8 space-y-4">
                   <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 pl-4">Verified Campus Guilds</h4>
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                      {societies.map((club, idx) => (
                        <MotionDiv 
                          key={idx}
                          whileHover={{ scale: 1.05 }}
-                         className="surface-card p-4 rounded-3xl border border-white/5 text-center group transition-all"
+                         className="surface-card p-5 rounded-3xl border border-white/5 text-center group transition-all"
                        >
                           <div className={`h-12 w-12 rounded-2xl bg-${club.color}-500/10 flex items-center justify-center text-${club.color}-400 mx-auto mb-3 border border-${club.color}-500/10 shadow-lg shadow-${club.color}-500/10`}>
                              <MDBIcon fas icon={club.icon} />
@@ -192,3 +195,4 @@ const CampusPulse = () => {
 };
 
 export default CampusPulse;
+

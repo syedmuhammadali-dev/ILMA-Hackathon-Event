@@ -140,22 +140,22 @@ const Header = () => {
         alignItems: 'center'
       }}
     >
-      <MDBContainer fluid className="px-6 md:px-12 flex items-center justify-between">
-        <div className="flex items-center">
+      <MDBContainer fluid className="px-3 sm:px-6 md:px-12 flex items-center justify-between gap-2">
+        <div className="flex items-center shrink-0">
           <MotionDiv whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
             <MDBNavbarBrand href="/" className="m-0 p-0 flex items-center group">
 
               <img
                 src={Logo}
-                className="h-10 w-auto object-contain"
+                className="h-8 sm:h-10 w-auto object-contain"
                 alt="University Logo"
               />
 
-              <div className="flex flex-col ml-1 me-5">
-                <span className="text-xl font-black tracking-tight leading-none text-slate-900 dark:text-black">
+              <div className="flex flex-col ml-1 me-2 sm:me-5">
+                <span className="text-base sm:text-xl font-black tracking-tight leading-none text-slate-900 dark:text-black">
                   Student<span className="text-blue-600">Portal</span>
                 </span>
-                <span className="text-[10px] uppercase tracking-widest font-black text-slate-400 mt-1">
+                <span className="hidden xs:block text-[10px] uppercase tracking-widest font-black text-slate-400 mt-1">
                   University Admin
                 </span>
               </div>
@@ -337,65 +337,72 @@ const Header = () => {
           {mobileOpen && (
             <div
               id="mobile-nav-menu"
-              className="md:hidden absolute top-full right-0 mt-3 w-64 glass-panel backdrop-blur-xl bg-white dark:bg-slate-900 premium-shadow rounded-2xl p-4 z-[2000] border border-slate-200 dark:border-white/10"
+              className="md:hidden absolute top-full right-0 mt-2"
+              style={{ width: 'min(16rem, calc(100vw - 1rem))' }}
             >
-              <nav className="flex flex-col gap-1">
-                {[
-                  { title: "Home", key: 'dashboard', path: "/", icon: "home" },
-                  { title: "Portal", key: 'portal', path: "/portal", icon: "th-large" },
-                  { title: "Profile", key: 'profile', path: "/profile", icon: "user" },
-                  { title: "Grades", key: 'grades', path: "/grades", icon: "poll-h" },
-                  { title: "Financial", key: 'financial', path: "/financial", icon: "wallet" },
-                  { title: "Assignments", key: 'assignments', path: "/assignments", icon: "tasks" },
-                  { title: "Schedule", key: 'schedule', path: "/schedule", icon: "calendar-alt" },
-                  { title: "Campus Pulse", key: 'campus', path: "/campus-pulse", icon: "heartbeat" },
-                  { title: "Notifications", key: 'notifications', path: "/notifications", icon: "bell" },
-                  { title: "Appearance", key: 'appearance', path: "/appearance", icon: "paint-brush" },
-                ].map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    onClick={() => setMobileOpen(false)}
-                    className="nav-item group hover:bg-blue-50 dark:hover:bg-blue-900/20"
-                  >
-                    <MDBIcon fas icon={item.icon} className="w-5 text-slate-400 group-hover:text-blue-600" />
-                    {getTranslation(item.key) || item.title}
-                  </Link>
-                ))}
-                
-                <hr className="my-2 border-slate-200/50" />
-                
-                {/* Mobile Quick Toggles */}
-                 <div className="flex items-center gap-3 py-2 px-3">
-                   <button onClick={toggleMode} className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold transition-all active:scale-95">
-                     <MDBIcon fas icon={currentMode === 'dark' ? 'sun' : 'moon'} className={currentMode === 'dark' ? 'text-amber-400' : 'text-slate-600'} />
-                     {currentMode === 'dark' ? (getTranslation('light_mode') || 'Solar') : (getTranslation('dark_mode') || 'Lunar')}
-                   </button>
-                   <button onClick={() => {
+              <div className="glass-panel backdrop-blur-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden" style={{ maxHeight: 'calc(100dvh - 6rem)', overflowY: 'auto' }}>
+                <nav className="flex flex-col gap-0.5 p-3">
+                  {[
+                    { title: "Home", key: 'dashboard', path: "/", icon: "home" },
+                    { title: "Portal", key: 'portal', path: "/portal", icon: "th-large" },
+                    { title: "Profile", key: 'profile', path: "/profile", icon: "user" },
+                    { title: "Grades", key: 'grades', path: "/grades", icon: "poll-h" },
+                    { title: "Financial", key: 'financial', path: "/financial", icon: "wallet" },
+                    { title: "Assignments", key: 'assignments', path: "/assignments", icon: "tasks" },
+                    { title: "Schedule", key: 'schedule', path: "/schedule", icon: "calendar-alt" },
+                    { title: "Campus Pulse", key: 'campus', path: "/campus-pulse", icon: "heartbeat" },
+                    { title: "Notifications", key: 'notifications', path: "/notifications", icon: "bell" },
+                    { title: "Appearance", key: 'appearance', path: "/appearance", icon: "paint-brush" },
+                  ].map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setMobileOpen(false)}
+                      className="nav-item group hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl"
+                    >
+                      <MDBIcon fas icon={item.icon} className="w-5 text-slate-400 group-hover:text-blue-600 shrink-0" />
+                      <span className="truncate text-sm">{getTranslation(item.key) || item.title}</span>
+                    </Link>
+                  ))}
+
+                  <hr className="my-2 border-slate-200 dark:border-white/10" />
+
+                  {/* Quick Toggles */}
+                  <div className="flex items-center gap-2 py-1 px-1">
+                    <button onClick={toggleMode} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold transition-all active:scale-95">
+                      <MDBIcon fas icon={currentMode === 'dark' ? 'sun' : 'moon'} className={currentMode === 'dark' ? 'text-amber-400' : 'text-slate-600'} />
+                      <span className="truncate">{currentMode === 'dark' ? 'Solar' : 'Night'}</span>
+                    </button>
+                    <button
+                      onClick={() => {
                         const next = localStorage.getItem("portal-lang") === 'en' ? 'ur' : localStorage.getItem("portal-lang") === 'ur' ? 'ur_roman' : 'en';
                         applyLanguage(next);
                         window.location.reload();
-                     }} className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 text-xs font-bold transition-all active:scale-95">
-                     <MDBIcon fas icon="language" />
-                     {localStorage.getItem("portal-lang") === 'en' ? 'ENG' : localStorage.getItem("portal-lang") === 'ur' ? 'اردو' : 'ROM'}
-                   </button>
-                 </div>
+                      }}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 text-xs font-bold transition-all active:scale-95"
+                    >
+                      <MDBIcon fas icon="language" />
+                      <span>{localStorage.getItem("portal-lang") === 'en' ? 'ENG' : localStorage.getItem("portal-lang") === 'ur' ? 'اردو' : 'ROM'}</span>
+                    </button>
+                  </div>
 
-                <hr className="my-2 border-slate-200/50" />
-                <button
-                  onClick={handleLogout}
-                  className="nav-item text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 w-full text-left"
-                >
-                  <MDBIcon fas icon="sign-out-alt" className="w-5" />
-                  {getTranslation('logout')}
-                </button>
-              </nav>
+                  <hr className="my-2 border-slate-200 dark:border-white/10" />
+
+                  <button
+                    onClick={handleLogout}
+                    className="nav-item text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 w-full text-left rounded-xl"
+                  >
+                    <MDBIcon fas icon="sign-out-alt" className="w-5 shrink-0" />
+                    <span className="text-sm">{getTranslation('logout')}</span>
+                  </button>
+                </nav>
+              </div>
             </div>
           )}
 
-          <div className="flex items-center gap-4 pl-4 border-l border-slate-200/50">
-            <div className="hidden sm:flex flex-col items-end leading-tight">
-              <span className="text-sm font-extrabold text-slate-900 tracking-tight">
+          <div className="flex items-center gap-2 sm:gap-4 pl-2 sm:pl-4 border-l border-slate-200/50 dark:border-white/10 shrink-0">
+            <div className="hidden md:flex flex-col items-end leading-tight">
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white tracking-tight">
                 {user.fullName}
               </span>
               <div className="flex items-center gap-1.5">
