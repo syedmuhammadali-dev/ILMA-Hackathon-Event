@@ -261,10 +261,11 @@ const Header = () => {
                 onClick={() => navigate("/notifications")}
                 title="Notifications"
               >
-                <div className="relative">
-                  <MDBIcon fas icon="bell" className="text-slate-500" />
-              </div>
-            </MotionButton>
+                <div className="relative inline-flex">
+                  <MDBIcon fas icon="bell" className="text-slate-500 text-lg" />
+                  <span className="absolute -top-1 -right-1 h-2.5 w-2.5 bg-rose-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+                </div>
+              </MotionButton>
 
             {/* Notification Dropdown Panel */}
             <AnimatePresence>
