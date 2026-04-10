@@ -139,10 +139,9 @@ const Header = () => {
         maxWidth: '100vw',
         display: 'flex',
         alignItems: 'center',
-        overflow: 'hidden'
       }}
     >
-      <MDBContainer fluid className="px-2 xs:px-3 sm:px-6 md:px-12 flex items-center justify-between gap-1 sm:gap-2" style={{ maxWidth: '100%', overflow: 'hidden' }}>
+      <MDBContainer fluid className="px-2 xs:px-3 sm:px-6 md:px-12 flex items-center justify-between gap-1 sm:gap-2" style={{ maxWidth: '100%' }}>
         <div className="flex items-center flex-1 min-w-0">
           <MotionDiv whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }} className="shrink-0">
             <MDBNavbarBrand href="/" className="m-0 p-0 flex items-center group shrink-0">
