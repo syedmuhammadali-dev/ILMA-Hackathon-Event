@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
 
 @theme {
+  --breakpoint-xs: 400px;
   --color-primary: #1d4ed8;
   --color-secondary: #2563eb;
   --color-accent: #0ea5e9;
@@ -58,10 +59,14 @@ body {
   font-family: var(--base-font-family);
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 #root {
   min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .gradient-form {
@@ -210,9 +215,16 @@ textarea:focus-visible,
 }
 
 .search-container {
-  @apply hidden lg:flex items-center gap-2 px-4 py-2 rounded-2xl border transition-all duration-300 w-full max-w-md mx-6;
+  @apply items-center gap-2 px-4 py-2 rounded-2xl border transition-all duration-300 w-full max-w-md mx-6;
+  display: none;
   background-color: var(--surface-card-soft);
   border-color: var(--border-soft);
+}
+
+@media (min-width: 1024px) {
+  .search-container {
+    display: flex;
+  }
 }
 
 .search-container:focus-within {

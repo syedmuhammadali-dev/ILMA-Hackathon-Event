@@ -129,30 +129,32 @@ const Header = () => {
     <MDBNavbar
       expand="lg"
       fixed="top"
-      className="z-[100] h-20 glass-panel border-b premium-shadow w-full"
+      className="z-[100] h-14 xs:h-16 md:h-20 glass-panel border-b premium-shadow w-full"
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
         width: '100%',
+        maxWidth: '100vw',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'hidden'
       }}
     >
-      <MDBContainer fluid className="px-2 sm:px-6 md:px-12 flex items-center justify-between gap-1 sm:gap-2">
-        <div className="flex items-center shrink-0">
-          <MotionDiv whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-            <MDBNavbarBrand href="/" className="m-0 p-0 flex items-center group">
+      <MDBContainer fluid className="px-2 xs:px-3 sm:px-6 md:px-12 flex items-center justify-between gap-1 sm:gap-2" style={{ maxWidth: '100%', overflow: 'hidden' }}>
+        <div className="flex items-center flex-1 min-w-0">
+          <MotionDiv whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }} className="shrink-0">
+            <MDBNavbarBrand href="/" className="m-0 p-0 flex items-center group shrink-0">
 
               <img
                 src={Logo}
-                className="h-6 xs:h-8 sm:h-10 w-auto object-contain"
+                className="h-6 xs:h-7 sm:h-10 w-auto object-contain shrink-0"
                 alt="University Logo"
               />
 
-              <div className="flex flex-col ml-1 me-2 sm:me-5">
-                <span className="text-[14px] xs:text-base sm:text-xl font-black tracking-tight leading-none text-slate-900 dark:text-black">
+              <div className="flex flex-col ml-1 me-1 xs:me-2 sm:me-5 min-w-0">
+                <span className="text-[12px] xs:text-sm sm:text-xl font-black tracking-tight leading-none text-slate-900 dark:text-black whitespace-nowrap">
                   <span className="hidden min-[360px]:inline">Student</span><span className="text-blue-600">Portal</span>
                 </span>
                 <span className="hidden sm:block text-[10px] uppercase tracking-widest font-black text-slate-400 mt-1">
@@ -162,22 +164,22 @@ const Header = () => {
             </MDBNavbarBrand>
           </MotionDiv>
 
-          {/* New Search Element */}
-          <div className="hidden md:flex search-container ml-12">
-            <MDBIcon fas icon="search" className="text-slate-400 text-sm" />
+          {/* New Search Element - only shown at lg (1024px+) to avoid header crowding */}
+          <div className="search-container ml-4 lg:ml-8 flex-1 min-w-0">
+            <MDBIcon fas icon="search" className="text-slate-400 text-sm shrink-0" />
             <input
               type="text"
               placeholder="Search courses, grades, or resources..."
-              className="bg-transparent border-none outline-none text-sm w-full font-bold placeholder:text-slate-400"
+              className="bg-transparent border-none outline-none text-sm w-full flex-1 font-bold placeholder:text-slate-400 text-ellipsis overflow-hidden whitespace-nowrap min-w-0"
               style={{ color: 'var(--text-primary)' }}
             />
-            <div className="px-1.5 py-0.5 rounded-md bg-slate-200/50 text-[10px] font-bold text-slate-500 border border-slate-300/30">
+            <div className="px-1.5 py-0.5 rounded-md bg-slate-200/50 text-[10px] font-bold text-slate-500 border border-slate-300/30 shrink-0 ml-auto">
               ⌘K
             </div>
           </div>
         </div>
 
-        <div ref={mobileMenuRef} className="flex items-center gap-1.5 sm:gap-4 relative">
+        <div ref={mobileMenuRef} className="flex items-center gap-1 xs:gap-1.5 sm:gap-4 relative shrink-0">
           <div className="hidden md:flex items-center gap-2 mr-2 relative" ref={notificationsRef}>
             {/* Animated Theme Toggle */}
             <MotionButton
@@ -327,11 +329,11 @@ const Header = () => {
           <MotionButton
             type="button"
             onClick={() => setMobileOpen((s) => !s)}
-            className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-none"
+            className="md:hidden inline-flex h-8 w-8 xs:h-9 xs:w-9 items-center justify-center rounded-lg xs:rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-none"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <MDBIcon fas icon={mobileOpen ? "times" : "bars"} />
+            <MDBIcon fas icon={mobileOpen ? "times" : "bars"} className="text-sm" />
           </MotionButton>
 
           {mobileOpen && (
@@ -400,8 +402,8 @@ const Header = () => {
             </div>
           )}
 
-          <div className="flex items-center gap-2 sm:gap-4 pl-2 sm:pl-4 border-l border-slate-200/50 dark:border-white/10 shrink-0">
-            <div className="hidden md:flex flex-col items-end leading-tight">
+          <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-4 pl-1.5 xs:pl-2 sm:pl-4 border-l border-slate-200/50 dark:border-white/10 shrink-0">
+            <div className="hidden lg:flex flex-col items-end leading-tight">
               <span className="text-sm font-extrabold text-slate-900 dark:text-white tracking-tight">
                 {user.fullName}
               </span>
@@ -413,7 +415,7 @@ const Header = () => {
               </div>
             </div>
             <div className="relative group">
-              <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/30 overflow-hidden group-hover:scale-105 transition-transform cursor-pointer">
+              <div className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white text-[10px] xs:text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/30 overflow-hidden group-hover:scale-105 transition-transform cursor-pointer">
                 {user.profileImage ? (
                   <img src={user.profileImage} alt="Profile" className="h-full w-full object-cover" />
                 ) : (
@@ -426,9 +428,9 @@ const Header = () => {
             <button
               onClick={handleLogout}
               title="Logout"
-              className="h-9 w-9 sm:h-10 sm:w-10 flex items-center justify-center rounded-full bg-transparent border-2 border-rose-500/50 text-rose-500 transition-all hover:bg-rose-500/10 hover:scale-110 active:scale-95 shadow-lg shadow-rose-500/5"
+              className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 flex items-center justify-center rounded-full bg-transparent border-2 border-rose-500/50 text-rose-500 transition-all hover:bg-rose-500/10 hover:scale-110 active:scale-95 shadow-lg shadow-rose-500/5"
             >
-              <MDBIcon fas icon="sign-out-alt" className="text-xs sm:text-base" />
+              <MDBIcon fas icon="sign-out-alt" className="text-[10px] xs:text-xs sm:text-base" />
             </button>
           </div>
 
