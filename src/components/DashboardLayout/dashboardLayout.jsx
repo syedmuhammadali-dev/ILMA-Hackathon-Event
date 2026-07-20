@@ -23,7 +23,9 @@ const DashboardLayout = () => {
           <Sidebar />
           <main className="flex-1 min-w-0 md:ml-72 p-4 md:p-6 lg:p-8 transition-all duration-300">
             <div className="max-w-7xl mx-auto">
-              <ErrorBoundary>
+              {/* Keyed by route so a failed page recovers on navigation;
+                  without this the boundary stayed latched until a refresh. */}
+              <ErrorBoundary key={location.pathname}>
                 <AnimatePresence mode="wait">
                   <MotionDiv
                     key={location.pathname}

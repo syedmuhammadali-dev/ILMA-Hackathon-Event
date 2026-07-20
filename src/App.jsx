@@ -5,6 +5,7 @@ import { LoadingProvider } from "./context/LoadingContext";
 import GlobalLoader from "./components/UI/GlobalLoader";
 import { initializeTheme } from "./utils/themeEngine";
 import { applyLanguage } from "./utils/linguaEngine";
+import ErrorBoundary from "./components/ErrorBoundary/errorBoundary";
 
 function App() {
   useEffect(() => {
@@ -14,10 +15,14 @@ function App() {
   }, []);
 
   return (
-    <LoadingProvider>
-      <RoutesComponent />
-      <GlobalLoader />
-    </LoadingProvider>
+    // Outer net: the per-page boundary lives inside DashboardLayout, so a throw
+    // from Header or Sidebar itself had nothing to catch it.
+    <ErrorBoundary>
+      <LoadingProvider>
+        <RoutesComponent />
+        <GlobalLoader />
+      </LoadingProvider>
+    </ErrorBoundary>
   );
 }
 
