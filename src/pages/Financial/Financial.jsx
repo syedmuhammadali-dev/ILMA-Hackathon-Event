@@ -34,12 +34,12 @@ const Financial = () => {
     });
     Swal.fire({
       icon: "success",
-      title: "Voucher Generated",
-      text: "Fee challan voucher for the current semester has been encrypted and is ready for download.",
+      title: getTranslation("financial_voucher_success_title"),
+      text: getTranslation("financial_voucher_success_text"),
       background: "#0f172a",
       color: "#f8fafc",
       confirmButtonColor: "#2563eb",
-      confirmButtonText: "Extract PDF"
+      confirmButtonText: getTranslation("financial_voucher_extract")
     });
   };
 
@@ -47,7 +47,7 @@ const Financial = () => {
     <div className="page-shell space-y-8 pb-12">
       <PageHeader
         title={getTranslation("financial")}
-        subtitle="Manage your fiscal node, track transactions, and monitor scholarship allocations."
+        subtitle={getTranslation("financial_subtitle")}
       />
 
       <MDBRow className="g-6">
@@ -62,18 +62,18 @@ const Financial = () => {
               <div className="relative z-10 h-full flex flex-col justify-between">
                  <div>
                     <div className="flex justify-between items-start mb-4 xs:mb-6">
-                       <p className="text-[8px] xs:text-[10px] font-black uppercase tracking-[0.2em] xs:tracking-[0.3em] opacity-70">Current Balance Hub</p>
+                       <p className="text-[8px] xs:text-[10px] font-black uppercase tracking-[0.2em] xs:tracking-[0.3em] opacity-70">{getTranslation("financial_current_balance")}</p>
                        <MDBIcon fas icon="wallet" className="text-base xs:text-xl opacity-50" />
                     </div>
                     <h2 className="text-3xl xs:text-4xl md:text-5xl font-black tracking-tighter mb-1">PKR 0.00</h2>
-                    <p className="text-[8px] xs:text-[10px] font-bold opacity-60 uppercase tracking-widest">Next Due: March 15, 2026</p>
+                     <p className="text-[8px] xs:text-[10px] font-bold opacity-60 uppercase tracking-widest">{getTranslation("financial_next_due")}</p>
                  </div>
                  
                  <div className="mt-6 xs:mt-8 pt-6 xs:pt-8 border-t border-white/10">
                     <div className="flex justify-between items-center bg-white/10 p-3 xs:p-4 rounded-xl xs:rounded-2xl backdrop-blur-md">
                        <div>
-                          <p className="text-[8px] xs:text-[9px] font-black uppercase tracking-widest opacity-60">Status</p>
-                          <p className="text-xs xs:text-sm font-black">SOLVENT</p>
+                           <p className="text-[8px] xs:text-[9px] font-black uppercase tracking-widest opacity-60">{getTranslation("financial_status")}</p>
+                           <p className="text-xs xs:text-sm font-black">{getTranslation("financial_solvent")}</p>
                        </div>
                        <MDBIcon fas icon="check-circle" className="text-lg xs:text-2xl text-emerald-300" />
                     </div>
@@ -91,21 +91,21 @@ const Financial = () => {
            >
               <div className="flex flex-col h-full justify-between">
                  <div>
-                    <p className="text-[8px] xs:text-[10px] font-black uppercase tracking-[0.2em] xs:tracking-[0.3em] text-slate-500 mb-4 xs:mb-6">Scholarship Metrics</p>
+                     <p className="text-[8px] xs:text-[10px] font-black uppercase tracking-[0.2em] xs:tracking-[0.3em] text-slate-500 mb-4 xs:mb-6">{getTranslation("financial_scholarship_metrics")}</p>
                     <div className="flex items-center gap-3 xs:gap-4 mb-4 xs:mb-6">
                        <div className="h-10 xs:h-12 md:h-14 w-10 xs:w-12 md:w-14 shrink-0 rounded-xl xs:rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400 border border-purple-500/20">
                           <MDBIcon fas icon="award" className="text-lg xs:text-xl md:text-2xl" />
                        </div>
                        <div className="min-w-0">
-                          <h4 className="text-base xs:text-lg md:text-xl font-black text-white truncate">Merit Node Beta</h4>
-                          <p className="text-[9px] xs:text-[10px] font-bold text-slate-500 uppercase tracking-widest">Discount: 25%</p>
+                           <h4 className="text-base xs:text-lg md:text-xl font-black text-white truncate">{getTranslation("financial_scholarship_title")}</h4>
+                           <p className="text-[9px] xs:text-[10px] font-bold text-slate-500 uppercase tracking-widest">{getTranslation("financial_scholarship_discount")}</p>
                        </div>
                     </div>
                  </div>
 
                  <div className="space-y-3 xs:space-y-4">
                     <div className="flex justify-between items-center text-[8px] xs:text-[10px] font-black uppercase tracking-widest">
-                       <span className="text-slate-500">Eligibility Sync</span>
+                        <span className="text-slate-500">{getTranslation("financial_eligibility_label")}</span>
                        <span className="text-emerald-500">92%</span>
                     </div>
                     <div className="h-1.5 xs:h-2 w-full bg-white/5 rounded-full overflow-hidden">
@@ -116,7 +116,7 @@ const Financial = () => {
                           transition={{ duration: 1.5, ease: "easeOut" }}
                        />
                     </div>
-                    <p className="text-[8px] xs:text-[9px] md:text-[10px] text-slate-400 italic">Maintain GPA {'>'} 3.5 to sustain scholarship status.</p>
+                     <p className="text-[8px] xs:text-[9px] md:text-[10px] text-slate-400 italic">{getTranslation("financial_eligibility_note")}</p>
                  </div>
               </div>
            </MotionDiv>
@@ -126,11 +126,11 @@ const Financial = () => {
            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 xs:gap-4 h-full">
               <MDBBtn onClick={handleDownloadVoucher} className="btn-ui btn-ui-solid flex-1 rounded-2xl xs:rounded-[1.5rem] flex flex-col items-center justify-center gap-1 xs:gap-2 p-4 xs:p-6 transition-all hover:scale-[1.02] w-full">
                  <MDBIcon fas icon="file-invoice-dollar" className="text-xl xs:text-2xl md:text-3xl mb-1 md:mb-2" />
-                 <span className="font-black text-[9px] xs:text-[10px] md:text-xs uppercase tracking-[0.15em] xs:tracking-[0.2em]">{getTranslation("generate_voucher") || "Generate Voucher"}</span>
+                  <span className="font-black text-[9px] xs:text-[10px] md:text-xs uppercase tracking-[0.15em] xs:tracking-[0.2em]">{getTranslation("generate_voucher")}</span>
               </MDBBtn>
               <MDBBtn outline className="btn-ui-glass flex-1 rounded-2xl xs:rounded-[1.5rem] flex flex-col items-center justify-center gap-1 xs:gap-2 p-4 xs:p-6 border-white/10 hover:border-blue-500/50 w-full">
                  <MDBIcon fas icon="hands-helping" className="text-xl xs:text-2xl md:text-3xl mb-1 md:mb-2 text-blue-400" />
-                 <span className="font-black text-[9px] xs:text-[10px] md:text-xs uppercase tracking-[0.15em] xs:tracking-[0.2em] text-slate-300">Apply Installments</span>
+                  <span className="font-black text-[9px] xs:text-[10px] md:text-xs uppercase tracking-[0.15em] xs:tracking-[0.2em] text-slate-300">{getTranslation("financial_apply_installments")}</span>
               </MDBBtn>
            </div>
         </MDBCol>
@@ -148,10 +148,10 @@ const Financial = () => {
                <div className="h-10 w-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20">
                  <MDBIcon fas icon="history" />
                </div>
-               <h3 className="text-lg md:text-xl font-black text-white tracking-tight">Ledger Matrix</h3>
+                <h3 className="text-lg md:text-xl font-black text-white tracking-tight">{getTranslation("financial_ledger_matrix")}</h3>
             </div>
             <MDBBtn outline size="sm" className="btn-ui-glass py-2 px-4 rounded-xl border-white/5 text-[9px] font-black uppercase tracking-widest text-slate-400">
-               Filter Hub
+                {getTranslation("financial_filter_hub")}
             </MDBBtn>
         </div>
 
@@ -160,10 +160,10 @@ const Financial = () => {
            <MDBTable borderless align="middle" className="mb-0 text-white">
               <MDBTableHead className="bg-white/[0.03]">
                  <tr>
-                    <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Transaction ID</th>
-                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Description</th>
-                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center text-slate-400">Amount</th>
-                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center text-slate-400">Method</th>
+                     <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">{getTranslation("financial_th_txid")}</th>
+                     <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">{getTranslation("financial_th_desc")}</th>
+                     <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center text-slate-400">{getTranslation("financial_th_amount")}</th>
+                     <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center text-slate-400">{getTranslation("financial_th_method")}</th>
                     <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-right text-slate-400">Status</th>
                  </tr>
               </MDBTableHead>

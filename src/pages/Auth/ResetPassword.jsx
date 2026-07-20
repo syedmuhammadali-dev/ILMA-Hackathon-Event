@@ -5,6 +5,7 @@ import { storage } from "../../utils/storage";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import Particles from "../../components/UI/Particles";
+import { getTranslation } from "../../utils/linguaEngine";
 
 /* ── Eye icons ── */
 const EyeOpen = () => (
@@ -36,10 +37,10 @@ const getStrength = (pw) => {
   if (/[A-Z]/.test(pw)) score++;
   if (/[0-9]/.test(pw)) score++;
   if (/[^A-Za-z0-9]/.test(pw)) score++;
-  if (score <= 1) return { level: 1, label: "Weak", color: "#f87171" };
-  if (score <= 3) return { level: 2, label: "Fair", color: "#fb923c" };
-  if (score === 4) return { level: 3, label: "Good", color: "#facc15" };
-  return { level: 4, label: "Strong", color: "#34d399" };
+  if (score <= 1) return { level: 1, label: getTranslation("auth_pw_weak"), color: "#f87171" };
+  if (score <= 3) return { level: 2, label: getTranslation("auth_pw_fair"), color: "#fb923c" };
+  if (score === 4) return { level: 3, label: getTranslation("auth_pw_good"), color: "#facc15" };
+  return { level: 4, label: getTranslation("auth_pw_strong"), color: "#34d399" };
 };
 
 /* ── Main Component ── */
@@ -80,8 +81,8 @@ const ResetPassword = () => {
     if (success) {
       Swal.fire({
         icon: "success",
-        title: "Password Updated!",
-        text: "Your password has been reset. Please sign in with your new password.",
+        title: getTranslation("auth_password_updated"),
+        text: getTranslation("auth_password_reset_text"),
         timer: 2500,
         showConfirmButton: false,
         background: "#0f172a",
@@ -91,8 +92,8 @@ const ResetPassword = () => {
     } else {
       Swal.fire({
         icon: "error",
-        title: "Reset Failed",
-        text: "Something went wrong. Please try again.",
+        title: getTranslation("auth_reset_failed"),
+        text: getTranslation("auth_reset_failed_text"),
         confirmButtonColor: "#6366f1",
         background: "#0f172a",
         color: "#e2e8f0",
@@ -147,10 +148,10 @@ const ResetPassword = () => {
             className="text-center mb-5"
           >
             <h1 className="text-3xl font-black text-white-force tracking-tight mb-2">
-              Set New Password
+              {getTranslation("auth_reset_heading")}
             </h1>
             <p className="text-sm leading-relaxed" style={{ color: "rgba(148,163,184,0.75)" }}>
-              Create a strong password for{" "}
+              {getTranslation("auth_reset_subtitle_prefix")}{" "}
               <span style={{ color: "#06b6d4", fontWeight: 700 }}>{email}</span>
             </p>
           </motion.div>
@@ -166,14 +167,14 @@ const ResetPassword = () => {
           >
             {/* New password */}
             <div>
-              <label className="auth-label">New Password</label>
+              <label className="auth-label">{getTranslation("auth_new_password_label")}</label>
               <div className="relative">
                 <input
                   id="reset-password"
                   type={showPw ? "text" : "password"}
                   name="password"
                   autoComplete="new-password"
-                  placeholder="At least 6 characters"
+                  placeholder={getTranslation("auth_new_password_placeholder")}
                   value={formData.password}
                   onChange={handleChange}
                   className={ic(errors.password)}
@@ -205,7 +206,7 @@ const ResetPassword = () => {
                     ))}
                   </div>
                   <p className="text-[11px] font-bold" style={{ color: strength.color }}>
-                    {strength.label} password
+                    {strength.label} {getTranslation("auth_pw_suffix")}
                   </p>
                 </div>
               )}
@@ -217,14 +218,14 @@ const ResetPassword = () => {
 
             {/* Confirm password */}
             <div>
-              <label className="auth-label">Confirm Password</label>
+              <label className="auth-label">{getTranslation("auth_confirm_password_label")}</label>
               <div className="relative">
                 <input
                   id="reset-confirm-password"
                   type={showCp ? "text" : "password"}
                   name="confirmPassword"
                   autoComplete="new-password"
-                  placeholder="Repeat your new password"
+                  placeholder={getTranslation("auth_confirm_password_placeholder")}
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   className={ic(errors.confirmPassword)}
@@ -252,8 +253,8 @@ const ResetPassword = () => {
                   }}
                 >
                   {formData.password === formData.confirmPassword
-                    ? "✓ Passwords match"
-                    : "✗ Passwords do not match"}
+                    ? getTranslation("auth_passwords_match")
+                    : getTranslation("auth_passwords_no_match")}
                 </p>
               )}
 
@@ -275,10 +276,10 @@ const ResetPassword = () => {
               }}
             >
               {loading ? (
-                <><Spinner /> Updating…</>
+                <><Spinner /> {getTranslation("auth_updating")}</>
               ) : (
                 <>
-                  Reset Password
+                  {getTranslation("auth_reset_password_btn")}
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -297,7 +298,7 @@ const ResetPassword = () => {
               <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
               </svg>
-              Back to Login
+              {getTranslation("auth_back_to_login")}
             </Link>
           </div>
 
@@ -308,3 +309,4 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
+

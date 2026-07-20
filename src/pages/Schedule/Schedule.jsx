@@ -61,8 +61,8 @@ const Schedule = () => {
 
     await Swal.fire({
       icon: "info",
-      title: "Export queued",
-      text: "PDF export is currently being finalized. Try again shortly.",
+      title: getTranslation("schedule_export_title"),
+      text: getTranslation("schedule_export_text"),
       confirmButtonColor: "#2563eb",
     });
   };
@@ -106,11 +106,11 @@ const Schedule = () => {
                   <th className="table-head-cell">
                     {getTranslation("time_slot")}
                   </th>
-                  <th className="table-head-cell text-center">Mon</th>
-                  <th className="table-head-cell text-center">Tue</th>
-                  <th className="table-head-cell text-center">Wed</th>
-                  <th className="table-head-cell text-center">Thu</th>
-                  <th className="table-head-cell text-center">Fri</th>
+                  <th className="table-head-cell text-center">{getTranslation("schedule_day_mon")}</th>
+                  <th className="table-head-cell text-center">{getTranslation("schedule_day_tue")}</th>
+                  <th className="table-head-cell text-center">{getTranslation("schedule_day_wed")}</th>
+                  <th className="table-head-cell text-center">{getTranslation("schedule_day_thu")}</th>
+                  <th className="table-head-cell text-center">{getTranslation("schedule_day_fri")}</th>
                 </tr>
               </MDBTableHead>
               <MDBTableBody>
@@ -130,7 +130,7 @@ const Schedule = () => {
                           <span className="text-slate-200 font-bold">-</span>
                         ) : row[day] === "Break" ? (
                           <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest glass-badge px-2 py-0.5 rounded-md">
-                            Lunch Break
+                            {getTranslation("schedule_lunch_break")}
                           </span>
                         ) : (
                           <div className="surface-soft border border-blue-100 p-3 rounded-2xl text-blue-900 dark:text-blue-200 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-700 transition-all cursor-pointer">
@@ -138,7 +138,7 @@ const Schedule = () => {
                               {row[day]}
                             </p>
                             <p className="text-[9px] font-bold opacity-70 uppercase tracking-widest">
-                              Main Block
+                               {getTranslation("schedule_main_block")}
                             </p>
                           </div>
                         )}
@@ -171,7 +171,7 @@ const Schedule = () => {
                         >
                           <div className="flex flex-col min-w-0">
                             <span className="text-[7px] xs:text-[8px] font-black text-slate-400 uppercase tracking-widest">
-                              {day.toUpperCase()}
+                              {getTranslation("schedule_day_" + day.substring(0, 3))}
                             </span>
                             <span
                               className={`text-[10px] xs:text-xs font-black truncate ${row[day] === "Break" ? "text-slate-400 italic" : "text-slate-900 dark:text-slate-100"}`}
@@ -202,18 +202,18 @@ const Schedule = () => {
         {[
           {
             icon: "map-marker-alt",
-            title: "Main Block",
-            text: "Rooms 201-205, Labs",
+            title: getTranslation("schedule_info_rooms_title"),
+            text: getTranslation("schedule_info_rooms_text"),
           },
           {
             icon: "info-circle",
-            title: "Faculty Hours",
-            text: "Mon-Thu: 10AM-12PM",
+            title: getTranslation("schedule_info_faculty_hours_title"),
+            text: getTranslation("schedule_info_faculty_hours_text"),
           },
           {
             icon: "exclamation-triangle",
-            title: "Note",
-            text: "Lab sessions are mandatory.",
+            title: getTranslation("schedule_info_note_title"),
+            text: getTranslation("schedule_info_note_text"),
           },
         ].map((item, idx) => (
           <MotionDiv

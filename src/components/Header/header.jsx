@@ -95,12 +95,12 @@ const Header = () => {
 
   const handleLogout = () => {
     Swal.fire({
-      title: "End Session?",
-      text: "Are you sure you want to log out of your student portal?",
+      title: getTranslation("header_logout_title"),
+      text: getTranslation("header_logout_text"),
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Logout Now",
-      cancelButtonText: "Stay Logged In",
+      confirmButtonText: getTranslation("header_logout_confirm"),
+      cancelButtonText: getTranslation("header_logout_cancel"),
       confirmButtonColor: "#2563eb",
       cancelButtonColor: "#94a3b8",
       background: "#ffffff",
@@ -213,13 +213,12 @@ const Header = () => {
                 alt="University Logo"
               />
 
-              <div className="flex flex-col ml-1 me-1 xs:me-2 sm:me-5 min-w-0">
+<div className="flex flex-col ml-1 me-1 xs:me-2 sm:me-5 min-w-0">
                 <span className="text-[12px] xs:text-sm sm:text-xl font-black tracking-tight leading-none text-slate-900 whitespace-nowrap">
-                  <span className="hidden min-[360px]:inline">Student</span>
-                  <span className="text-blue-600">Portal</span>
+                  <span className="hidden min-[360px]:inline">{getTranslation("portal_short")}</span>
                 </span>
                 <span className="hidden sm:block text-[10px] uppercase tracking-widest font-black text-slate-400 mt-1">
-                  University Admin
+                  {getTranslation("university_admin")}
                 </span>
               </div>
             </MDBNavbarBrand>
@@ -246,7 +245,7 @@ const Header = () => {
                     goToResult(searchResults[0].path);
                   }
                 }}
-                placeholder="Search pages..."
+placeholder={getTranslation("header_search_placeholder")}
                 className="bg-transparent border-none outline-none text-sm w-full flex-1 font-bold placeholder:text-slate-400 text-ellipsis overflow-hidden whitespace-nowrap min-w-0"
                 style={{ color: "var(--text-primary)" }}
               />
@@ -259,7 +258,7 @@ const Header = () => {
               <div className="absolute top-full left-0 right-0 mt-2 mx-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl rounded-2xl overflow-hidden z-[2000]">
                 {searchResults.length === 0 ? (
                   <p className="px-4 py-3 text-xs font-bold text-slate-400">
-                    No pages match “{searchQuery.trim()}”
+                    {getTranslation("header_no_match")} “{searchQuery.trim()}”
                   </p>
                 ) : (
                   searchResults.map((item) => (
@@ -299,7 +298,7 @@ const Header = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ rotate: 180, scale: 0.9 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              title="Switch Appearance"
+              title={getTranslation("header_switch_appearance")}
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -321,7 +320,7 @@ const Header = () => {
                 className="h-10 px-4 flex items-center justify-center rounded-full border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-slate-800 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-blue-500 hover:border-blue-500 transition-all gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                title="Change Language"
+                title={getTranslation("header_change_language")}
               >
                 <MDBIcon fas icon="globe" className="text-sm opacity-50" />
                 <span>
@@ -410,7 +409,7 @@ const Header = () => {
               }}
               whileTap={{ scale: 0.9 }}
               onClick={() => navigate("/notifications")}
-              title="Notifications"
+              title={getTranslation("header_notifications")}
             >
               <div className="relative inline-flex">
                 <MDBIcon fas icon="bell" className="text-slate-500 text-lg" />
@@ -484,8 +483,8 @@ const Header = () => {
                             : "text-slate-600"
                         }
                       />
-                      <span className="truncate">
-                        {currentMode === "dark" ? "Solar" : "Night"}
+<span className="truncate">
+                        {currentMode === "dark" ? getTranslation("appearance_solar") : getTranslation("appearance_night")}
                       </span>
                     </button>
                     <button
@@ -534,7 +533,7 @@ const Header = () => {
               <div className="flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                  Active Session
+                  {getTranslation("active_session")}
                 </span>
               </div>
             </div>
@@ -555,7 +554,7 @@ const Header = () => {
 
             <button
               onClick={handleLogout}
-              title="Logout"
+              title={getTranslation("logout")}
               className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 flex items-center justify-center rounded-full bg-transparent border-2 border-rose-500/50 text-rose-500 transition-all hover:bg-rose-500/10 hover:scale-110 active:scale-95 shadow-lg shadow-rose-500/5"
             >
               <MDBIcon

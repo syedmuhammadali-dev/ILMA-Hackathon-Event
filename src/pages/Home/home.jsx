@@ -135,17 +135,17 @@ const Home = () => {
                 onClick={() => navigate("/portal")}
                 className="btn-ui btn-ui-solid px-6 xs:px-8 py-2 xs:py-3 rounded-xl shadow-xl shadow-blue-500/20 text-[10px] xs:text-sm"
               >
-                Portal
+                {getTranslation("home_portal_btn")}
               </MDBBtn>
               <MDBBtn
                 outline
                 onClick={() => navigate("/schedule")}
                 className="btn-ui btn-ui-glass px-6 xs:px-8 py-2 xs:py-3 rounded-xl text-[10px] xs:text-sm"
               >
-                Sync Timetable
+                {getTranslation("home_sync_timetable")}
               </MDBBtn>
             </div>
-          </div>
+            </div>
 
           <div className="hidden lg:flex w-80 h-80 relative items-center justify-center">
             {/* Holographic Pulse Rings */}
@@ -189,12 +189,12 @@ const Home = () => {
                 className="text-xl font-black mb-1 uppercase tracking-tighter"
                 style={{ color: "var(--text-primary)" }}
               >
-                Student Node
+                {getTranslation("home_student_node")}
               </h4>
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 bg-emerald-500 rounded-full animate-ping" />
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
-                  Uplink: Active
+                  {getTranslation("home_uplink_active")}
                 </p>
               </div>
             </motion.div>
@@ -206,11 +206,11 @@ const Home = () => {
               className="absolute top-0 right-0 bg-slate-900/80 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-xl shadow-lg"
             >
               <p className="text-[8px] font-black text-blue-400 uppercase">
-                Latency: {latency}ms
+                {getTranslation("home_latency_prefix")}: {latency}ms
               </p>
             </motion.div>
           </div>
-        </div>
+          </div>
       </section>
 
       {/* Temporal Hub: Detached Time & Date Box */}
@@ -220,34 +220,34 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           className="surface-card p-4 xs:p-6 flex items-center justify-between border-b-4 border-b-blue-600 shadow-xl"
         >
-          <div className="flex items-center gap-3 xs:gap-4">
-            <div className="h-10 w-10 xs:h-14 xs:w-14 shrink-0 rounded-xl xs:rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 text-blue-400">
-              <MDBIcon
-                fas
-                icon="clock"
-                className="text-xl xs:text-2xl animate-spin-slow"
-              />
+            <div className="flex items-center gap-3 xs:gap-4">
+              <div className="h-10 w-10 xs:h-14 xs:w-14 shrink-0 rounded-xl xs:rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 text-blue-400">
+                <MDBIcon
+                  fas
+                  icon="clock"
+                  className="text-xl xs:text-2xl animate-spin-slow"
+                />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[8px] xs:text-[10px] font-black text-slate-500 uppercase tracking-widest mb-0.5 xs:mb-1 truncate">
+                  {getTranslation("home_live_time")}
+                </p>
+                <p
+                  className="text-xl xs:text-3xl font-black font-mono tracking-widest uppercase truncate"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {time.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  })}
+                </p>
+              </div>
             </div>
-            <div className="min-w-0">
-              <p className="text-[8px] xs:text-[10px] font-black text-slate-500 uppercase tracking-widest mb-0.5 xs:mb-1 truncate">
-                Live Subsystem Time
-              </p>
-              <p
-                className="text-xl xs:text-3xl font-black font-mono tracking-widest uppercase truncate"
-                style={{ color: "var(--text-primary)" }}
-              >
-                {time.toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                })}
-              </p>
-            </div>
-          </div>
-          <div className="text-right hidden sm:block">
+            <div className="text-right hidden sm:block">
             <span className="h-2 w-2 bg-emerald-500 rounded-full inline-block animate-ping mr-2" />
             <span className="text-[8px] xs:text-[10px] font-black text-emerald-500 uppercase tracking-widest">
-              Active Sync
+              {getTranslation("home_active_sync")}
             </span>
           </div>
         </MotionDiv>
@@ -263,7 +263,7 @@ const Home = () => {
           </div>
           <div className="min-w-0">
             <p className="text-[8px] xs:text-[10px] font-black text-slate-500 uppercase tracking-widest mb-0.5 xs:mb-1 truncate">
-              Temporal Alignment
+              {getTranslation("home_temporal_alignment")}
             </p>
             <p
               className="text-sm xs:text-xl font-black uppercase tracking-tight truncate"
@@ -292,19 +292,19 @@ const Home = () => {
                     className="text-lg xs:text-xl font-black tracking-tight truncate"
                     style={{ color: "var(--text-primary)" }}
                   >
-                    {getTranslation("academic_nexus")}
+                    {getTranslation("home_academic_nexus")}
                   </h3>
                   <p className="text-[10px] xs:text-xs font-bold text-slate-500 truncate">
-                    Weekly study engagement
+                    {getTranslation("home_weekly_engagement")}
                   </p>
                 </div>
                 <div className="flex gap-2 shrink-0">
                   <span className="h-2 w-2 bg-blue-500 rounded-full"></span>
                   <span className="text-[8px] xs:text-[10px] font-black uppercase tracking-widest text-slate-400 hidden xs:inline">
-                    Status: Optimized
+                    {getTranslation("home_status_optimized")}
                   </span>
                 </div>
-              </div>
+                </div>
 
               <div className="relative h-32 xs:h-48 w-full">
                 <svg
@@ -366,13 +366,13 @@ const Home = () => {
               </div>
 
               <div className="flex justify-between mt-4 xs:mt-8 text-[8px] xs:text-[9px] font-black text-slate-500 uppercase tracking-widest">
-                <span>Mon</span>
-                <span>Tue</span>
-                <span>Wed</span>
-                <span>Thu</span>
-                <span>Fri</span>
-                <span>Sat</span>
-                <span>Sun</span>
+                <span>{getTranslation("day_mon")}</span>
+                <span>{getTranslation("day_tue")}</span>
+                <span>{getTranslation("day_wed")}</span>
+                <span>{getTranslation("day_thu")}</span>
+                <span>{getTranslation("day_fri")}</span>
+                <span>{getTranslation("day_sat")}</span>
+                <span>{getTranslation("day_sun")}</span>
               </div>
             </MDBCardBody>
           </MDBCard>
@@ -392,21 +392,21 @@ const Home = () => {
                 </div>
                 <div className="text-right">
                   <span className="text-[8px] xs:text-[9px] font-black uppercase text-slate-500 tracking-widest">
-                    GPA Estimate
+                    {getTranslation("home_gpa_estimate")}
                   </span>
                   <h4 className="text-xl xs:text-2xl font-black text-emerald-500">
                     3.86
                   </h4>
                 </div>
-              </div>
+                </div>
               <h5
                 className="text-[10px] xs:text-sm font-black uppercase tracking-tight mb-2"
                 style={{ color: "var(--text-primary)" }}
               >
-                Academic Standing
+                {getTranslation("home_academic_standing")}
               </h5>
               <p className="text-[10px] xs:text-xs font-bold text-slate-500 mb-4 xs:mb-6">
-                Superior performance detected.
+                {getTranslation("home_superior_performance")}
               </p>
               <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
                 <motion.div
@@ -427,21 +427,21 @@ const Home = () => {
                 </div>
                 <div className="text-right">
                   <span className="text-[8px] xs:text-[9px] font-black uppercase text-slate-500 tracking-widest">
-                    Attendance Pulse
+                    {getTranslation("attendance")}
                   </span>
                   <h4 className="text-xl xs:text-2xl font-black text-blue-500">
                     94.2%
                   </h4>
                 </div>
-              </div>
+                </div>
               <h5
                 className="text-[10px] xs:text-sm font-black uppercase tracking-tight mb-2"
                 style={{ color: "var(--text-primary)" }}
               >
-                Presence Analytics
+                {getTranslation("home_presence_analytics")}
               </h5>
               <p className="text-[10px] xs:text-xs font-bold text-slate-500 mb-4 xs:mb-6">
-                Maintain trajectory.
+                {getTranslation("home_maintain_trajectory")}
               </p>
               <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
                 <motion.div
@@ -511,14 +511,14 @@ const Home = () => {
                   onClick={() => navigate("/notifications")}
                   className="btn-ui btn-ui-solid w-full rounded-2xl py-2.5 xs:py-3 text-[10px] xs:text-sm"
                 >
-                  Bulletin History
+                  {getTranslation("home_bulletin_history")}
                 </MDBBtn>
                 <div className="text-center">
                   <p className="text-[8px] xs:text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">
-                    Last Synced: {time.toLocaleTimeString()}
+                    {getTranslation("home_last_synced")}: {time.toLocaleTimeString()}
                   </p>
                   <span className="text-[9px] xs:text-[10px] font-black text-slate-600 uppercase tracking-widest">
-                    Portal Version 4.0.2 Stable
+                    {getTranslation("home_portal_version")}
                   </span>
                 </div>
               </div>

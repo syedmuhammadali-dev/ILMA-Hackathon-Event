@@ -80,7 +80,7 @@ const Signup = () => {
       if (file.size > 2 * 1024 * 1024) {
         setErrors((p) => ({
           ...p,
-          profileImage: ["Image too large (max 2MB)"],
+          profileImage: [getTranslation("signup_image_too_large")],
         }));
         return;
       }
@@ -102,7 +102,7 @@ const Signup = () => {
 
     const users = storage.getUsers();
     if (users.some((u) => u.email === formData.email)) {
-      setErrors({ email: ["An account with this email already exists."] });
+      setErrors({ email: [getTranslation("signup_email_exists")] });
       return;
     }
 
@@ -113,8 +113,8 @@ const Signup = () => {
 
     Swal.fire({
       icon: "success",
-      title: "Account Created!",
-      text: "Welcome to ILMA Student Portal.",
+      title: getTranslation("signup_success_title"),
+      text: getTranslation("signup_success_text"),
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: true,
@@ -322,13 +322,13 @@ const Signup = () => {
                   />
                 </div>
                 <h1 className="text-2xl xs:text-3xl font-black text-white-force tracking-tight mb-1 xs:mb-1.5">
-                  Create Account
+                  {getTranslation("signup_heading")}
                 </h1>
                 <p
                   className="text-xs xs:text-sm font-medium"
                   style={{ color: "rgba(148,163,184,0.75)" }}
                 >
-                  Register with your student details below.
+                  {getTranslation("signup_subtitle")}
                 </p>
               </motion.div>
 
@@ -424,13 +424,13 @@ const Signup = () => {
                 {/* Full name + Student ID — 2 cols */}
                 <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
                   <div>
-                    <label className="auth-label">Full Name</label>
+                    <label className="auth-label">{getTranslation("signup_label_fullname")}</label>
                     <input
                       id="signup-fullname"
                       type="text"
                       name="fullName"
                       autoComplete="name"
-                      placeholder="John Doe"
+                      placeholder={getTranslation("signup_fullname_placeholder")}
                       value={formData.fullName}
                       onChange={handleChange}
                       className={ic(errors.fullName)}
@@ -442,12 +442,12 @@ const Signup = () => {
                     )}
                   </div>
                   <div>
-                    <label className="auth-label">Student ID</label>
+                    <label className="auth-label">{getTranslation("signup_label_studentid")}</label>
                     <input
                       id="signup-studentid"
                       type="text"
                       name="studentId"
-                      placeholder="2023-CS-001"
+                      placeholder={getTranslation("signup_studentid_placeholder")}
                       value={formData.studentId}
                       onChange={handleChange}
                       className={ic(errors.studentId)}
@@ -462,13 +462,13 @@ const Signup = () => {
 
                 {/* Email */}
                 <div>
-                  <label className="auth-label">Email Address</label>
+                  <label className="auth-label">{getTranslation("signup_label_email")}</label>
                   <input
                     id="signup-email"
                     type="email"
                     name="email"
                     autoComplete="email"
-                    placeholder="yourname@ilmauniversity.edu"
+                    placeholder={getTranslation("auth_email_placeholder")}
                     value={formData.email}
                     onChange={handleChange}
                     className={ic(errors.email)}
@@ -482,14 +482,14 @@ const Signup = () => {
 
                 {/* Password */}
                 <div>
-                  <label className="auth-label">Password</label>
+                  <label className="auth-label">{getTranslation("signup_label_password")}</label>
                   <div className="relative">
                     <input
                       id="signup-password"
                       type={showPw ? "text" : "password"}
                       name="password"
                       autoComplete="new-password"
-                      placeholder="Create a strong password"
+                      placeholder={getTranslation("signup_password_placeholder")}
                       value={formData.password}
                       onChange={handleChange}
                       className={ic(errors.password)}
@@ -529,11 +529,11 @@ const Signup = () => {
                 >
                   {loading ? (
                     <>
-                      <Spinner /> Creating Account…
+                      <Spinner /> {getTranslation("signup_btn_loading")}
                     </>
                   ) : (
                     <>
-                      Create Account
+                      {getTranslation("signup_btn_text")}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="w-4 h-4"
@@ -562,13 +562,13 @@ const Signup = () => {
                   className="text-sm"
                   style={{ color: "rgba(148,163,184,0.7)" }}
                 >
-                  Already have an account?{" "}
+                  {getTranslation("signup_have_account")}{" "}
                   <Link
                     to="/login"
                     className="font-bold hover:underline underline-offset-2 transition-colors"
                     style={{ color: "#a78bfa" }}
                   >
-                    Sign In
+                    {getTranslation("signup_sign_in_link")}
                   </Link>
                 </p>
               </div>

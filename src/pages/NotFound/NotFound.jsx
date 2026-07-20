@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
+import { getTranslation } from "../../utils/linguaEngine";
 
 const NotFound = () => {
   return (
@@ -14,24 +15,24 @@ const NotFound = () => {
         </div>
 
         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2">
-          Error 404
+          {getTranslation("notfound_error")}
         </p>
         <h1
           className="text-2xl xs:text-3xl font-black tracking-tight mb-3"
           style={{ color: "var(--text-primary)" }}
         >
-          Page Not Found
+          {getTranslation("notfound_title")}
         </h1>
         <p className="text-xs xs:text-sm font-medium text-slate-500 mb-8 leading-relaxed">
-          The page you are looking for does not exist or may have been moved.
+          {getTranslation("notfound_desc")}
         </p>
 
         <div className="flex flex-col xs:flex-row gap-3 justify-center">
           <Link to="/" className="btn-ui btn-ui-solid px-6 py-3 rounded-xl">
-            Back to Home
+            {getTranslation("notfound_home")}
           </Link>
           <Link to="/portal" className="btn-ui btn-ui-muted px-6 py-3 rounded-xl">
-            Open Portal
+            {getTranslation("notfound_portal")}
           </Link>
         </div>
       </div>

@@ -37,20 +37,20 @@ const CampusPulse = () => {
 
   const handleJoinSociety = (name) => {
     Swal.fire({
-      title: `Join ${name}?`,
-      text: "Initialize membership node and synchronize with campus guild?",
+      title: `${getTranslation("campus_join_title")} ${name}?`,
+      text: getTranslation("campus_join_text"),
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Initialize Uplink",
-      cancelButtonText: "Cancel",
+      confirmButtonText: getTranslation("campus_join_confirm"),
+      cancelButtonText: getTranslation("campus_join_cancel"),
       background: "#0f172a",
       color: "#f8fafc",
       confirmButtonColor: "#2563eb",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
-           title: "Node Synchronized!",
-           text: `You are now a verified member of ${name}.`,
+           title: getTranslation("campus_join_success_title"),
+           text: `${getTranslation("campus_join_success_text")} ${name}.`,
            icon: "success",
            background: "#0f172a",
            color: "#f8fafc",
@@ -61,20 +61,20 @@ const CampusPulse = () => {
 
   const handleRegisterEvent = (title) => {
      Swal.fire({
-        title: "Event Registration",
+        title: getTranslation("campus_register_title"),
         input: "email",
-        inputLabel: "Academic Email Address",
-        inputPlaceholder: "student@ilmauniversity.edu.pk",
+        inputLabel: getTranslation("campus_register_label"),
+        inputPlaceholder: getTranslation("campus_register_placeholder"),
         background: "#0f172a",
         color: "#f8fafc",
-        confirmButtonText: "Secure Seat",
+        confirmButtonText: getTranslation("campus_register_confirm"),
         confirmButtonColor: "#2563eb",
      }).then((result) => {
         if (result.value) {
            Swal.fire({
               icon: "success",
-              title: "Ticket Reserved",
-              text: `Secure entry node for ${title} has been sent to your uplink.`,
+              title: getTranslation("campus_register_success_title"),
+              text: `${getTranslation("campus_register_success_text")} ${title} ${getTranslation("campus_register_success_suffix")}`,
               background: "#0f172a",
               color: "#f8fafc",
            });
@@ -86,7 +86,7 @@ const CampusPulse = () => {
     <div className="page-shell space-y-8 pb-12">
       <PageHeader
         title={getTranslation("campus")}
-        subtitle="The digital heartbeat of ILMA. Synchronize with latest news, events, and campus guilds."
+        subtitle={getTranslation("campus_subtitle")}
       />
 
       <MDBRow className="g-6">
@@ -100,11 +100,11 @@ const CampusPulse = () => {
               className="surface-card rounded-[2rem] md:rounded-[2.5rem] border border-white/5 h-full shadow-2xl overflow-hidden"
             >
                <div className="px-6 md:px-8 py-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
-                  <h3 className="text-lg md:text-xl font-black text-white tracking-tight flex items-center gap-2">
-                     <MDBIcon fas icon="satellite-dish" className="text-blue-500 text-sm" />
-                     Live Stream
-                  </h3>
-                  <span className="text-[10px] font-black uppercase text-emerald-500 animate-pulse">Online</span>
+                   <h3 className="text-lg md:text-xl font-black text-white tracking-tight flex items-center gap-2">
+                      <MDBIcon fas icon="satellite-dish" className="text-blue-500 text-sm" />
+                      {getTranslation("campus_live_stream")}
+                   </h3>
+                   <span className="text-[10px] font-black uppercase text-emerald-500 animate-pulse">{getTranslation("campus_online")}</span>
                </div>
                
                 <div className="p-2 xs:p-4 space-y-3">
@@ -130,7 +130,7 @@ const CampusPulse = () => {
                
                <div className="px-4 xs:px-8 py-4 xs:py-6 border-t border-white/5 text-center bg-white/[0.01]">
                   <MDBBtn outline className="btn-ui-glass w-full rounded-xl py-2 xs:py-2.5 text-[9px] xs:text-[10px] font-black uppercase tracking-widest text-slate-400">
-                     Historical Logs
+                      {getTranslation("campus_historical_logs")}
                   </MDBBtn>
                </div>
             </MotionDiv>
@@ -139,7 +139,7 @@ const CampusPulse = () => {
          {/* Right Column: Events and Guilds */}
          <MDBCol lg="8" className="order-1 lg:order-2">
             <div className="space-y-6 xs:space-y-8">
-               <h4 className="text-[9px] xs:text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 pl-4">Event Nexus Nodes</h4>
+                <h4 className="text-[9px] xs:text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 pl-4">{getTranslation("campus_event_nexus")}</h4>
                <MDBRow className="g-3 xs:g-4">
                   {upcomingEvents.map((event) => (
                     <MDBCol sm="6" key={event.id}>
@@ -153,10 +153,10 @@ const CampusPulse = () => {
                           <div className="absolute inset-x-4 xs:inset-x-6 bottom-4 xs:bottom-6 flex flex-col items-start">
                              <span className="text-[8px] xs:text-[9px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded bg-blue-600 text-white mb-2">{event.category}</span>
                              <h4 className="text-base xs:text-xl font-black text-white mb-1 leading-tight truncate w-full">{event.title}</h4>
-                             <p className="text-[8px] xs:text-[10px] text-slate-400 font-bold mb-3 xs:mb-4">{event.date} • Digital Campus Hub</p>
+                             <p className="text-[8px] xs:text-[10px] text-slate-400 font-bold mb-3 xs:mb-4">{event.date} • {getTranslation("campus_digital_hub")}</p>
                              
                              <MDBBtn onClick={() => handleRegisterEvent(event.title)} className="btn-ui btn-ui-solid py-1.5 xs:py-2 px-4 xs:px-6 rounded-lg xs:rounded-xl font-black text-[9px] xs:text-[10px] uppercase tracking-widest">
-                                Secure Token
+                                 {getTranslation("campus_secure_token")}
                              </MDBBtn>
                           </div>
                        </MotionDiv>
@@ -166,7 +166,7 @@ const CampusPulse = () => {
 
                {/* Guild Directory */}
                <div className="pt-4 space-y-4">
-                  <h4 className="text-[9px] xs:text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 pl-4">Verified Campus Guilds</h4>
+                   <h4 className="text-[9px] xs:text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 pl-4">{getTranslation("campus_guild_directory")}</h4>
                   <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 xs:gap-4">
                      {societies.map((club, idx) => (
                        <MotionDiv 
@@ -178,10 +178,10 @@ const CampusPulse = () => {
                              <MDBIcon fas icon={club.icon} className="text-sm xs:text-base" />
                           </div>
                           <h6 className="text-[9px] xs:text-[10px] font-black text-white uppercase tracking-tighter mb-1 truncate">{club.title}</h6>
-                          <p className="text-[7px] xs:text-[8px] font-bold text-slate-500 uppercase tracking-widest mb-3">{club.members} Members</p>
+                           <p className="text-[7px] xs:text-[8px] font-bold text-slate-500 uppercase tracking-widest mb-3">{club.members} {getTranslation("campus_members_suffix")}</p>
                           
                           <MDBBtn onClick={() => handleJoinSociety(club.title)} size="sm" outline className={`w-full rounded-lg xs:rounded-xl py-1.5 xs:py-2 font-black text-[7px] xs:text-[8px] uppercase tracking-widest transition-all ${getColorClasses(club.color).outlineBtn}`}>
-                             Join Node
+                              {getTranslation("campus_join_node")}
                           </MDBBtn>
                        </MotionDiv>
                      ))}
