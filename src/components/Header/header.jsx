@@ -11,7 +11,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { applyMode } from "../../utils/themeEngine";
 import { applyLanguage, getTranslation } from "../../utils/linguaEngine";
-import { getColorClasses } from "../../utils/colorClasses";
 import Logo from "../../assets/Logo.png";
 import Swal from "sweetalert2";
 
@@ -22,46 +21,18 @@ const Header = () => {
   const navigate = useNavigate();
   const user = storage.getCurrentUser();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isLinguaOpen, setIsLinguaOpen] = useState(false);
   const [currentMode, setCurrentMode] = useState(
     localStorage.getItem("portal-mode") || "dark",
   );
   const mobileMenuRef = useRef(null);
-  const notificationsRef = useRef(null);
+  const desktopMenuRef = useRef(null);
 
   const toggleMode = () => {
     const newMode = currentMode === "dark" ? "light" : "dark";
     setCurrentMode(newMode);
     applyMode(newMode);
   };
-
-  const mockNotifications = [
-    {
-      id: 1,
-      title: "New Assignment",
-      desc: "React basic concepts assignment is due.",
-      time: "2 mins ago",
-      icon: "tasks",
-      color: "blue",
-    },
-    {
-      id: 2,
-      title: "Portal Update",
-      desc: "Spring Hackathon 2026 registration is live.",
-      time: "1 hour ago",
-      icon: "rocket",
-      color: "purple",
-    },
-    {
-      id: 3,
-      title: "Attendance Alert",
-      desc: "Your attendance is above 90% this month.",
-      time: "5 hours ago",
-      icon: "user-check",
-      color: "emerald",
-    },
-  ];
 
   const handleLogout = () => {
     Swal.fire({
@@ -108,7 +79,7 @@ const Header = () => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         setMobileOpen(false);
-        setIsNotificationsOpen(false);
+        setIsLinguaOpen(false);
       }
     };
 
@@ -120,10 +91,10 @@ const Header = () => {
         setMobileOpen(false);
       }
       if (
-        notificationsRef.current &&
-        !notificationsRef.current.contains(event.target)
+        desktopMenuRef.current &&
+        !desktopMenuRef.current.contains(event.target)
       ) {
-        setIsNotificationsOpen(false);
+        setIsLinguaOpen(false);
       }
     };
 
@@ -210,7 +181,7 @@ const Header = () => {
         >
           <div
             className="hidden md:flex items-center gap-2 mr-2 relative"
-            ref={notificationsRef}
+            ref={desktopMenuRef}
           >
             {/* Animated Theme Toggle */}
             <MotionButton
@@ -338,72 +309,6 @@ const Header = () => {
               </div>
             </MotionButton>
 
-            {/* Notification Dropdown Panel */}
-            <AnimatePresence>
-              {isNotificationsOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.99 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 8, scale: 0.99 }}
-                  className="absolute top-full right-0 mt-3 w-[min(480px,calc(100vw-2rem))] bg-white border border-slate-200 shadow-[0_10px_30px_rgba(0,0,0,0.1)] z-[2000] overflow-hidden rounded-xl"
-                >
-                  <div className="px-3 py-1.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                    <h3 className="font-black text-[8px] text-slate-400 uppercase tracking-widest">
-                      {getTranslation("system_alerts")}
-                    </h3>
-                    <div className="text-[8px] font-bold text-blue-600 bg-blue-50/50 px-1.5 rounded-full border border-blue-100">
-                      3 NEW
-                    </div>
-                  </div>
-
-                  <div className="max-h-[300px] overflow-y-auto">
-                    {mockNotifications.map((n, idx) => (
-                      <div
-                        key={n.id}
-                        className={`px-3 py-1.5 hover:bg-slate-50 transition-colors cursor-pointer group relative ${idx !== mockNotifications.length - 1 ? "border-b border-slate-50" : ""}`}
-                      >
-                        <div className="flex gap-2.5 items-center">
-                          <div
-                            className={`h-6 w-6 min-w-[1.5rem] rounded flex items-center justify-center border ${getColorClasses(n.color).iconWrapLight}`}
-                          >
-                            <MDBIcon
-                              fas
-                              icon={n.icon}
-                              className={`text-[9px] ${getColorClasses(n.color).text}`}
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex justify-between items-center">
-                              <p className="text-[10px] font-black text-slate-800 truncate pr-3">
-                                {n.title}
-                              </p>
-                              <span className="text-[8px] text-slate-400 font-bold shrink-0">
-                                {n.time}
-                              </span>
-                            </div>
-                            <p className="text-[9px] text-slate-500 font-bold truncate leading-none">
-                              {n.desc}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="py-2 text-center bg-slate-50/20">
-                    <button
-                      onClick={() => {
-                        navigate("/notifications");
-                        setIsNotificationsOpen(false);
-                      }}
-                      className="text-[9px] font-bold text-blue-500 hover:underline uppercase tracking-tighter"
-                    >
-                      View Complete History
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
 
           {/* Mobile menu toggle */}
