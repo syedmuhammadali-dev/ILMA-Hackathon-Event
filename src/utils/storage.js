@@ -2,9 +2,24 @@ const USERS_KEY = "portal_users";
 const CURRENT_USER_KEY = "portal_user";
 const COURSES_KEY = "portal_courses";
 
+// localStorage can hold malformed JSON (manual edits, a half-written value, an
+// older schema). getCurrentUser runs during render in Header/Home/Portal, and a
+// throw there escapes ErrorBoundary and blanks the page — so never throw.
+const readJSON = (key, fallback = null) => {
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw === null) return fallback;
+    const parsed = JSON.parse(raw);
+    return parsed ?? fallback;
+  } catch {
+    localStorage.removeItem(key);
+    return fallback;
+  }
+};
+
 export const storage = {
   // Return all saved users (or empty array)
-  getUsers: () => JSON.parse(localStorage.getItem(USERS_KEY) || "[]"),
+  getUsers: () => readJSON(USERS_KEY, []),
 
   // Save a new user (adds an `id` timestamp)
   saveUser: (user) => {
@@ -46,7 +61,7 @@ export const storage = {
   },
 
   // Get the currently authenticated user
-  getCurrentUser: () => JSON.parse(localStorage.getItem(CURRENT_USER_KEY)),
+  getCurrentUser: () => readJSON(CURRENT_USER_KEY, null),
 
   // Update current user's profile and persist changes
   updateProfile: (updatedData) => {
@@ -72,7 +87,7 @@ export const storage = {
 
   // Retrieve enrolled courses; seed defaults if none exist
   getEnrolledCourses: () => {
-    let courses = JSON.parse(localStorage.getItem(COURSES_KEY));
+    let courses = readJSON(COURSES_KEY, null);
     if (!courses) {
       courses = [
         {
@@ -101,7 +116,7 @@ export const storage = {
 
   // Add a new course to enrolled courses
   addCourse: (course) => {
-    const courses = JSON.parse(localStorage.getItem(COURSES_KEY)) || [];
+    const courses = readJSON(COURSES_KEY, []);
     const newCourse = { id: Date.now(), progress: course.progress || 0, ...course };
     courses.push(newCourse);
     localStorage.setItem(COURSES_KEY, JSON.stringify(courses));

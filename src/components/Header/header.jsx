@@ -540,14 +540,14 @@ const Header = () => {
             </div>
             <div className="relative group">
               <div className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white text-[10px] xs:text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/30 overflow-hidden group-hover:scale-105 transition-transform cursor-pointer">
-                {user.profileImage ? (
+                {user?.profileImage ? (
                   <img
                     src={user.profileImage}
                     alt="Profile"
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  user.fullName?.charAt(0) || "S"
+                  user?.fullName?.charAt(0) || "S"
                 )}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
               </div>
