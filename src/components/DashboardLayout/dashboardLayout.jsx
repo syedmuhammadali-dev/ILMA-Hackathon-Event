@@ -13,7 +13,10 @@ const DashboardLayout = () => {
 
   return (
     <EnrollModalProvider>
-      <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--surface-base)" }}>
+      <div
+        className="min-h-screen flex flex-col"
+        style={{ backgroundColor: "var(--surface-base)" }}
+      >
         <Header />
         {/* Padding must track the header's own responsive height (h-14 xs:h-16 md:h-20) */}
         <div className="flex flex-1 pt-14 xs:pt-16 md:pt-20">

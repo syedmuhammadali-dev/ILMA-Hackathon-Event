@@ -17,6 +17,46 @@ import Swal from "sweetalert2";
 const MotionDiv = motion.div;
 const MotionButton = motion.button;
 
+// Shared by the mobile menu and the desktop search. Note this is the header's
+// own ordering/icons, which intentionally differ from the sidebar's.
+const NAV_ITEMS = [
+  { title: "Home", key: "dashboard", path: "/", icon: "home" },
+  { title: "Portal", key: "portal", path: "/portal", icon: "th-large" },
+  { title: "Profile", key: "profile", path: "/profile", icon: "user" },
+  { title: "Grades", key: "grades", path: "/grades", icon: "poll-h" },
+  { title: "Financial", key: "financial", path: "/financial", icon: "wallet" },
+  {
+    title: "Assignments",
+    key: "assignments",
+    path: "/assignments",
+    icon: "tasks",
+  },
+  {
+    title: "Schedule",
+    key: "schedule",
+    path: "/schedule",
+    icon: "calendar-alt",
+  },
+  {
+    title: "Campus Pulse",
+    key: "campus",
+    path: "/campus-pulse",
+    icon: "heartbeat",
+  },
+  {
+    title: "Notifications",
+    key: "notifications",
+    path: "/notifications",
+    icon: "bell",
+  },
+  {
+    title: "Appearance",
+    key: "appearance",
+    path: "/appearance",
+    icon: "paint-brush",
+  },
+];
+
 const Header = () => {
   const navigate = useNavigate();
   const user = storage.getCurrentUser();
@@ -25,8 +65,27 @@ const Header = () => {
   const [currentMode, setCurrentMode] = useState(
     localStorage.getItem("portal-mode") || "dark",
   );
+  const [searchQuery, setSearchQuery] = useState("");
   const mobileMenuRef = useRef(null);
   const desktopMenuRef = useRef(null);
+  const searchRef = useRef(null);
+  const searchInputRef = useRef(null);
+
+  const searchResults = searchQuery.trim()
+    ? NAV_ITEMS.filter((item) => {
+        const q = searchQuery.trim().toLowerCase();
+        return (
+          item.title.toLowerCase().includes(q) ||
+          (getTranslation(item.key) || "").toLowerCase().includes(q)
+        );
+      })
+    : [];
+
+  const goToResult = (path) => {
+    setSearchQuery("");
+    searchInputRef.current?.blur();
+    navigate(path);
+  };
 
   const toggleMode = () => {
     const newMode = currentMode === "dark" ? "light" : "dark";
@@ -77,9 +136,16 @@ const Header = () => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
+      // The ⌘K / Ctrl+K hint next to the search box needs a real handler
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+        return;
+      }
       if (event.key === "Escape") {
         setMobileOpen(false);
         setIsLinguaOpen(false);
+        setSearchQuery("");
       }
     };
 
@@ -89,6 +155,9 @@ const Header = () => {
         !mobileMenuRef.current.contains(event.target)
       ) {
         setMobileOpen(false);
+      }
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setSearchQuery("");
       }
       if (
         desktopMenuRef.current &&
@@ -157,21 +226,61 @@ const Header = () => {
           </MotionDiv>
 
           {/* New Search Element - only shown at lg (1024px+) to avoid header crowding */}
-          <div className="search-container ml-4 lg:ml-8 flex-1 min-w-0">
-            <MDBIcon
-              fas
-              icon="search"
-              className="text-slate-400 text-sm shrink-0"
-            />
-            <input
-              type="text"
-              placeholder="Search courses, grades, or resources..."
-              className="bg-transparent border-none outline-none text-sm w-full flex-1 font-bold placeholder:text-slate-400 text-ellipsis overflow-hidden whitespace-nowrap min-w-0"
-              style={{ color: "var(--text-primary)" }}
-            />
-            <div className="px-1.5 py-0.5 rounded-md bg-slate-200/50 text-[10px] font-bold text-slate-500 border border-slate-300/30 shrink-0 ml-auto">
-              ⌘K
+          <div
+            ref={searchRef}
+            className="relative ml-4 lg:ml-8 flex-1 min-w-0 hidden lg:block"
+          >
+            <div className="search-container">
+              <MDBIcon
+                fas
+                icon="search"
+                className="text-slate-400 text-sm shrink-0"
+              />
+              <input
+                ref={searchInputRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && searchResults.length > 0) {
+                    goToResult(searchResults[0].path);
+                  }
+                }}
+                placeholder="Search pages..."
+                className="bg-transparent border-none outline-none text-sm w-full flex-1 font-bold placeholder:text-slate-400 text-ellipsis overflow-hidden whitespace-nowrap min-w-0"
+                style={{ color: "var(--text-primary)" }}
+              />
+              <div className="px-1.5 py-0.5 rounded-md bg-slate-200/50 text-[10px] font-bold text-slate-500 border border-slate-300/30 shrink-0 ml-auto">
+                ⌘K
+              </div>
             </div>
+
+            {searchQuery.trim() && (
+              <div className="absolute top-full left-0 right-0 mt-2 mx-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl rounded-2xl overflow-hidden z-[2000]">
+                {searchResults.length === 0 ? (
+                  <p className="px-4 py-3 text-xs font-bold text-slate-400">
+                    No pages match “{searchQuery.trim()}”
+                  </p>
+                ) : (
+                  searchResults.map((item) => (
+                    <button
+                      key={item.path}
+                      onClick={() => goToResult(item.path)}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-white/5 transition-colors text-slate-500"
+                    >
+                      <MDBIcon
+                        fas
+                        icon={item.icon}
+                        className="w-4 text-xs opacity-50"
+                      />
+                      <span className="text-xs font-black">
+                        {getTranslation(item.key) || item.title}
+                      </span>
+                    </button>
+                  ))
+                )}
+              </div>
+            )}
           </div>
         </div>
 
@@ -340,68 +449,7 @@ const Header = () => {
                 }}
               >
                 <nav className="flex flex-col gap-0.5 p-3">
-                  {[
-                    {
-                      title: "Home",
-                      key: "dashboard",
-                      path: "/",
-                      icon: "home",
-                    },
-                    {
-                      title: "Portal",
-                      key: "portal",
-                      path: "/portal",
-                      icon: "th-large",
-                    },
-                    {
-                      title: "Profile",
-                      key: "profile",
-                      path: "/profile",
-                      icon: "user",
-                    },
-                    {
-                      title: "Grades",
-                      key: "grades",
-                      path: "/grades",
-                      icon: "poll-h",
-                    },
-                    {
-                      title: "Financial",
-                      key: "financial",
-                      path: "/financial",
-                      icon: "wallet",
-                    },
-                    {
-                      title: "Assignments",
-                      key: "assignments",
-                      path: "/assignments",
-                      icon: "tasks",
-                    },
-                    {
-                      title: "Schedule",
-                      key: "schedule",
-                      path: "/schedule",
-                      icon: "calendar-alt",
-                    },
-                    {
-                      title: "Campus Pulse",
-                      key: "campus",
-                      path: "/campus-pulse",
-                      icon: "heartbeat",
-                    },
-                    {
-                      title: "Notifications",
-                      key: "notifications",
-                      path: "/notifications",
-                      icon: "bell",
-                    },
-                    {
-                      title: "Appearance",
-                      key: "appearance",
-                      path: "/appearance",
-                      icon: "paint-brush",
-                    },
-                  ].map((item) => (
+                  {NAV_ITEMS.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}
