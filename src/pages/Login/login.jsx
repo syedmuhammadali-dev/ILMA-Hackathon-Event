@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import Particles from "../../components/UI/Particles";
 import Logo from "../../assets/Logo.png";
+import { getTranslation } from "../../utils/linguaEngine";
 
 /* ── Eye toggle icons ── */
 const EyeOpen = () => (
@@ -118,20 +119,20 @@ const Login = () => {
               </div>
 
               <h2 className="text-3xl font-black text-white-force leading-tight mb-3">
-                ILMA University <br />
-                <span style={{ color: "#06b6d4" }}>Student Portal</span>
+                {getTranslation("auth_uni_name")} <br />
+                <span style={{ color: "#06b6d4" }}>{getTranslation("auth_student_portal")}</span>
               </h2>
               <p className="text-sm leading-relaxed" style={{ color: "rgba(148,163,184,0.8)" }}>
-                Access your courses, grades, schedules and campus notifications — all in one place.
+                {getTranslation("auth_panel_login_desc")}
               </p>
             </div>
 
             {/* stats chips */}
             <div className="space-y-3 z-10 relative">
               {[
-                { icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 text-cyan-400"><path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A4 4 0 0010 10v4a4 4 0 001.555 3.164l3.197 2.132a4 4 0 004.496 0l3.197-2.132A4 4 0 0024 14v-4a4 4 0 00-1.555-3.164l-3.197-2.132zM12 14l-9-5 9-5 9 5-9 5z"/></svg>, label: "15,000+ Active Students" },
-                { icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 text-cyan-400"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>, label: "200+ Expert Faculty" },
-                { icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 text-cyan-400"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>, label: "Ranked #1 Private University" },
+                { icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 text-cyan-400"><path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A4 4 0 0010 10v4a4 4 0 001.555 3.164l3.197 2.132a4 4 0 004.496 0l3.197-2.132A4 4 0 0024 14v-4a4 4 0 00-1.555-3.164l-3.197-2.132zM12 14l-9-5 9-5 9 5-9 5z"/></svg>, label: getTranslation("auth_stat_students") },
+                { icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 text-cyan-400"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>, label: getTranslation("auth_stat_faculty") },
+                { icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 text-cyan-400"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>, label: getTranslation("auth_stat_ranked") },
               ].map((item, i) => (
                 <motion.div
                   key={i}
@@ -164,9 +165,9 @@ const Login = () => {
                   style={{ background: "rgba(255,255,255,0.05)" }}>
                   <img src={Logo} alt="Logo" className="w-8 h-8 xs:w-10 xs:h-10 object-contain" />
                 </div>
-                <h1 className="text-2xl xs:text-3xl font-black text-white-force tracking-tight mb-1 xs:mb-1.5">Welcome back</h1>
+                <h1 className="text-2xl xs:text-3xl font-black text-white-force tracking-tight mb-1 xs:mb-1.5">{getTranslation("auth_login_heading")}</h1>
                 <p className="text-xs xs:text-sm font-medium" style={{ color: "rgba(148,163,184,0.75)" }}>
-                  Sign in to your student account to continue.
+                  {getTranslation("auth_login_subtitle")}
                 </p>
               </motion.div>
 
@@ -181,13 +182,13 @@ const Login = () => {
               >
                 {/* Email */}
                 <div>
-                  <label className="auth-label">Email Address</label>
+                  <label className="auth-label">{getTranslation("auth_email_label")}</label>
                   <input
                     id="login-email"
                     type="email"
                     name="email"
                     autoComplete="email"
-                    placeholder="yourname@ilmauniversity.edu"
+                    placeholder={getTranslation("auth_email_placeholder")}
                     value={formData.email}
                     onChange={handleChange}
                     className={ic(errors.email)}
@@ -200,13 +201,13 @@ const Login = () => {
                 {/* Password */}
                 <div>
                   <div className="flex items-center justify-between mb-[6px]">
-                    <label className="auth-label" style={{ marginBottom: 0 }}>Password</label>
+                    <label className="auth-label" style={{ marginBottom: 0 }}>{getTranslation("auth_password_label")}</label>
                     <Link
                       to="/forgot-password"
                       className="text-[11px] font-bold transition-colors hover:underline underline-offset-2"
                       style={{ color: "#06b6d4" }}
                     >
-                      Forgot Password?
+                      {getTranslation("auth_forgot_password")}
                     </Link>
                   </div>
                   <div className="relative">
@@ -215,7 +216,7 @@ const Login = () => {
                       type={showPw ? "text" : "password"}
                       name="password"
                       autoComplete="current-password"
-                      placeholder="Enter your password"
+                      placeholder={getTranslation("auth_password_placeholder")}
                       value={formData.password}
                       onChange={handleChange}
                       className={ic(errors.password)}
@@ -245,10 +246,10 @@ const Login = () => {
                   className="auth-btn mt-2"
                 >
                   {loading ? (
-                    <><Spinner /> Signing in…</>
+                    <><Spinner /> {getTranslation("auth_signing_in")}</>
                   ) : (
                     <>
-                      Sign In
+                      {getTranslation("auth_sign_in")}
                       <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                       </svg>
@@ -260,13 +261,13 @@ const Login = () => {
               {/* footer */}
               <div className="mt-8 pt-6 text-center" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                 <p className="text-sm" style={{ color: "rgba(148,163,184,0.7)" }}>
-                  Don&apos;t have an account?{" "}
+                  {getTranslation("auth_no_account")}{" "}
                   <Link
                     to="/signup"
                     className="font-bold hover:underline underline-offset-2 transition-colors"
                     style={{ color: "#6366f1" }}
                   >
-                    Create Account
+                    {getTranslation("auth_create_account")}
                   </Link>
                 </p>
               </div>

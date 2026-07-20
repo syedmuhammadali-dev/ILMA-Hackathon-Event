@@ -6,6 +6,7 @@ import { storage } from "../../utils/storage";
 import Swal from "sweetalert2";
 import Particles from "../../components/UI/Particles";
 import Logo from "../../assets/Logo.png";
+import { getTranslation } from "../../utils/linguaEngine";
 
 /* ── Eye toggle icons ── */
 const EyeOpen = () => (
@@ -186,15 +187,14 @@ const Signup = () => {
               </div>
 
               <h2 className="text-3xl font-black text-white-force leading-tight mb-3">
-                Join ILMA <br />
-                <span style={{ color: "#a78bfa" }}>Hackathon 2026</span>
+                {getTranslation("auth_join_ilma")} <br />
+                <span style={{ color: "#a78bfa" }}>{getTranslation("auth_signup_panel_title2")}</span>
               </h2>
               <p
                 className="text-sm leading-relaxed"
                 style={{ color: "rgba(148,163,184,0.8)" }}
               >
-                Create your student account and get instant access to all
-                university resources, events, and more.
+                {getTranslation("auth_panel_signup_desc")}
               </p>
             </div>
 
@@ -218,7 +218,7 @@ const Signup = () => {
                       />
                     </svg>
                   ),
-                  label: "Instant Access on Sign Up",
+                  label: getTranslation("auth_feature_instant"),
                 },
                 {
                   icon: (
@@ -237,7 +237,7 @@ const Signup = () => {
                       />
                     </svg>
                   ),
-                  label: "Secure & Encrypted Data",
+                  label: getTranslation("auth_feature_secure"),
                 },
                 {
                   icon: (
@@ -256,7 +256,7 @@ const Signup = () => {
                       />
                     </svg>
                   ),
-                  label: "24 / 7 Portal Availability",
+                  label: getTranslation("auth_feature_247"),
                 },
                 {
                   icon: (
@@ -275,7 +275,7 @@ const Signup = () => {
                       />
                     </svg>
                   ),
-                  label: "Hackathon Leaderboard",
+                  label: getTranslation("auth_feature_leaderboard"),
                 },
               ].map((item, i) => (
                 <motion.div
