@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   MDBRow,
   MDBCol,
@@ -11,11 +11,11 @@ import PageHeader from "../../components/UI/PageHeader";
 import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
 import { getTranslation } from "../../utils/linguaEngine";
+import { getColorClasses } from "../../utils/colorClasses";
 
 const MotionDiv = motion.div;
 
 const CampusPulse = () => {
-  const [filter, setFilter] = useState("all");
 
   const newsFeed = [
     { id: 1, type: "Academic", title: "Spring Semester Final Results Deployed", time: "2h ago", icon: "poll" },
@@ -174,13 +174,13 @@ const CampusPulse = () => {
                          whileHover={{ scale: 1.05 }}
                          className="surface-card p-4 xs:p-5 rounded-2xl xs:rounded-3xl border border-white/5 text-center group transition-all"
                        >
-                          <div className={`h-10 w-10 xs:h-12 xs:w-12 rounded-xl xs:rounded-2xl bg-${club.color}-500/10 flex items-center justify-center text-${club.color}-400 mx-auto mb-2 xs:mb-3 border border-${club.color}-500/10 shadow-lg shadow-${club.color}-500/10`}>
+                          <div className={`h-10 w-10 xs:h-12 xs:w-12 rounded-xl xs:rounded-2xl flex items-center justify-center mx-auto mb-2 xs:mb-3 border shadow-lg ${getColorClasses(club.color).iconWrap}`}>
                              <MDBIcon fas icon={club.icon} className="text-sm xs:text-base" />
                           </div>
                           <h6 className="text-[9px] xs:text-[10px] font-black text-white uppercase tracking-tighter mb-1 truncate">{club.title}</h6>
                           <p className="text-[7px] xs:text-[8px] font-bold text-slate-500 uppercase tracking-widest mb-3">{club.members} Members</p>
                           
-                          <MDBBtn onClick={() => handleJoinSociety(club.title)} size="sm" outline className={`w-full rounded-lg xs:rounded-xl py-1.5 xs:py-2 border-${club.color}-500/30 text-${club.color}-400 font-black text-[7px] xs:text-[8px] uppercase tracking-widest hover:bg-${club.color}-500 hover:text-white transition-all`}>
+                          <MDBBtn onClick={() => handleJoinSociety(club.title)} size="sm" outline className={`w-full rounded-lg xs:rounded-xl py-1.5 xs:py-2 font-black text-[7px] xs:text-[8px] uppercase tracking-widest transition-all ${getColorClasses(club.color).outlineBtn}`}>
                              Join Node
                           </MDBBtn>
                        </MotionDiv>

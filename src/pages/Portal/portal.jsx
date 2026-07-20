@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import { useLoading } from "../../context/LoadingContext";
 import { getTranslation } from "../../utils/linguaEngine";
+import { getColorClasses } from "../../utils/colorClasses";
 
 const MotionDiv = motion.div;
 
@@ -15,19 +16,56 @@ const Portal = () => {
   const { withLoader } = useLoading();
 
   const availableCourses = [
-    { id: 101, name: "Advanced Neural Networks", instructor: "Dr. Sarah", category: "AI", rating: 4.8, price: "Free", color: "purple" },
-    { id: 102, name: "UI/UX Design Systems", instructor: "Michael Chen", category: "Design", rating: 4.9, price: "Free", color: "rose" },
-    { id: 103, name: "Cloud Architecture", instructor: "James Wilson", category: "CS", rating: 4.7, price: "Free", color: "blue" },
-    { id: 104, name: "Blockchain Fundamentals", instructor: "Emma Davis", category: "CS", rating: 4.5, price: "Free", color: "emerald" },
+    {
+      id: 101,
+      name: "Advanced Neural Networks",
+      instructor: "Dr. Sarah",
+      category: "AI",
+      rating: 4.8,
+      price: "Free",
+      color: "purple",
+    },
+    {
+      id: 102,
+      name: "UI/UX Design Systems",
+      instructor: "Michael Chen",
+      category: "Design",
+      rating: 4.9,
+      price: "Free",
+      color: "rose",
+    },
+    {
+      id: 103,
+      name: "Cloud Architecture",
+      instructor: "James Wilson",
+      category: "CS",
+      rating: 4.7,
+      price: "Free",
+      color: "blue",
+    },
+    {
+      id: 104,
+      name: "Blockchain Fundamentals",
+      instructor: "Emma Davis",
+      category: "CS",
+      rating: 4.5,
+      price: "Free",
+      color: "emerald",
+    },
   ];
 
-  const filteredAvailable = activeTab === "All"
-    ? availableCourses
-    : availableCourses.filter(c => c.category === activeTab);
+  const filteredAvailable =
+    activeTab === "All"
+      ? availableCourses
+      : availableCourses.filter((c) => c.category === activeTab);
 
   const handleQuickEnroll = async (course) => {
-    if (enrolled.find(e => e.id === course.id)) {
-      Swal.fire({ icon: "info", title: "Already Enrolled", text: "You are already a student of this course." });
+    if (enrolled.find((e) => e.id === course.id)) {
+      Swal.fire({
+        icon: "info",
+        title: "Already Enrolled",
+        text: "You are already a student of this course.",
+      });
       return;
     }
     const { isConfirmed } = await Swal.fire({
@@ -40,11 +78,22 @@ const Portal = () => {
     });
     if (isConfirmed) {
       await withLoader(async () => {
-        await new Promise(r => setTimeout(r, 1000));
-        const newCourse = storage.addCourse({ id: course.id, name: course.name, instructor: course.instructor, progress: 0 });
-        setEnrolled(prev => [...prev, newCourse]);
+        await new Promise((r) => setTimeout(r, 1000));
+        const newCourse = storage.addCourse({
+          id: course.id,
+          name: course.name,
+          instructor: course.instructor,
+          progress: 0,
+        });
+        setEnrolled((prev) => [...prev, newCourse]);
       });
-      Swal.fire({ icon: "success", title: "Success", text: `Successfully enrolled in ${course.name}!`, timer: 1500, showConfirmButton: false });
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: `Successfully enrolled in ${course.name}!`,
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
   };
 
@@ -57,17 +106,21 @@ const Portal = () => {
 
       {/* ── Two-column layout: stacks on mobile, side-by-side on lg ── */}
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
-
         {/* ───── LEFT column ───── */}
         <div className="w-full lg:flex-1 space-y-8 sm:space-y-10 min-w-0">
-
           {/* Active Enrollment header */}
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 shrink-0">
-                <MDBIcon fas icon="book-reader" className="text-xs sm:text-base" />
+                <MDBIcon
+                  fas
+                  icon="book-reader"
+                  className="text-xs sm:text-base"
+                />
               </div>
-              <h3 className="text-base sm:text-2xl font-black text-slate-800 dark:text-white tracking-tight">Active Enrollment</h3>
+              <h3 className="text-base sm:text-2xl font-black text-slate-800 dark:text-white tracking-tight">
+                Active Enrollment
+              </h3>
             </div>
             <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
               {enrolled.length} Courses
@@ -76,44 +129,66 @@ const Portal = () => {
 
           {/* Enrolled course cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-            {enrolled.length > 0 ? enrolled.map((course, idx) => (
-              <MotionDiv
-                key={course.id}
-                whileHover={{ y: -4 }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: idx * 0.1 }}
-                className="surface-card p-4 xs:p-5 sm:p-6 rounded-[1.2rem] xs:rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm relative group"
-              >
-                <div className="flex justify-between items-start mb-4 xs:mb-5">
-                  <div className={`h-10 w-10 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-${idx % 2 === 0 ? "blue" : "emerald"}-500/10 flex items-center justify-center text-${idx % 2 === 0 ? "blue" : "emerald"}-600`}>
-                    <MDBIcon fas icon="laptop-code" className="text-base sm:text-lg" />
+            {enrolled.length > 0 ? (
+              enrolled.map((course, idx) => (
+                <MotionDiv
+                  key={course.id}
+                  whileHover={{ y: -4 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="surface-card p-4 xs:p-5 sm:p-6 rounded-[1.2rem] xs:rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm relative group"
+                >
+                  <div className="flex justify-between items-start mb-4 xs:mb-5">
+                    <div
+                      className={`h-10 w-10 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl flex items-center justify-center border ${getColorClasses(idx % 2 === 0 ? "blue" : "emerald").iconWrap}`}
+                    >
+                      <MDBIcon
+                        fas
+                        icon="laptop-code"
+                        className="text-base sm:text-lg"
+                      />
+                    </div>
+                    <button className="h-8 w-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                      <MDBIcon
+                        fas
+                        icon="ellipsis-v"
+                        className="text-slate-400 text-xs"
+                      />
+                    </button>
                   </div>
-                  <button className="h-8 w-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                    <MDBIcon fas icon="ellipsis-v" className="text-slate-400 text-xs" />
-                  </button>
-                </div>
-                <h4 className="text-sm sm:text-base font-black text-slate-800 dark:text-white leading-tight mb-1">{course.name}</h4>
-                <p className="text-[10px] sm:text-xs font-bold text-slate-400 mb-4 xs:mb-5">{course.instructor}</p>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
-                    <span className="text-slate-400">Progress</span>
-                    <span className="text-blue-600">{course.progress}%</span>
+                  <h4 className="text-sm sm:text-base font-black text-slate-800 dark:text-white leading-tight mb-1">
+                    {course.name}
+                  </h4>
+                  <p className="text-[10px] sm:text-xs font-bold text-slate-400 mb-4 xs:mb-5">
+                    {course.instructor}
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
+                      <span className="text-slate-400">Progress</span>
+                      <span className="text-blue-600">{course.progress}%</span>
+                    </div>
+                    <div className="h-1.5 xs:h-2 w-full bg-slate-50 dark:bg-slate-800/50 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full bg-blue-600 rounded-full"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${course.progress}%` }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                      />
+                    </div>
                   </div>
-                  <div className="h-1.5 xs:h-2 w-full bg-slate-50 dark:bg-slate-800/50 rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full bg-blue-600 rounded-full"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${course.progress}%` }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                    />
-                  </div>
-                </div>
-              </MotionDiv>
-            )) : (
+                </MotionDiv>
+              ))
+            ) : (
               <div className="col-span-1 sm:col-span-2 py-10 xs:py-14 text-center bg-slate-50 dark:bg-slate-800/20 rounded-[1.5rem] xs:rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
-                <MDBIcon fas icon="ghost" className="text-3xl xs:text-4xl text-slate-300 mb-3" />
-                <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] xs:text-xs">No courses enrolled yet</p>
+                <MDBIcon
+                  fas
+                  icon="ghost"
+                  className="text-3xl xs:text-4xl text-slate-300 mb-3"
+                />
+                <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] xs:text-xs">
+                  No courses enrolled yet
+                </p>
               </div>
             )}
           </div>
@@ -128,14 +203,20 @@ const Portal = () => {
             <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-4 mb-6">
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-purple-600/10 flex items-center justify-center text-purple-600 shrink-0">
-                  <MDBIcon fas icon="compass" className="text-xs sm:text-base" />
+                  <MDBIcon
+                    fas
+                    icon="compass"
+                    className="text-xs sm:text-base"
+                  />
                 </div>
-                <h3 className="text-base sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">Marketplace</h3>
+                <h3 className="text-base sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                  Marketplace
+                </h3>
               </div>
 
               {/* Scrollable tabs */}
               <div className="flex overflow-x-auto no-scrollbar surface-soft p-1 rounded-xl xs:rounded-2xl gap-1 max-w-full">
-                {["All", "CS", "Design", "AI"].map(tab => (
+                {["All", "CS", "Design", "AI"].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
@@ -148,28 +229,45 @@ const Portal = () => {
             </div>
 
             <div className="grid grid-cols-1 xs:grid-cols-2 gap-4 sm:gap-6">
-              {filteredAvailable.map(course => (
+              {filteredAvailable.map((course) => (
                 <MotionDiv
                   key={course.id}
                   whileHover={{ scale: 1.02 }}
                   className="surface-card p-4 sm:p-6 rounded-[1.2rem] sm:rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col justify-between"
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <span className={`text-[8px] xs:text-[9px] font-black uppercase tracking-[0.2em] px-2 xs:px-3 py-1 xs:py-1.5 rounded-full bg-${course.color}-500/10 text-${course.color}-600 border border-${course.color}-500/10`}>
+                    <span
+                      className={`text-[8px] xs:text-[9px] font-black uppercase tracking-[0.2em] px-2 xs:px-3 py-1 xs:py-1.5 rounded-full border ${getColorClasses(course.color).badge}`}
+                    >
                       {course.category}
                     </span>
                     <div className="flex items-center gap-1 text-amber-500">
-                      <MDBIcon fas icon="star" className="text-[8px] xs:text-[10px]" />
-                      <span className="text-[10px] xs:text-[11px] font-black">{course.rating}</span>
+                      <MDBIcon
+                        fas
+                        icon="star"
+                        className="text-[8px] xs:text-[10px]"
+                      />
+                      <span className="text-[10px] xs:text-[11px] font-black">
+                        {course.rating}
+                      </span>
                     </div>
                   </div>
-                  <h4 className="text-xs sm:text-sm font-black text-slate-800 dark:text-white leading-tight mb-4 min-h-[2.5rem]">{course.name}</h4>
+                  <h4 className="text-xs sm:text-sm font-black text-slate-800 dark:text-white leading-tight mb-4 min-h-[2.5rem]">
+                    {course.name}
+                  </h4>
                   <div className="flex items-center justify-between mt-auto">
                     <div className="flex flex-col min-w-0 mr-2">
-                      <span className="text-[8px] xs:text-[10px] font-bold text-slate-400 capitalize truncate">{course.instructor}</span>
-                      <span className="text-[10px] xs:text-xs font-black text-slate-900 dark:text-white mt-0.5">{course.price}</span>
+                      <span className="text-[8px] xs:text-[10px] font-bold text-slate-400 capitalize truncate">
+                        {course.instructor}
+                      </span>
+                      <span className="text-[10px] xs:text-xs font-black text-slate-900 dark:text-white mt-0.5">
+                        {course.price}
+                      </span>
                     </div>
-                    <MDBBtn onClick={() => handleQuickEnroll(course)} className="btn-ui btn-ui-solid px-3 xs:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl shadow-lg shadow-blue-500/20 text-[9px] xs:text-[10px] font-black shrink-0">
+                    <MDBBtn
+                      onClick={() => handleQuickEnroll(course)}
+                      className="btn-ui btn-ui-solid px-3 xs:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl shadow-lg shadow-blue-500/20 text-[9px] xs:text-[10px] font-black shrink-0"
+                    >
                       Join
                     </MDBBtn>
                   </div>
@@ -204,14 +302,26 @@ function ProfileCard() {
     >
       <div className="relative z-10">
         <div className="h-14 w-14 rounded-2xl border-2 border-white/20 overflow-hidden mb-5">
-          <img src={user?.profileImage} alt="User" className="h-full w-full object-cover" />
+          <img
+            src={user?.profileImage}
+            alt="User"
+            className="h-full w-full object-cover"
+          />
         </div>
-        <h4 className="text-lg sm:text-xl font-black tracking-tight text-white">{user?.fullName}</h4>
-        <p className="text-xs font-bold text-blue-300 mt-1 uppercase tracking-widest">{user?.studentId}</p>
+        <h4 className="text-lg sm:text-xl font-black tracking-tight text-white">
+          {user?.fullName}
+        </h4>
+        <p className="text-xs font-bold text-blue-300 mt-1 uppercase tracking-widest">
+          {user?.studentId}
+        </p>
         <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between">
           <div>
-            <p className="text-[9px] font-black uppercase text-white/50">{getTranslation("academic_status")}</p>
-            <p className="text-xs font-bold text-emerald-400 mt-1">Excellent (3.86 GPA)</p>
+            <p className="text-[9px] font-black uppercase text-white/50">
+              {getTranslation("academic_status")}
+            </p>
+            <p className="text-xs font-bold text-emerald-400 mt-1">
+              Excellent (3.86 GPA)
+            </p>
           </div>
           <MDBIcon fas icon="angle-right" className="text-white/30" />
         </div>
@@ -223,9 +333,27 @@ function ProfileCard() {
 
 function TimelineCard() {
   const events = [
-    { title: "Midterm Portfolio", date: "Apr 22, 2026", type: "Submission", color: "blue", timeLeft: "2 days" },
-    { title: "Hackathon Phase 1", date: "Apr 28, 2026", type: "Event", color: "purple", timeLeft: "8 days" },
-    { title: "System Maintenance", date: "May 01, 2026", type: "Update", color: "slate", timeLeft: "11 days" },
+    {
+      title: "Midterm Portfolio",
+      date: "Apr 22, 2026",
+      type: "Submission",
+      color: "blue",
+      timeLeft: "2 days",
+    },
+    {
+      title: "Hackathon Phase 1",
+      date: "Apr 28, 2026",
+      type: "Event",
+      color: "purple",
+      timeLeft: "8 days",
+    },
+    {
+      title: "System Maintenance",
+      date: "May 01, 2026",
+      type: "Update",
+      color: "slate",
+      timeLeft: "11 days",
+    },
   ];
   return (
     <MDBCard className="surface-card rounded-[2rem] border border-slate-100 dark:border-slate-800 p-6 sm:p-8 shadow-xl">
@@ -233,18 +361,30 @@ function TimelineCard() {
         <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 shrink-0">
           <MDBIcon fas icon="calendar-check" />
         </div>
-        <h3 className="text-lg sm:text-xl font-black text-slate-800 dark:text-white tracking-tight">Timeline</h3>
+        <h3 className="text-lg sm:text-xl font-black text-slate-800 dark:text-white tracking-tight">
+          Timeline
+        </h3>
       </div>
       <div className="space-y-5">
         {events.map((item, i) => (
           <div key={i} className="flex flex-col gap-2 group cursor-pointer">
             <div className="flex justify-between items-center px-1">
-              <span className={`text-[9px] font-black uppercase tracking-widest text-${item.color}-500`}>{item.type}</span>
-              <span className="text-[10px] font-bold text-slate-400">{item.timeLeft}</span>
+              <span
+                className={`text-[9px] font-black uppercase tracking-widest ${getColorClasses(item.color).text}`}
+              >
+                {item.type}
+              </span>
+              <span className="text-[10px] font-bold text-slate-400">
+                {item.timeLeft}
+              </span>
             </div>
             <div className="p-4 surface-soft rounded-2xl border border-transparent group-hover:border-slate-200 dark:group-hover:border-slate-700 transition-all">
-              <p className="text-sm font-black text-slate-800 dark:text-slate-100">{item.title}</p>
-              <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{item.date}</p>
+              <p className="text-sm font-black text-slate-800 dark:text-slate-100">
+                {item.title}
+              </p>
+              <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-widest">
+                {item.date}
+              </p>
             </div>
           </div>
         ))}
@@ -252,7 +392,5 @@ function TimelineCard() {
     </MDBCard>
   );
 }
-
-
 
 export default Portal;

@@ -80,12 +80,13 @@ const Schedule = () => {
             className="btn-ui btn-ui-solid"
             onClick={handleExport}
           >
-            <MDBIcon fas icon="download" size="xs" /> {getTranslation("export_pdf")}
+            <MDBIcon fas icon="download" size="xs" />{" "}
+            {getTranslation("export_pdf")}
           </MDBBtn>
         }
       />
 
-        <MDBCard className="table-shell surface-card">
+      <MDBCard className="table-shell surface-card">
         <MDBCardBody className="p-0">
           <div className="p-4 md:p-6 border-b border-gray-100 surface-soft sticky top-0 z-10 flex flex-wrap items-center justify-between gap-4">
             <h3 className="font-bold text-slate-800 flex items-center gap-2">
@@ -102,7 +103,9 @@ const Schedule = () => {
             <MDBTable hover borderless align="middle" className="mb-0">
               <MDBTableHead className="surface-soft border-b border-slate-100">
                 <tr className="text-left">
-                  <th className="table-head-cell">{getTranslation("time_slot")}</th>
+                  <th className="table-head-cell">
+                    {getTranslation("time_slot")}
+                  </th>
                   <th className="table-head-cell text-center">Mon</th>
                   <th className="table-head-cell text-center">Tue</th>
                   <th className="table-head-cell text-center">Wed</th>
@@ -112,7 +115,10 @@ const Schedule = () => {
               </MDBTableHead>
               <MDBTableBody>
                 {scheduleData.map((row, idx) => (
-                  <tr key={idx} className="group hover-surface transition-colors">
+                  <tr
+                    key={idx}
+                    className="group hover-surface transition-colors"
+                  >
                     <td className="px-6 py-4">
                       <span className="text-xs font-black text-slate-900 glass-badge px-3 py-1 rounded-lg border border-slate-200">
                         {row.time}
@@ -120,22 +126,22 @@ const Schedule = () => {
                     </td>
                     {days.map((day, dIdx) => (
                       <td key={dIdx} className="px-6 py-4 text-center">
-                          {row[day] === "-" ? (
-                            <span className="text-slate-200 font-bold">-</span>
-                          ) : row[day] === "Break" ? (
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest glass-badge px-2 py-0.5 rounded-md">
-                              Lunch Break
-                            </span>
-                          ) : (
-                            <div className="surface-soft border border-blue-100 p-3 rounded-2xl text-blue-900 dark:text-blue-200 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-700 transition-all cursor-pointer">
-                              <p className="text-xs font-black mb-0.5 uppercase tracking-tighter">
-                                {row[day]}
-                              </p>
-                              <p className="text-[9px] font-bold opacity-70 uppercase tracking-widest">
-                                Main Block
-                              </p>
-                            </div>
-                          )}
+                        {row[day] === "-" ? (
+                          <span className="text-slate-200 font-bold">-</span>
+                        ) : row[day] === "Break" ? (
+                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest glass-badge px-2 py-0.5 rounded-md">
+                            Lunch Break
+                          </span>
+                        ) : (
+                          <div className="surface-soft border border-blue-100 p-3 rounded-2xl text-blue-900 dark:text-blue-200 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-700 transition-all cursor-pointer">
+                            <p className="text-xs font-black mb-0.5 uppercase tracking-tighter">
+                              {row[day]}
+                            </p>
+                            <p className="text-[9px] font-bold opacity-70 uppercase tracking-widest">
+                              Main Block
+                            </p>
+                          </div>
+                        )}
                       </td>
                     ))}
                   </tr>
@@ -156,19 +162,35 @@ const Schedule = () => {
                   <span className="h-px flex-1 bg-slate-100 dark:bg-slate-800"></span>
                 </div>
                 <div className="grid grid-cols-1 xs:grid-cols-2 gap-2">
-                  {days.map((day, dIdx) => row[day] !== "-" && (
-                    <div key={dIdx} className="surface-card p-3 xs:p-4 rounded-xl xs:rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center justify-between gap-2">
-                       <div className="flex flex-col min-w-0">
-                          <span className="text-[7px] xs:text-[8px] font-black text-slate-400 uppercase tracking-widest">{day.toUpperCase()}</span>
-                          <span className={`text-[10px] xs:text-xs font-black truncate ${row[day] === "Break" ? 'text-slate-400 italic' : 'text-slate-900 dark:text-slate-100'}`}>{row[day]}</span>
-                       </div>
-                       {row[day] !== "Break" && (
-                         <div className="h-7 w-7 xs:h-8 xs:w-8 shrink-0 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
-                            <MDBIcon fas icon="map-marker-alt" className="text-[9px] xs:text-[10px]" />
-                         </div>
-                       )}
-                    </div>
-                  ))}
+                  {days.map(
+                    (day, dIdx) =>
+                      row[day] !== "-" && (
+                        <div
+                          key={dIdx}
+                          className="surface-card p-3 xs:p-4 rounded-xl xs:rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center justify-between gap-2"
+                        >
+                          <div className="flex flex-col min-w-0">
+                            <span className="text-[7px] xs:text-[8px] font-black text-slate-400 uppercase tracking-widest">
+                              {day.toUpperCase()}
+                            </span>
+                            <span
+                              className={`text-[10px] xs:text-xs font-black truncate ${row[day] === "Break" ? "text-slate-400 italic" : "text-slate-900 dark:text-slate-100"}`}
+                            >
+                              {row[day]}
+                            </span>
+                          </div>
+                          {row[day] !== "Break" && (
+                            <div className="h-7 w-7 xs:h-8 xs:w-8 shrink-0 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
+                              <MDBIcon
+                                fas
+                                icon="map-marker-alt"
+                                className="text-[9px] xs:text-[10px]"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      ),
+                  )}
                 </div>
               </div>
             ))}
@@ -217,4 +239,3 @@ const Schedule = () => {
 };
 
 export default Schedule;
-

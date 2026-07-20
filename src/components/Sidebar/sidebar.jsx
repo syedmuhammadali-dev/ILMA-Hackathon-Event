@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
 import { motion } from "framer-motion";
 import { getTranslation } from "../../utils/linguaEngine";
@@ -8,7 +8,6 @@ const MotionDiv = motion.div;
 
 const Sidebar = () => {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const menuItems = [
     { title: "Home", key: 'dashboard', path: "/", icon: "home" },

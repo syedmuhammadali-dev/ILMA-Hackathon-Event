@@ -12,6 +12,7 @@ import { storage } from "../../utils/storage";
 import { profileSchema } from "../../utils/validation";
 import PageHeader from "../../components/UI/PageHeader";
 import { motion, AnimatePresence } from "framer-motion";
+import { getColorClasses } from "../../utils/colorClasses";
 
 const MotionDiv = motion.div;
 
@@ -180,8 +181,8 @@ const Profile = () => {
                   whileHover={{ scale: 1.02 }}
                   className="surface-card p-4 xs:p-5 rounded-2xl xs:rounded-[1.5rem] shadow-sm flex flex-col gap-2 xs:gap-3"
                 >
-                  <div className={`h-7 w-7 xs:h-8 xs:w-8 rounded-lg bg-${stat.color}-50 dark:bg-${stat.color}-500/10 flex items-center justify-center`}>
-                    <MDBIcon fas icon={stat.icon} className={`text-xs xs:text-sm text-${stat.color}-500`} />
+                  <div className={`h-7 w-7 xs:h-8 xs:w-8 rounded-lg flex items-center justify-center ${getColorClasses(stat.color).iconWrapLight}`}>
+                    <MDBIcon fas icon={stat.icon} className={`text-xs xs:text-sm ${getColorClasses(stat.color).text}`} />
                   </div>
                   <div>
                      <h5 className="text-base xs:text-xl font-black text-slate-800 dark:text-white leading-none">{stat.value}</h5>

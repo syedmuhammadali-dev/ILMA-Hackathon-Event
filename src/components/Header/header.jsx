@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { applyMode } from "../../utils/themeEngine";
 import { applyLanguage, getTranslation } from "../../utils/linguaEngine";
+import { getColorClasses } from "../../utils/colorClasses";
 import Logo from "../../assets/Logo.png";
 import Swal from "sweetalert2";
 
@@ -23,12 +24,14 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isLinguaOpen, setIsLinguaOpen] = useState(false);
-  const [currentMode, setCurrentMode] = useState(localStorage.getItem("portal-mode") || "dark");
+  const [currentMode, setCurrentMode] = useState(
+    localStorage.getItem("portal-mode") || "dark",
+  );
   const mobileMenuRef = useRef(null);
   const notificationsRef = useRef(null);
 
   const toggleMode = () => {
-    const newMode = currentMode === 'dark' ? 'light' : 'dark';
+    const newMode = currentMode === "dark" ? "light" : "dark";
     setCurrentMode(newMode);
     applyMode(newMode);
   };
@@ -40,7 +43,7 @@ const Header = () => {
       desc: "React basic concepts assignment is due.",
       time: "2 mins ago",
       icon: "tasks",
-      color: "blue"
+      color: "blue",
     },
     {
       id: 2,
@@ -48,7 +51,7 @@ const Header = () => {
       desc: "Spring Hackathon 2026 registration is live.",
       time: "1 hour ago",
       icon: "rocket",
-      color: "purple"
+      color: "purple",
     },
     {
       id: 3,
@@ -56,8 +59,8 @@ const Header = () => {
       desc: "Your attendance is above 90% this month.",
       time: "5 hours ago",
       icon: "user-check",
-      color: "emerald"
-    }
+      color: "emerald",
+    },
   ];
 
   const handleLogout = () => {
@@ -76,8 +79,8 @@ const Header = () => {
         popup: "rounded-2xl border-none shadow-xl",
         title: "text-xl font-black",
         confirmButton: "rounded-xl px-6 py-3 font-bold",
-        cancelButton: "rounded-xl px-6 py-3 font-bold"
-      }
+        cancelButton: "rounded-xl px-6 py-3 font-bold",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         storage.logout();
@@ -87,10 +90,18 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // initializeTheme() can also be called here if needed, but App.jsx handles it.
-    // Sync local state if storage changes
-    const savedMode = localStorage.getItem("portal-mode") || "dark";
-    setCurrentMode(savedMode);
+    // Keep the toggle icon in sync when the mode is changed elsewhere
+    // (Appearance page, another tab). App.jsx does the initial apply.
+    const observer = new MutationObserver(() => {
+      setCurrentMode(
+        document.documentElement.getAttribute("data-theme") || "dark",
+      );
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -131,21 +142,31 @@ const Header = () => {
       fixed="top"
       className="z-[100] h-14 xs:h-16 md:h-20 glass-panel border-b premium-shadow w-full"
       style={{
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
         right: 0,
-        width: '100%',
-        maxWidth: '100vw',
-        display: 'flex',
-        alignItems: 'center',
+        width: "100%",
+        maxWidth: "100vw",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      <MDBContainer fluid className="px-2 xs:px-3 sm:px-6 md:px-12 flex items-center justify-between gap-1 sm:gap-2" style={{ maxWidth: '100%' }}>
+      <MDBContainer
+        fluid
+        className="px-2 xs:px-3 sm:px-6 md:px-12 flex items-center justify-between gap-1 sm:gap-2"
+        style={{ maxWidth: "100%" }}
+      >
         <div className="flex items-center flex-1 min-w-0">
-          <MotionDiv whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }} className="shrink-0">
-            <MDBNavbarBrand href="/" className="m-0 p-0 flex items-center group shrink-0">
-
+          <MotionDiv
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+            className="shrink-0"
+          >
+            <MDBNavbarBrand
+              href="/"
+              className="m-0 p-0 flex items-center group shrink-0"
+            >
               <img
                 src={Logo}
                 className="h-6 xs:h-7 sm:h-10 w-auto object-contain shrink-0"
@@ -154,7 +175,8 @@ const Header = () => {
 
               <div className="flex flex-col ml-1 me-1 xs:me-2 sm:me-5 min-w-0">
                 <span className="text-[12px] xs:text-sm sm:text-xl font-black tracking-tight leading-none text-slate-900 dark:text-black whitespace-nowrap">
-                  <span className="hidden min-[360px]:inline">Student</span><span className="text-blue-600">Portal</span>
+                  <span className="hidden min-[360px]:inline">Student</span>
+                  <span className="text-blue-600">Portal</span>
                 </span>
                 <span className="hidden sm:block text-[10px] uppercase tracking-widest font-black text-slate-400 mt-1">
                   University Admin
@@ -165,12 +187,16 @@ const Header = () => {
 
           {/* New Search Element - only shown at lg (1024px+) to avoid header crowding */}
           <div className="search-container ml-4 lg:ml-8 flex-1 min-w-0">
-            <MDBIcon fas icon="search" className="text-slate-400 text-sm shrink-0" />
+            <MDBIcon
+              fas
+              icon="search"
+              className="text-slate-400 text-sm shrink-0"
+            />
             <input
               type="text"
               placeholder="Search courses, grades, or resources..."
               className="bg-transparent border-none outline-none text-sm w-full flex-1 font-bold placeholder:text-slate-400 text-ellipsis overflow-hidden whitespace-nowrap min-w-0"
-              style={{ color: 'var(--text-primary)' }}
+              style={{ color: "var(--text-primary)" }}
             />
             <div className="px-1.5 py-0.5 rounded-md bg-slate-200/50 text-[10px] font-bold text-slate-500 border border-slate-300/30 shrink-0 ml-auto">
               ⌘K
@@ -178,45 +204,58 @@ const Header = () => {
           </div>
         </div>
 
-        <div ref={mobileMenuRef} className="flex items-center gap-1 xs:gap-1.5 sm:gap-4 relative shrink-0">
-          <div className="hidden md:flex items-center gap-2 mr-2 relative" ref={notificationsRef}>
+        <div
+          ref={mobileMenuRef}
+          className="flex items-center gap-1 xs:gap-1.5 sm:gap-4 relative shrink-0"
+        >
+          <div
+            className="hidden md:flex items-center gap-2 mr-2 relative"
+            ref={notificationsRef}
+          >
             {/* Animated Theme Toggle */}
             <MotionButton
               onClick={toggleMode}
-              className={`h-10 w-10 flex items-center justify-center rounded-full border border-slate-200 dark:border-white/10 ${currentMode === 'dark' ? 'bg-slate-800 text-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.15)]' : 'bg-white text-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.1)]'}`}
+              className={`h-10 w-10 flex items-center justify-center rounded-full border border-slate-200 dark:border-white/10 ${currentMode === "dark" ? "bg-slate-800 text-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.15)]" : "bg-white text-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.1)]"}`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ rotate: 180, scale: 0.9 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               title="Switch Appearance"
             >
               <AnimatePresence mode="wait">
-                 <motion.div
-                   key={currentMode}
-                   initial={{ y: 5, opacity: 0, rotate: -90 }}
-                   animate={{ y: 0, opacity: 1, rotate: 0 }}
-                   exit={{ y: -5, opacity: 0, rotate: 90 }}
-                   transition={{ duration: 0.2 }}
-                 >
-                    <MDBIcon fas icon={currentMode === 'dark' ? 'sun' : 'moon'} />
-                 </motion.div>
+                <motion.div
+                  key={currentMode}
+                  initial={{ y: 5, opacity: 0, rotate: -90 }}
+                  animate={{ y: 0, opacity: 1, rotate: 0 }}
+                  exit={{ y: -5, opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <MDBIcon fas icon={currentMode === "dark" ? "sun" : "moon"} />
+                </motion.div>
               </AnimatePresence>
             </MotionButton>
 
             {/* Lingua Dropdown Switcher (3-Way: EN -> UR -> UR_R) */}
             <div className="relative">
               <MotionButton
-                 onClick={() => setIsLinguaOpen(!isLinguaOpen)}
-                 className="h-10 px-4 flex items-center justify-center rounded-full border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-slate-800 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-blue-500 hover:border-blue-500 transition-all gap-2"
-                 whileHover={{ scale: 1.05 }}
-                 whileTap={{ scale: 0.95 }}
-                 title="Change Language"
+                onClick={() => setIsLinguaOpen(!isLinguaOpen)}
+                className="h-10 px-4 flex items-center justify-center rounded-full border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-slate-800 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-blue-500 hover:border-blue-500 transition-all gap-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                title="Change Language"
               >
-                 <MDBIcon fas icon="globe" className="text-sm opacity-50" />
-                 <span>
-                    {localStorage.getItem("portal-lang") === 'ur' ? 'اردو' : 
-                     localStorage.getItem("portal-lang") === 'ur_roman' ? 'Roman' : 'English'}
-                 </span>
-                 <MDBIcon fas icon={isLinguaOpen ? "chevron-up" : "chevron-down"} className="ml-1 opacity-30 text-[8px]" />
+                <MDBIcon fas icon="globe" className="text-sm opacity-50" />
+                <span>
+                  {localStorage.getItem("portal-lang") === "ur"
+                    ? "اردو"
+                    : localStorage.getItem("portal-lang") === "ur_roman"
+                      ? "Roman"
+                      : "English"}
+                </span>
+                <MDBIcon
+                  fas
+                  icon={isLinguaOpen ? "chevron-up" : "chevron-down"}
+                  className="ml-1 opacity-30 text-[8px]"
+                />
               </MotionButton>
 
               <AnimatePresence>
@@ -225,12 +264,27 @@ const Header = () => {
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                    className={`absolute top-full mt-3 w-44 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl rounded-2xl overflow-hidden z-[2000] ${localStorage.getItem("portal-lang") === 'ur' ? 'left-0' : 'right-0'}`}
+                    className={`absolute top-full mt-3 w-44 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl rounded-2xl overflow-hidden z-[2000] ${localStorage.getItem("portal-lang") === "ur" ? "left-0" : "right-0"}`}
                   >
                     {[
-                      { id: 'en', name: 'English', label: 'English', icon: 'flag-usa' },
-                      { id: 'ur', name: 'اردو', label: 'Urdu Script', icon: 'pen-nib' },
-                      { id: 'ur_roman', name: 'Roman', label: 'Roman Urdu', icon: 'keyboard' }
+                      {
+                        id: "en",
+                        name: "English",
+                        label: "English",
+                        icon: "flag-usa",
+                      },
+                      {
+                        id: "ur",
+                        name: "اردو",
+                        label: "Urdu Script",
+                        icon: "pen-nib",
+                      },
+                      {
+                        id: "ur_roman",
+                        name: "Roman",
+                        label: "Roman Urdu",
+                        icon: "keyboard",
+                      },
                     ].map((lang) => (
                       <button
                         key={lang.id}
@@ -239,14 +293,28 @@ const Header = () => {
                           setIsLinguaOpen(false);
                           window.location.reload();
                         }}
-                        className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-white/5 transition-colors ${localStorage.getItem("portal-lang") === lang.id ? 'text-blue-600 bg-blue-50/20 dark:bg-blue-500/10' : 'text-slate-500'}`}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-white/5 transition-colors ${localStorage.getItem("portal-lang") === lang.id ? "text-blue-600 bg-blue-50/20 dark:bg-blue-500/10" : "text-slate-500"}`}
                       >
-                        <MDBIcon fas icon={lang.icon} className="text-xs opacity-50 w-4" />
+                        <MDBIcon
+                          fas
+                          icon={lang.icon}
+                          className="text-xs opacity-50 w-4"
+                        />
                         <div className="flex flex-col">
-                          <span className="text-xs font-black">{lang.name}</span>
-                          <span className="text-[8px] uppercase tracking-widest opacity-50 font-bold">{lang.label}</span>
+                          <span className="text-xs font-black">
+                            {lang.name}
+                          </span>
+                          <span className="text-[8px] uppercase tracking-widest opacity-50 font-bold">
+                            {lang.label}
+                          </span>
                         </div>
-                        {localStorage.getItem("portal-lang") === lang.id && <MDBIcon fas icon="check" className="ml-auto text-[10px]" />}
+                        {localStorage.getItem("portal-lang") === lang.id && (
+                          <MDBIcon
+                            fas
+                            icon="check"
+                            className="ml-auto text-[10px]"
+                          />
+                        )}
                       </button>
                     ))}
                   </motion.div>
@@ -255,17 +323,20 @@ const Header = () => {
             </div>
 
             <MotionButton
-                className={`h-10 w-10 flex items-center justify-center rounded-full border border-slate-200 dark:border-white/5 bg-transparent`}
-                whileHover={{ scale: 1.1, backgroundColor: "var(--surface-card-soft)" }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => navigate("/notifications")}
-                title="Notifications"
-              >
-                <div className="relative inline-flex">
-                  <MDBIcon fas icon="bell" className="text-slate-500 text-lg" />
-                  <span className="absolute -top-1 -right-1 h-2.5 w-2.5 bg-rose-500 rounded-full border-2 border-white dark:border-slate-900"></span>
-                </div>
-              </MotionButton>
+              className={`h-10 w-10 flex items-center justify-center rounded-full border border-slate-200 dark:border-white/5 bg-transparent`}
+              whileHover={{
+                scale: 1.1,
+                backgroundColor: "var(--surface-card-soft)",
+              }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate("/notifications")}
+              title="Notifications"
+            >
+              <div className="relative inline-flex">
+                <MDBIcon fas icon="bell" className="text-slate-500 text-lg" />
+                <span className="absolute -top-1 -right-1 h-2.5 w-2.5 bg-rose-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+              </div>
+            </MotionButton>
 
             {/* Notification Dropdown Panel */}
             <AnimatePresence>
@@ -274,10 +345,12 @@ const Header = () => {
                   initial={{ opacity: 0, y: 10, scale: 0.99 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.99 }}
-                  className="absolute top-full right-0 mt-3 w-[480px] bg-white border border-slate-200 shadow-[0_10px_30px_rgba(0,0,0,0.1)] z-[2000] overflow-hidden rounded-xl"
+                  className="absolute top-full right-0 mt-3 w-[min(480px,calc(100vw-2rem))] bg-white border border-slate-200 shadow-[0_10px_30px_rgba(0,0,0,0.1)] z-[2000] overflow-hidden rounded-xl"
                 >
                   <div className="px-3 py-1.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                    <h3 className="font-black text-[8px] text-slate-400 uppercase tracking-widest">{getTranslation('system_alerts')}</h3>
+                    <h3 className="font-black text-[8px] text-slate-400 uppercase tracking-widest">
+                      {getTranslation("system_alerts")}
+                    </h3>
                     <div className="text-[8px] font-bold text-blue-600 bg-blue-50/50 px-1.5 rounded-full border border-blue-100">
                       3 NEW
                     </div>
@@ -287,16 +360,26 @@ const Header = () => {
                     {mockNotifications.map((n, idx) => (
                       <div
                         key={n.id}
-                        className={`px-3 py-1.5 hover:bg-slate-50 transition-colors cursor-pointer group relative ${idx !== mockNotifications.length - 1 ? 'border-b border-slate-50' : ''}`}
+                        className={`px-3 py-1.5 hover:bg-slate-50 transition-colors cursor-pointer group relative ${idx !== mockNotifications.length - 1 ? "border-b border-slate-50" : ""}`}
                       >
                         <div className="flex gap-2.5 items-center">
-                          <div className={`h-6 w-6 min-w-[1.5rem] rounded bg-${n.color}-50 flex items-center justify-center border border-${n.color}-100`}>
-                            <MDBIcon fas icon={n.icon} className={`text-[9px] text-${n.color}-500`} />
+                          <div
+                            className={`h-6 w-6 min-w-[1.5rem] rounded flex items-center justify-center border ${getColorClasses(n.color).iconWrapLight}`}
+                          >
+                            <MDBIcon
+                              fas
+                              icon={n.icon}
+                              className={`text-[9px] ${getColorClasses(n.color).text}`}
+                            />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-center">
-                              <p className="text-[10px] font-black text-slate-800 truncate pr-3">{n.title}</p>
-                              <span className="text-[8px] text-slate-400 font-bold shrink-0">{n.time}</span>
+                              <p className="text-[10px] font-black text-slate-800 truncate pr-3">
+                                {n.title}
+                              </p>
+                              <span className="text-[8px] text-slate-400 font-bold shrink-0">
+                                {n.time}
+                              </span>
                             </div>
                             <p className="text-[9px] text-slate-500 font-bold truncate leading-none">
                               {n.desc}
@@ -321,7 +404,6 @@ const Header = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-
           </div>
 
           {/* Mobile menu toggle */}
@@ -332,28 +414,88 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <MDBIcon fas icon={mobileOpen ? "times" : "bars"} className="text-sm" />
+            <MDBIcon
+              fas
+              icon={mobileOpen ? "times" : "bars"}
+              className="text-sm"
+            />
           </MotionButton>
 
           {mobileOpen && (
             <div
               id="mobile-nav-menu"
               className="md:hidden absolute top-full right-0 mt-2 z-[2000]"
-              style={{ width: 'min(16rem, calc(100vw - 1rem))' }}
+              style={{ width: "min(16rem, calc(100vw - 1rem))" }}
             >
-              <div className="glass-panel backdrop-blur-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden" style={{ maxHeight: 'calc(100dvh - 5.5rem)', overflowY: 'auto' }}>
+              <div
+                className="glass-panel backdrop-blur-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+                style={{
+                  maxHeight: "calc(100dvh - 5.5rem)",
+                  overflowY: "auto",
+                }}
+              >
                 <nav className="flex flex-col gap-0.5 p-3">
                   {[
-                    { title: "Home", key: 'dashboard', path: "/", icon: "home" },
-                    { title: "Portal", key: 'portal', path: "/portal", icon: "th-large" },
-                    { title: "Profile", key: 'profile', path: "/profile", icon: "user" },
-                    { title: "Grades", key: 'grades', path: "/grades", icon: "poll-h" },
-                    { title: "Financial", key: 'financial', path: "/financial", icon: "wallet" },
-                    { title: "Assignments", key: 'assignments', path: "/assignments", icon: "tasks" },
-                    { title: "Schedule", key: 'schedule', path: "/schedule", icon: "calendar-alt" },
-                    { title: "Campus Pulse", key: 'campus', path: "/campus-pulse", icon: "heartbeat" },
-                    { title: "Notifications", key: 'notifications', path: "/notifications", icon: "bell" },
-                    { title: "Appearance", key: 'appearance', path: "/appearance", icon: "paint-brush" },
+                    {
+                      title: "Home",
+                      key: "dashboard",
+                      path: "/",
+                      icon: "home",
+                    },
+                    {
+                      title: "Portal",
+                      key: "portal",
+                      path: "/portal",
+                      icon: "th-large",
+                    },
+                    {
+                      title: "Profile",
+                      key: "profile",
+                      path: "/profile",
+                      icon: "user",
+                    },
+                    {
+                      title: "Grades",
+                      key: "grades",
+                      path: "/grades",
+                      icon: "poll-h",
+                    },
+                    {
+                      title: "Financial",
+                      key: "financial",
+                      path: "/financial",
+                      icon: "wallet",
+                    },
+                    {
+                      title: "Assignments",
+                      key: "assignments",
+                      path: "/assignments",
+                      icon: "tasks",
+                    },
+                    {
+                      title: "Schedule",
+                      key: "schedule",
+                      path: "/schedule",
+                      icon: "calendar-alt",
+                    },
+                    {
+                      title: "Campus Pulse",
+                      key: "campus",
+                      path: "/campus-pulse",
+                      icon: "heartbeat",
+                    },
+                    {
+                      title: "Notifications",
+                      key: "notifications",
+                      path: "/notifications",
+                      icon: "bell",
+                    },
+                    {
+                      title: "Appearance",
+                      key: "appearance",
+                      path: "/appearance",
+                      icon: "paint-brush",
+                    },
                   ].map((item) => (
                     <Link
                       key={item.path}
@@ -361,8 +503,14 @@ const Header = () => {
                       onClick={() => setMobileOpen(false)}
                       className="nav-item group hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl"
                     >
-                      <MDBIcon fas icon={item.icon} className="w-5 text-slate-400 group-hover:text-blue-600 shrink-0" />
-                      <span className="truncate text-sm">{getTranslation(item.key) || item.title}</span>
+                      <MDBIcon
+                        fas
+                        icon={item.icon}
+                        className="w-5 text-slate-400 group-hover:text-blue-600 shrink-0"
+                      />
+                      <span className="truncate text-sm">
+                        {getTranslation(item.key) || item.title}
+                      </span>
                     </Link>
                   ))}
 
@@ -370,20 +518,44 @@ const Header = () => {
 
                   {/* Quick Toggles */}
                   <div className="flex items-center gap-2 py-1 px-1">
-                    <button onClick={toggleMode} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold transition-all active:scale-95">
-                      <MDBIcon fas icon={currentMode === 'dark' ? 'sun' : 'moon'} className={currentMode === 'dark' ? 'text-amber-400' : 'text-slate-600'} />
-                      <span className="truncate">{currentMode === 'dark' ? 'Solar' : 'Night'}</span>
+                    <button
+                      onClick={toggleMode}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold transition-all active:scale-95"
+                    >
+                      <MDBIcon
+                        fas
+                        icon={currentMode === "dark" ? "sun" : "moon"}
+                        className={
+                          currentMode === "dark"
+                            ? "text-amber-400"
+                            : "text-slate-600"
+                        }
+                      />
+                      <span className="truncate">
+                        {currentMode === "dark" ? "Solar" : "Night"}
+                      </span>
                     </button>
                     <button
                       onClick={() => {
-                        const next = localStorage.getItem("portal-lang") === 'en' ? 'ur' : localStorage.getItem("portal-lang") === 'ur' ? 'ur_roman' : 'en';
+                        const next =
+                          localStorage.getItem("portal-lang") === "en"
+                            ? "ur"
+                            : localStorage.getItem("portal-lang") === "ur"
+                              ? "ur_roman"
+                              : "en";
                         applyLanguage(next);
                         window.location.reload();
                       }}
                       className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 text-xs font-bold transition-all active:scale-95"
                     >
                       <MDBIcon fas icon="language" />
-                      <span>{localStorage.getItem("portal-lang") === 'en' ? 'ENG' : localStorage.getItem("portal-lang") === 'ur' ? 'اردو' : 'ROM'}</span>
+                      <span>
+                        {localStorage.getItem("portal-lang") === "en"
+                          ? "ENG"
+                          : localStorage.getItem("portal-lang") === "ur"
+                            ? "اردو"
+                            : "ROM"}
+                      </span>
                     </button>
                   </div>
 
@@ -394,7 +566,7 @@ const Header = () => {
                     className="nav-item text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 w-full text-left rounded-xl"
                   >
                     <MDBIcon fas icon="sign-out-alt" className="w-5 shrink-0" />
-                    <span className="text-sm">{getTranslation('logout')}</span>
+                    <span className="text-sm">{getTranslation("logout")}</span>
                   </button>
                 </nav>
               </div>
@@ -404,7 +576,7 @@ const Header = () => {
           <div className="flex items-center gap-1.5 xs:gap-2 sm:gap-4 pl-1.5 xs:pl-2 sm:pl-4 border-l border-slate-200/50 dark:border-white/10 shrink-0">
             <div className="hidden lg:flex flex-col items-end leading-tight">
               <span className="text-sm font-extrabold text-slate-900 dark:text-white tracking-tight">
-                {user.fullName}
+                {user?.fullName || "Student"}
               </span>
               <div className="flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
@@ -416,7 +588,11 @@ const Header = () => {
             <div className="relative group">
               <div className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white text-[10px] xs:text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/30 overflow-hidden group-hover:scale-105 transition-transform cursor-pointer">
                 {user.profileImage ? (
-                  <img src={user.profileImage} alt="Profile" className="h-full w-full object-cover" />
+                  <img
+                    src={user.profileImage}
+                    alt="Profile"
+                    className="h-full w-full object-cover"
+                  />
                 ) : (
                   user.fullName?.charAt(0) || "S"
                 )}
@@ -429,10 +605,13 @@ const Header = () => {
               title="Logout"
               className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 flex items-center justify-center rounded-full bg-transparent border-2 border-rose-500/50 text-rose-500 transition-all hover:bg-rose-500/10 hover:scale-110 active:scale-95 shadow-lg shadow-rose-500/5"
             >
-              <MDBIcon fas icon="sign-out-alt" className="text-[10px] xs:text-xs sm:text-base" />
+              <MDBIcon
+                fas
+                icon="sign-out-alt"
+                className="text-[10px] xs:text-xs sm:text-base"
+              />
             </button>
           </div>
-
         </div>
       </MDBContainer>
     </MDBNavbar>

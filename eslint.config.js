@@ -23,7 +23,10 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // eslint-plugin-react is not installed, so ESLint cannot see identifiers
+      // used only inside JSX. The uppercase pattern covers components; `motion`
+      // is the one lowercase namespace used directly as <motion.div>.
+      'no-unused-vars': ['error', { varsIgnorePattern: '^([A-Z_]|motion$)' }],
     },
   },
 ])

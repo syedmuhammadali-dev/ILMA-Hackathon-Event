@@ -1,5 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap");
 @import "tailwindcss";
+
+/* The app toggles dark mode via <html data-theme="dark">, not the OS preference.
+   Without this, every `dark:` utility follows prefers-color-scheme and ignores
+   the in-app Appearance toggle. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
   --breakpoint-xs: 400px;
@@ -10,10 +15,10 @@
 
 :root {
   /* Appearance Engine Core Variables */
-  --primary-color: #3b82f6; 
+  --primary-color: #3b82f6;
   --primary-glow: rgba(59, 130, 246, 0.15);
   --base-font-size: 1rem;
-  --base-font-family: 'Plus Jakarta Sans', sans-serif;
+  --base-font-family: "Plus Jakarta Sans", sans-serif;
 
   /* Default (Light Mode) Variables */
   --surface-base: #f8fafc;
@@ -55,7 +60,9 @@ html {
 body {
   background-color: var(--surface-base);
   color: var(--text-primary);
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
   font-family: var(--base-font-family);
   margin: 0;
   padding: 0;
@@ -81,11 +88,13 @@ body {
   background: #fccb90;
 
   /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right,
-      #ee7724,
-      #d8363a,
-      #dd3675,
-      #b44593);
+  background: -webkit-linear-gradient(
+    to right,
+    #ee7724,
+    #d8363a,
+    #dd3675,
+    #b44593
+  );
 
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
@@ -166,19 +175,32 @@ textarea:focus-visible,
 }
 
 .btn-ui-glass {
-  background-color: var(--glass-bg-internal, rgba(255, 255, 255, 0.15)) !important;
+  background-color: var(
+    --glass-bg-internal,
+    rgba(255, 255, 255, 0.15)
+  ) !important;
   color: var(--text-primary) !important;
   border: 1px solid var(--glass-border-internal, rgba(255, 255, 255, 0.18)) !important;
   backdrop-filter: blur(8px);
 }
 
 [data-theme="light"] .btn-ui-glass {
-  --glass-bg-internal: rgba(15, 23, 42, 0.08); /* Dark translucent for light mode */
+  --glass-bg-internal: rgba(
+    15,
+    23,
+    42,
+    0.08
+  ); /* Dark translucent for light mode */
   --glass-border-internal: rgba(15, 23, 42, 0.12);
 }
 
 [data-theme="dark"] .btn-ui-glass {
-  --glass-bg-internal: rgba(255, 255, 255, 0.15); /* Classic glass for dark mode */
+  --glass-bg-internal: rgba(
+    255,
+    255,
+    255,
+    0.15
+  ); /* Classic glass for dark mode */
   --glass-border-internal: rgba(255, 255, 255, 0.18);
   color: #ffffff !important;
 }
@@ -256,6 +278,27 @@ textarea:focus-visible,
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--border-strong);
+}
+
+/* Scrollable strips (e.g. the Portal tab bar) that should still scroll on touch
+   but not show a bar. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
 }
 
 /* Ensure MDB .btn defaults do not override premium utility buttons */
@@ -450,7 +493,11 @@ button.btn-icon-link,
 }
 
 .nav-item-idle:hover {
-  background-color: color-mix(in srgb, var(--surface-card-soft) 88%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--surface-card-soft) 88%,
+    transparent
+  );
   color: var(--text-primary);
 }
 
@@ -486,46 +533,98 @@ button.btn-icon-link,
 }
 
 /* Theme-Aware Helper Classes */
-.text-primary-theme { color: var(--primary-color) !important; }
-.bg-primary-theme { background-color: var(--primary-color) !important; }
-.border-primary-theme { border-color: var(--primary-color) !important; }
-.shadow-primary-theme { box-shadow: 0 10px 30px var(--primary-glow) !important; }
+.text-primary-theme {
+  color: var(--primary-color) !important;
+}
+.bg-primary-theme {
+  background-color: var(--primary-color) !important;
+}
+.border-primary-theme {
+  border-color: var(--primary-color) !important;
+}
+.shadow-primary-theme {
+  box-shadow: 0 10px 30px var(--primary-glow) !important;
+}
 
-/* Global Text & Visibility Guardians - Works in both Light & Dark */
-.text-white, .text-slate-50, .text-slate-100, .text-slate-200, .text-slate-300,
-.text-slate-700, .text-slate-800, .text-slate-900,
-.text-gray-700, .text-gray-800, .text-gray-900 {
+/* Global Text & Visibility Guardians - Works in both Light & Dark.
+   Several pages were authored dark-first and put `text-white` on a
+   `surface-card`, which turns white in light mode — hence the remap. */
+.text-white,
+.text-slate-50,
+.text-slate-100,
+.text-slate-200,
+.text-slate-300,
+.text-slate-700,
+.text-slate-800,
+.text-slate-900,
+.text-gray-700,
+.text-gray-800,
+.text-gray-900 {
   color: var(--text-primary) !important;
 }
 
-[data-theme="light"] .text-white, 
-[data-theme="light"] .text-slate-200, 
-[data-theme="light"] .text-slate-300, 
-[data-theme="light"] .text-slate-400 {
-  color: var(--text-primary) !important;
+/* ...but where the text genuinely sits on a coloured or dark surface it must
+   stay white. These are two-class selectors (or descendants of a coloured
+   parent), so they outrank the blanket rule above in both modes. Without them
+   the active sidebar pill and the solid badges rendered dark-on-dark. */
+.bg-primary-theme.text-white,
+.bg-primary-theme .text-white,
+.btn-ui-solid.text-white,
+.btn-ui-solid .text-white,
+.auth-page .text-white,
+.bg-blue-500.text-white,
+.bg-blue-600.text-white,
+.bg-rose-500.text-white,
+.bg-emerald-500.text-white,
+.bg-amber-500.text-white,
+.bg-purple-500.text-white,
+.bg-indigo-500.text-white,
+.bg-slate-800.text-white,
+.bg-slate-900.text-white,
+.text-white-force {
+  color: #ffffff !important;
 }
 
-.text-slate-400, .text-slate-500, .text-slate-600,
-.text-gray-400, .text-gray-500, .text-gray-600,
-.page-subtitle { 
-  color: var(--text-secondary) !important; 
+.text-slate-400,
+.text-slate-500,
+.text-slate-600,
+.text-gray-400,
+.text-gray-500,
+.text-gray-600,
+.page-subtitle {
+  color: var(--text-secondary) !important;
 }
 
 /* Background overrides for generic slate/gray surfaces */
-.bg-white, .bg-slate-50, .bg-slate-100 {
+.bg-white,
+.bg-slate-50,
+.bg-slate-100 {
   background-color: var(--surface-card) !important;
 }
 
-[data-theme="dark"] .bg-slate-800, [data-theme="dark"] .bg-slate-900 {
+[data-theme="dark"] .bg-slate-800,
+[data-theme="dark"] .bg-slate-900 {
   background-color: var(--surface-card-soft) !important;
 }
 
-.bg-blue-600, .bg-blue-500, .bg-blue-400 { background-color: var(--primary-color) !important; }
-.border-blue-500, .border-blue-400 { border-color: var(--primary-color) !important; }
-.shadow-blue-500\/20, .shadow-blue-500\/30 { box-shadow: 0 10px 30px var(--primary-glow) !important; }
+.bg-blue-600,
+.bg-blue-500,
+.bg-blue-400 {
+  background-color: var(--primary-color) !important;
+}
+.border-blue-500,
+.border-blue-400 {
+  border-color: var(--primary-color) !important;
+}
+.shadow-blue-500\/20,
+.shadow-blue-500\/30 {
+  box-shadow: 0 10px 30px var(--primary-glow) !important;
+}
 
 /* Force White Text for Specific Elements */
-.btn-ui-solid *, .auth-btn *, .text-white-force {
+.btn-ui-solid *,
+.auth-btn *,
+.text-white-force {
   color: #ffffff !important;
 }
 
@@ -581,7 +680,11 @@ button.btn-icon-link,
   width: 520px;
   height: 520px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.35) 0%,
+    transparent 70%
+  );
   filter: blur(60px);
   top: -100px;
   left: -120px;
@@ -593,7 +696,11 @@ button.btn-icon-link,
   width: 420px;
   height: 420px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(6, 182, 212, 0.25) 0%,
+    transparent 70%
+  );
   filter: blur(70px);
   bottom: -80px;
   right: -80px;
@@ -605,7 +712,11 @@ button.btn-icon-link,
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.2) 0%,
+    transparent 70%
+  );
   filter: blur(50px);
   top: 40%;
   left: 50%;
@@ -666,7 +777,10 @@ button.btn-icon-link,
   font-size: 0.875rem;
   font-weight: 500;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -682,8 +796,8 @@ button.btn-icon-link,
 
 /* Override WebKit Autofill/Copy-Paste White Background */
 .auth-input:-webkit-autofill,
-.auth-input:-webkit-autofill:hover, 
-.auth-input:-webkit-autofill:focus, 
+.auth-input:-webkit-autofill:hover,
+.auth-input:-webkit-autofill:focus,
 .auth-input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: #e2e8f0 !important;
@@ -737,7 +851,11 @@ button.btn-icon-link,
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 60%
+  );
 }
 
 .auth-btn:hover {

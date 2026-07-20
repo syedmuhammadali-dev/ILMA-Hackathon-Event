@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
 import { useLoading } from "../../context/LoadingContext";
 import { getTranslation } from "../../utils/linguaEngine";
+import { getColorClasses } from "../../utils/colorClasses";
 
 const MotionDiv = motion.div;
 
@@ -84,13 +85,13 @@ const Assignments = () => {
                    whileHover={{ y: -5 }}
                    className="surface-card p-4 xs:p-6 md:p-8 rounded-[1.5rem] xs:rounded-[2rem] border border-white/5 shadow-2xl relative overflow-hidden group"
                  >
-                    <div className={`absolute -top-10 -right-10 w-32 h-32 bg-${task.color}-500/5 blur-[50px] rounded-full group-hover:bg-${task.color}-500/10 transition-colors`} />
+                    <div className={`absolute -top-10 -right-10 w-32 h-32 ${getColorClasses(task.color).glow} blur-[50px] rounded-full transition-colors`} />
                     <div className="flex justify-between items-start gap-2 mb-4 xs:mb-6">
-                       <div className={`h-10 w-10 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl shrink-0 bg-${task.color}-500/10 flex items-center justify-center text-${task.color}-400 border border-${task.color}-500/20`}>
+                       <div className={`h-10 w-10 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl shrink-0 flex items-center justify-center border ${getColorClasses(task.color).iconWrap}`}>
                           <MDBIcon fas icon={task.icon} className="text-base sm:text-xl" />
                        </div>
                        <div className="flex flex-col items-end min-w-0">
-                          <span className={`text-[7px] xs:text-[8px] font-black uppercase tracking-[0.15em] px-2 py-0.5 rounded bg-${task.color}-500/20 text-${task.color}-400 mb-1 border border-${task.color}-500/30 truncate`}>{task.priority}</span>
+                          <span className={`text-[7px] xs:text-[8px] font-black uppercase tracking-[0.15em] px-2 py-0.5 rounded mb-1 border truncate ${getColorClasses(task.color).chip}`}>{task.priority}</span>
                           <p className="text-[9px] xs:text-[10px] font-black text-rose-500 animate-pulse uppercase tracking-widest">{task.due} LEFT</p>
                        </div>
                     </div>
