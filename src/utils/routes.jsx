@@ -16,6 +16,7 @@ import Signup from "../pages/Signup/signup";
 import ForgotPassword from "../pages/Auth/ForgotPassword";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import DashboardLayout from "../components/DashboardLayout/dashboardLayout";
+import NotFound from "../pages/NotFound/NotFound";
 
 const RoutesComponent = () => {
   return (
@@ -46,6 +47,9 @@ const RoutesComponent = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
         </Route>
+
+        {/* Unmatched URLs previously rendered a blank page */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
