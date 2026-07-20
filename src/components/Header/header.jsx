@@ -438,7 +438,7 @@ const Header = () => {
           {mobileOpen && (
             <div
               id="mobile-nav-menu"
-              className="md:hidden absolute top-full right-0 mt-2 z-[2000]"
+              className="md:hidden absolute top-full end-0 mt-2 z-[2000]"
               style={{ width: "min(16rem, calc(100vw - 1rem))" }}
             >
               <div

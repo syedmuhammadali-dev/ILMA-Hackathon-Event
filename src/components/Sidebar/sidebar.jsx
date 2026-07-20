@@ -22,7 +22,7 @@ const Sidebar = () => {
     { title: "Appearance Settings", key: 'appearance', path: "/appearance", icon: "paint-brush" },
   ];
   return (
-    <aside className="fixed left-0 top-20 h-[calc(100vh-5rem)] w-72 border-r border-[var(--border-soft)] hidden md:block z-[90] shadow-sm rounded-none">
+    <aside className="fixed start-0 top-20 h-[calc(100vh-5rem)] w-72 border-e border-[var(--border-soft)] hidden md:block z-[90] shadow-sm rounded-none">
       <div className="h-full flex flex-col px-4 py-6">
 
         <nav className="flex-1 space-y-1.5 overflow-y-auto custom-scrollbar pr-2 pt-4">

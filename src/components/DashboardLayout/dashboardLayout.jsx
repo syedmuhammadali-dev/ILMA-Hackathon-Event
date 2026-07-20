@@ -21,7 +21,7 @@ const DashboardLayout = () => {
         {/* Padding must track the header's own responsive height (h-14 xs:h-16 md:h-20) */}
         <div className="flex flex-1 pt-14 xs:pt-16 md:pt-20">
           <Sidebar />
-          <main className="flex-1 min-w-0 md:ml-72 p-4 md:p-6 lg:p-8 transition-all duration-300">
+          <main className="flex-1 min-w-0 md:ms-72 p-4 md:p-6 lg:p-8 transition-all duration-300">
             <div className="max-w-7xl mx-auto">
               {/* Keyed by route so a failed page recovers on navigation;
                   without this the boundary stayed latched until a refresh. */}
