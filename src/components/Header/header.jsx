@@ -174,7 +174,7 @@ const Header = () => {
               />
 
               <div className="flex flex-col ml-1 me-1 xs:me-2 sm:me-5 min-w-0">
-                <span className="text-[12px] xs:text-sm sm:text-xl font-black tracking-tight leading-none text-slate-900 dark:text-black whitespace-nowrap">
+                <span className="text-[12px] xs:text-sm sm:text-xl font-black tracking-tight leading-none text-slate-900 whitespace-nowrap">
                   <span className="hidden min-[360px]:inline">Student</span>
                   <span className="text-blue-600">Portal</span>
                 </span>
