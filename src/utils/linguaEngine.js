@@ -180,6 +180,10 @@ export const applyLanguage = (lang) => {
 
 export const getTranslation = (key) => {
   const lang = localStorage.getItem("portal-lang") || "en";
-  return translations[lang][key] || translations['en'][key] || key;
+  // A stale or hand-edited portal-lang leaves translations[lang] undefined.
+  // This runs during render across every page, so indexing it directly turned
+  // an unknown language into a blank app.
+  const dict = translations[lang] || translations.en;
+  return dict[key] || translations.en[key] || key;
 };
 
